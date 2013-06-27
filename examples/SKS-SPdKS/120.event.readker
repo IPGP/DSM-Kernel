@@ -1,0 +1,17 @@
+# This is an input file for ReadKernel
+#
+#
+#
+# 1. the info file for your kernel calculation (for mpiKernelMaker)
+./SKS-SPdKS/120.event.R.SKS.inf
+# 2. nview (1: Horizontal view; 2: Source-Receiver plane; 3 Transverse plane)
+#1
+2
+#
+#
+# 3. if 1: radius (in km); 2 : theta (90.e0 (great circle)+-thw); 3 : phi(epicentral distance)
+#5791.e0
+90.e0
+#
+# don't forget to write 'end' at the end
+end

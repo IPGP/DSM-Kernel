@@ -1,0 +1,224 @@
+\hypertarget{calmat_8f90}{\section{calmat.\-f90 File Reference}
+\label{calmat_8f90}\index{calmat.\-f90@{calmat.\-f90}}
+}
+\subsection*{Functions/\-Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine \hyperlink{calmat_8f90_ab82715c8a0ce63b45007378c009129be}{calmatc} (nlayer, vnp, vra, con, rpow, w1dn, w2dn, ra, m, work)
+\item 
+subroutine \hyperlink{calmat_8f90_acb8eafbf308597edcd9469f0516bc0d1}{caltl} (nlayer, vnp, vra, rho, ra, tl)
+\item 
+subroutine \hyperlink{calmat_8f90_ae16b6b5cf74241a29c390f201b7f8360}{calhl} (nlayer, vnp, vra, mu, ra, hl)
+\item 
+subroutine \hyperlink{calmat_8f90_a58eafb8aa75e78a8b7740dc574c9a1d6}{calt} (nlayer, tl, tc, t)
+\item 
+subroutine \hyperlink{calmat_8f90_a728f868a13ca10b648e97198fc88dc13}{pmulti} (n, a, m, b, l, c)
+\item 
+subroutine \hyperlink{calmat_8f90_acf161e83a5a9f420fbc7441c97ba0ed8}{pinteg} (snp, n, p, from, to, vnp, vra, con, pint)
+\item 
+subroutine \hyperlink{calmat_8f90_ac0cec2daf6a3c6bb773fd666d4315eed}{polint} (n, p, x1, x2, pint)
+\item 
+subroutine \hyperlink{calmat_8f90_af1540fed072b3e9ea40a1a0828848dfa}{cala0} (nlayer, omega, omegai, t, h1, h2, h3, h4, coef, a0)
+\item 
+subroutine \hyperlink{calmat_8f90_a9db250e3b57a0e0dd9fdd1cf2363c369}{cala2} (nlayer, h4, coef, a2)
+\item 
+subroutine \hyperlink{calmat_8f90_ad294235d050d00dbb77376a363af1ff2}{cala} (nn, l, lda, a0, a2, a)
+\item 
+subroutine \hyperlink{calmat_8f90_a73f335ef04536f0a3828a72b12b74b75}{calga} (nlayer, omega, omegai, l, t, h1, h2, h3, h4, coef, a)
+\item 
+subroutine \hyperlink{calmat_8f90_ae6f50427eee218f6ca525d451fa14a9e}{calga2} (nlayer, omega, omegai, l, t, h1, h2, h3, coef, a)
+\item 
+subroutine \hyperlink{calmat_8f90_ab760228dc7345a420264039541a0fb00}{overlap} (nlayer, a, a2)
+\item 
+subroutine \hyperlink{calmat_8f90_abfed2e1681026f5127c297d892716a88}{calg2} (l, m, spo, r0, mt, mu0, coef, ga, a, ga2, dr, g2, ig2)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function/\-Subroutine Documentation}
+\hypertarget{calmat_8f90_ad294235d050d00dbb77376a363af1ff2}{\index{calmat.\-f90@{calmat.\-f90}!cala@{cala}}
+\index{cala@{cala}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{cala}]{\setlength{\rightskip}{0pt plus 5cm}subroutine cala (
+\begin{DoxyParamCaption}
+\item[{integer}]{nn, }
+\item[{integer}]{l, }
+\item[{integer}]{lda, }
+\item[{complex(kind(0d0)), dimension(lda,$\ast$)}]{a0, }
+\item[{complex(kind(0d0)), dimension(lda,$\ast$)}]{a2, }
+\item[{complex(kind(0d0)), dimension(lda,$\ast$)}]{a}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_ad294235d050d00dbb77376a363af1ff2}
+\hypertarget{calmat_8f90_af1540fed072b3e9ea40a1a0828848dfa}{\index{calmat.\-f90@{calmat.\-f90}!cala0@{cala0}}
+\index{cala0@{cala0}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{cala0}]{\setlength{\rightskip}{0pt plus 5cm}subroutine cala0 (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{real(kind(0d0))}]{omega, }
+\item[{real(kind(0d0))}]{omegai, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{t, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h1, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h2, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h3, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h4, }
+\item[{complex(kind(0d0))}]{coef, }
+\item[{complex(kind(0d0)), dimension($\ast$)}]{a0}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_af1540fed072b3e9ea40a1a0828848dfa}
+\hypertarget{calmat_8f90_a9db250e3b57a0e0dd9fdd1cf2363c369}{\index{calmat.\-f90@{calmat.\-f90}!cala2@{cala2}}
+\index{cala2@{cala2}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{cala2}]{\setlength{\rightskip}{0pt plus 5cm}subroutine cala2 (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h4, }
+\item[{complex(kind(0d0))}]{coef, }
+\item[{complex(kind(0d0)), dimension($\ast$)}]{a2}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_a9db250e3b57a0e0dd9fdd1cf2363c369}
+\hypertarget{calmat_8f90_abfed2e1681026f5127c297d892716a88}{\index{calmat.\-f90@{calmat.\-f90}!calg2@{calg2}}
+\index{calg2@{calg2}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{calg2}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calg2 (
+\begin{DoxyParamCaption}
+\item[{integer}]{l, }
+\item[{integer}]{m, }
+\item[{real(kind(0d0))}]{spo, }
+\item[{real(kind(0d0))}]{r0, }
+\item[{real(kind(0d0)), dimension(3,3)}]{mt, }
+\item[{real(kind(0d0))}]{mu0, }
+\item[{complex(kind(0d0))}]{coef, }
+\item[{complex(kind(0d0)), dimension(8)}]{ga, }
+\item[{complex(kind(0d0)), dimension(4)}]{a, }
+\item[{complex(kind(0d0)), dimension(2,3)}]{ga2, }
+\item[{complex(kind(0d0)), dimension(3)}]{dr, }
+\item[{complex(kind(0d0)), dimension($\ast$)}]{g2, }
+\item[{integer}]{ig2}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_abfed2e1681026f5127c297d892716a88}
+\hypertarget{calmat_8f90_a73f335ef04536f0a3828a72b12b74b75}{\index{calmat.\-f90@{calmat.\-f90}!calga@{calga}}
+\index{calga@{calga}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{calga}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calga (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{real(kind(0d0))}]{omega, }
+\item[{real(kind(0d0))}]{omegai, }
+\item[{integer}]{l, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{t, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h1, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h2, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h3, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h4, }
+\item[{complex(kind(0d0))}]{coef, }
+\item[{complex(kind(0d0)), dimension($\ast$)}]{a}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_a73f335ef04536f0a3828a72b12b74b75}
+\hypertarget{calmat_8f90_ae6f50427eee218f6ca525d451fa14a9e}{\index{calmat.\-f90@{calmat.\-f90}!calga2@{calga2}}
+\index{calga2@{calga2}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{calga2}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calga2 (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{real(kind(0d0))}]{omega, }
+\item[{real(kind(0d0))}]{omegai, }
+\item[{integer}]{l, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{t, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h1, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h2, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{h3, }
+\item[{complex(kind(0d0))}]{coef, }
+\item[{complex(kind(0d0)), dimension($\ast$)}]{a}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_ae6f50427eee218f6ca525d451fa14a9e}
+\hypertarget{calmat_8f90_ae16b6b5cf74241a29c390f201b7f8360}{\index{calmat.\-f90@{calmat.\-f90}!calhl@{calhl}}
+\index{calhl@{calhl}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{calhl}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calhl (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{integer}]{vnp, }
+\item[{real(kind(0d0)), dimension(vnp)}]{vra, }
+\item[{real(kind(0d0)), dimension(vnp)}]{mu, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{ra, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{hl}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_ae16b6b5cf74241a29c390f201b7f8360}
+\hypertarget{calmat_8f90_ab82715c8a0ce63b45007378c009129be}{\index{calmat.\-f90@{calmat.\-f90}!calmatc@{calmatc}}
+\index{calmatc@{calmatc}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{calmatc}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calmatc (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{integer}]{vnp, }
+\item[{real(kind(0d0)), dimension(vnp)}]{vra, }
+\item[{real(kind(0d0)), dimension(vnp)}]{con, }
+\item[{integer}]{rpow, }
+\item[{integer}]{w1dn, }
+\item[{integer}]{w2dn, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{ra, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{m, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{work}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_ab82715c8a0ce63b45007378c009129be}
+\hypertarget{calmat_8f90_a58eafb8aa75e78a8b7740dc574c9a1d6}{\index{calmat.\-f90@{calmat.\-f90}!calt@{calt}}
+\index{calt@{calt}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{calt}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calt (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{tl, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{tc, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{t}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_a58eafb8aa75e78a8b7740dc574c9a1d6}
+\hypertarget{calmat_8f90_acb8eafbf308597edcd9469f0516bc0d1}{\index{calmat.\-f90@{calmat.\-f90}!caltl@{caltl}}
+\index{caltl@{caltl}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{caltl}]{\setlength{\rightskip}{0pt plus 5cm}subroutine caltl (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{integer}]{vnp, }
+\item[{real(kind(0d0)), dimension(vnp)}]{vra, }
+\item[{real(kind(0d0)), dimension(vnp)}]{rho, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{ra, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{tl}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_acb8eafbf308597edcd9469f0516bc0d1}
+\hypertarget{calmat_8f90_ab760228dc7345a420264039541a0fb00}{\index{calmat.\-f90@{calmat.\-f90}!overlap@{overlap}}
+\index{overlap@{overlap}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{overlap}]{\setlength{\rightskip}{0pt plus 5cm}subroutine overlap (
+\begin{DoxyParamCaption}
+\item[{integer}]{nlayer, }
+\item[{complex(kind(0d0)), dimension($\ast$)}]{a, }
+\item[{complex(kind(0d0)), dimension(2,$\ast$)}]{a2}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_ab760228dc7345a420264039541a0fb00}
+\hypertarget{calmat_8f90_acf161e83a5a9f420fbc7441c97ba0ed8}{\index{calmat.\-f90@{calmat.\-f90}!pinteg@{pinteg}}
+\index{pinteg@{pinteg}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{pinteg}]{\setlength{\rightskip}{0pt plus 5cm}subroutine pinteg (
+\begin{DoxyParamCaption}
+\item[{integer}]{snp, }
+\item[{integer}]{n, }
+\item[{real(kind(0d0)), dimension(n)}]{p, }
+\item[{real(kind(0d0))}]{from, }
+\item[{real(kind(0d0))}]{to, }
+\item[{integer}]{vnp, }
+\item[{real(kind(0d0)), dimension(vnp)}]{vra, }
+\item[{real(kind(0d0)), dimension(vnp)}]{con, }
+\item[{real(kind(0d0))}]{pint}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_acf161e83a5a9f420fbc7441c97ba0ed8}
+\hypertarget{calmat_8f90_a728f868a13ca10b648e97198fc88dc13}{\index{calmat.\-f90@{calmat.\-f90}!pmulti@{pmulti}}
+\index{pmulti@{pmulti}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{pmulti}]{\setlength{\rightskip}{0pt plus 5cm}subroutine pmulti (
+\begin{DoxyParamCaption}
+\item[{integer}]{n, }
+\item[{real(kind(0d0)), dimension(n)}]{a, }
+\item[{integer}]{m, }
+\item[{real(kind(0d0)), dimension(m)}]{b, }
+\item[{integer}]{l, }
+\item[{real(kind(0d0)), dimension(l)}]{c}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_a728f868a13ca10b648e97198fc88dc13}
+\hypertarget{calmat_8f90_ac0cec2daf6a3c6bb773fd666d4315eed}{\index{calmat.\-f90@{calmat.\-f90}!polint@{polint}}
+\index{polint@{polint}!calmat.f90@{calmat.\-f90}}
+\subsubsection[{polint}]{\setlength{\rightskip}{0pt plus 5cm}subroutine polint (
+\begin{DoxyParamCaption}
+\item[{integer}]{n, }
+\item[{real(kind(0d0)), dimension($\ast$)}]{p, }
+\item[{real(kind(0d0))}]{x1, }
+\item[{real(kind(0d0))}]{x2, }
+\item[{real(kind(0d0))}]{pint}
+\end{DoxyParamCaption}
+)}}\label{calmat_8f90_ac0cec2daf6a3c6bb773fd666d4315eed}
