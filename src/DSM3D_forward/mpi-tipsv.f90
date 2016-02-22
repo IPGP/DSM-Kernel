@@ -1,20 +1,29 @@
 
-program  SGTpsv
+program  DSMpsv3D
 
 
   !-----------------------------------------------------------------------
-  !      SGTpsv
+  !     DSMpsv3D 
+  !
+  !          DSM forward modeling for 3D localized heterogeneity
+  !               i) with iterative Born approximation
+  !               ii) full expression 
   !
   !  
   !   
   !
-  !    calculation de la fonction de Green pour l'inversion des ondes PSV
+  !    
   !       
+  !               since Geller & Ohminato 1994;  Geller & Takeuchi 1995
   !                                               2004.10.KAWAI Kenji
   !                                               2009.6. FUJI Nobuaki
+  !                                               2009.7. KONISHI Kensuke
   !                                               2010.10. FUJI Nobuaki
+  !                                               2016.03. FUJI Nobuaki
+  !          
+  !                    Copyright Institut de Physique du Globe de Paris
   !
-  !      0.2.0 plm calculating with one frequency by one frequency
+  !     
   !                 
   !-----------------------------------------------------------------------
   use mpi
@@ -122,11 +131,14 @@ program  SGTpsv
   
   !integer, parameter :: num_tsgt = 4
   !integer, parameter :: num_rsgt = 1
-  integer, parameter :: num_tsgt = 20
-  integer, parameter :: num_rsgt = 10
-  integer, parameter :: num_synn = 10
-
-
+  !integer, parameter :: num_tsgt = 20
+  !integer, parameter :: num_rsgt = 10
+  
+  integer, parameter :: num_synn = 18 ! for 6 moment tensors
+  
+  ! for shallow events
+  real(kind(0d0)), parameter :: shallowdepth = 100.d0 
+  
 
   
   !--------------------------------------------------------------------------
