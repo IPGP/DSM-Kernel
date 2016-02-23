@@ -26,7 +26,15 @@ program  DSMpsv3D
   !     
   !                 
   !-----------------------------------------------------------------------
-  use mpi
+
+
+  use parameters
+
+  implicit none
+  include 'mpif.h'
+  include '../../etc/config-calcul/constants.h'
+  
+
   implicit none
   !-------------------------<< input matrix >>----------------------------------
   !include 'mpif.h'  
@@ -273,7 +281,7 @@ program  DSMpsv3D
      read(1,*) r_n
 
      do i = 1, r_n
-        read(1,*) i_r_index(i), r_(i)
+        read(1,*) idummy, r_(idummy)
      enddo
      rmin_=r_(1)
      rmax_=r_(r_n)
@@ -288,7 +296,9 @@ program  DSMpsv3D
   ! NF i_r_index is not yet defined 
   ! NF radiusfile and locationfile should be set in the inffile (not yet modified)
   ! NF for the modification, refer DiscDispPSV-old-0.3.f90
-
+  ! NF thetamin and thetamax can be surpressed since they don't have any more meanings.
+  ! NF 
+  
   if(my_rank==0) then
      !theta_n = int((thetamax-thetamin)/thetadelta)+1
      open(unit=1,file=receiverlocationfile,status='unknown')
@@ -311,16 +321,17 @@ program  DSMpsv3D
      open(unit=1,file=thetafile,status='unknown')
      read(1,*) theta_n
      do i = 1,theta_n
-        read(1,*) i_r_index(i), theta(i)
+        read(1,*) i_r_index(i), theta(i), phi(i)
      enddo
-     thetamin=theta(1)
-     thetamax=theta(theta_n)
      close(1)
   endif
 
 
   
   call MPI_BCAST(theta,theta_n,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+  call MPI_BCAST(phi,theta_n,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+
+
      
   ! source depths
   ! for this moment we don't put any necessary allocation   

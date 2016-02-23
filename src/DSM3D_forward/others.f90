@@ -27,11 +27,20 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   psvmodel=trim(psvmodel)
   modelname=trim(modelname)
   read(1,*) tlen
-  read(1,*) rmin_,rmax_,rdelta_
-  read(1,*) r0min
-  r0max=r0min
-  r0delta=20.d0
-  read(1,*) thetamin,thetamax,thetadelta
+  read(1,*) r0
+  
+  !NF not yet modified the INF files for those input files for receivers and perturbation points
+  
+  read(1,110) receiverradiusfile
+  read(1,110) receiverlocationfile
+  read(1,110) perturbationradiusfile
+  read(1,110) perturbationlocationfile
+  receiverradiusfile=trim(receiverradiusfile)
+  receiverlocationfile=trim(receiverlocationfile)
+  perturbationradiusfile=trim(perturbationradiusfile)
+  perturabationlocationfile=trim(perturbationlocationfile)
+
+
   read(1,*) imin,imax
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
   close(1)
