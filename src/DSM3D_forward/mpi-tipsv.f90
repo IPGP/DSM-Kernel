@@ -5,7 +5,8 @@ program  DSMpsv3D
   !-----------------------------------------------------------------------
   !     DSMpsv3D 
   !
-  !          DSM forward modeling for 3D localized heterogeneity inside the Earth
+  !  DSM forward modeling for 3D localized heterogeneity inside the Earth
+  !
   !               i) with iterative Born approximation (implicit)
   !               ii) full expression (explicit)
   !
@@ -28,24 +29,23 @@ program  DSMpsv3D
   !-----------------------------------------------------------------------
 
 
-  use parameters
+  use params
+  use constants
 
   implicit none
   include 'mpif.h'
   include '../../etc/config-calcul/constants.h'
   
 
-  implicit none
+  
   !-------------------------<< input matrix >>----------------------------------
-  !include 'mpif.h'  
-  character(120) :: outputDir, psvmodel, modelname,DSMconfFile 
-  character(120) :: list,list1
-  character(40) :: datex,timex
-  real(kind(0d0)), parameter :: pi=3.1415926535897932d0
-  real(kind(0d0)) :: re,ratc,ratl
-  integer :: maxlmax
+  
 
-  real(kind(0d0)) :: tlen 
+
+
+
+
+
   real(kind(0d0)) :: rmin_, rmax_, rdelta_ 
   real(kind(0d0)) :: r0min, r0max, r0delta  !!! JUST FOR ONE DEPTH FOR THIS MOMENT !!
   real(kind(0d0)) :: thetamin, thetamax, thetadelta

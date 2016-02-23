@@ -1,9 +1,67 @@
 
-module parameters
+!  Modules for DSMpsv3D
+!                                      2016.03. FUJI Nobuaki
+!
+!           Copyright Institut de Physique du Globe de Paris
+
+
+
+module constants
+  
+  implicit none
+
+  ! Constants module for DSMpsv3D
+  ! Most of them are defined in the .inf file for DSMpsv3D
+
+  real(kind(0d0)), parameter :: pi=3.1415926535897932d0
+    
+  ! Directories and files to be defined in inf file
+  
+  character(120) :: outputDir, psvmodel, modelname,DSMconfFile 
+  character(120) :: list,list1
+  
+
+  ! DSM constants for error control
+
+  real(kind(0d0)) :: re,ratc,ratl
+  integer :: maxlmax
+  
+  ! DSM calculation constants
+  
+  real(kind(0d0)) :: tlen 
+
+  ! Source depth
+
+  real(kind(0d0)) :: r0
+  
+  ! Receiver depths and locations
+
+  real(kind(0d0)) :: r_(:) ! with ir_ elements
+  real(kind(0d0)) :: theta(:), phi(:) ! with theta_n elements
+
+  
+ 
+  
+
+
+
+  
+
+
+
+end module constants
+
+
+
+
+module params
 
   implicit none
   
+  ! Parameters for DSMpsv3D
 
+  ! Strings for time calculations
+  character(40) :: datex,timex
 
 
 module parameters_for_KernelMaker
