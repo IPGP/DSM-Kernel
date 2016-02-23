@@ -5,9 +5,9 @@ program  DSMpsv3D
   !-----------------------------------------------------------------------
   !     DSMpsv3D 
   !
-  !          DSM forward modeling for 3D localized heterogeneity
-  !               i) with iterative Born approximation
-  !               ii) full expression 
+  !          DSM forward modeling for 3D localized heterogeneity inside the Earth
+  !               i) with iterative Born approximation (implicit)
+  !               ii) full expression (explicit)
   !
   !  
   !   
@@ -260,34 +260,65 @@ program  DSMpsv3D
   allocate(jsta(1:r_n))
   allocate(ksta(1:r_n))
   
-  if(my_rank.eq.0) then
+
+
+
+  ! 
+
+  ! NF will still use this r_ vector to see seismograms in the deep Earth,
+  ! and also for the purpose of partials calculation
+  
+  if(my_rank==0) then
+     open(unit=1,file=receiverradiusfile,status='unknown')
+     read(1,*) r_n
+
      do i = 1, r_n
-        r_(i) = rmin_ + dble(i-1)*rdelta_
-	enddo     
+        read(1,*) i_r_index(i), r_(i)
+     enddo
+     rmin_=r_(1)
+     rmax_=r_(r_n)
+     close(1)
   endif
 
  
   call MPI_BCAST(r_,r_n,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
 
-  ! GCARCs
+  ! theta and phi (with r_ index)
+  ! NF i_r_index is the index for r_ defined by radiusfile
+  ! NF i_r_index is not yet defined 
+  ! NF radiusfile and locationfile should be set in the inffile (not yet modified)
+  ! NF for the modification, refer DiscDispPSV-old-0.3.f90
 
-  if(my_rank.eq.0) then
-     theta_n = int((thetamax-thetamin)/thetadelta)+1
+  if(my_rank==0) then
+     !theta_n = int((thetamax-thetamin)/thetadelta)+1
+     open(unit=1,file=receiverlocationfile,status='unknown')
+     read(1,*) theta_n
+     close(1)
   endif
+
+  
 
   call MPI_BCAST(theta_n,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
   allocate(theta(1:theta_n))
+  allocate(phi(1:theta_n))
   allocate(dvec0(1:3,-2:2,1:theta_n))
   allocate(dvecdt0(1:3,-2:2,1:theta_n))
   allocate(dvecdp0(1:3,-2:2,1:theta_n))
   allocate(plm(1:3,0:3,1:theta_n))
  
-  if(my_rank.eq.0) then   
+  if(my_rank==0) then
+     open(unit=1,file=thetafile,status='unknown')
+     read(1,*) theta_n
      do i = 1,theta_n
-        theta(i) = (thetamin + dble(i-1)*thetadelta)
+        read(1,*) i_r_index(i), theta(i)
      enddo
+     thetamin=theta(1)
+     thetamax=theta(theta_n)
+     close(1)
   endif
+
+
   
   call MPI_BCAST(theta,theta_n,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
      
