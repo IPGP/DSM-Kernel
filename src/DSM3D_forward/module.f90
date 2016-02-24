@@ -19,6 +19,9 @@ module constants
   
   character(120) :: outputDir, psvmodel, modelname,DSMconfFile 
   character(120) :: list,list1
+
+  ! Receiver files
+  character(120) :: receiverradiusfile ! 
   
 
   ! DSM constants for error control
@@ -36,8 +39,15 @@ module constants
   
   ! Receiver depths and locations
 
-  real(kind(0d0)) :: r_(:) ! with ir_ elements
+  integer :: r_n ! number of vertical stacking points for receivers
+  integer :: theta_n ! number of lateral stacking points for receivers
+
+
+  real(kind(0d0)), dimension(:), allocatable :: r_ ! with r_n elements
   real(kind(0d0)) :: theta(:), phi(:) ! with theta_n elements
+  
+  integer, dimension(:), allocatable :: i_r_index ! with r_n elements
+  integer, dimension(:), allocatable :: i_theta_index ! with theta_n elements
 
   
  

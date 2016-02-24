@@ -46,7 +46,6 @@ program  DSMpsv3D
 
 
 
-  real(kind(0d0)) :: rmin_, rmax_, rdelta_ 
   real(kind(0d0)) :: r0min, r0max, r0delta  !!! JUST FOR ONE DEPTH FOR THIS MOMENT !!
   real(kind(0d0)) :: thetamin, thetamax, thetadelta
   real(kind(0d0)), allocatable :: r_(:),r0(:),theta(:)
