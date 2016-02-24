@@ -6,6 +6,8 @@
 
 
 
+
+
 module constants
   
   implicit none
@@ -20,10 +22,6 @@ module constants
   character(120) :: outputDir, psvmodel, modelname,DSMconfFile 
   character(120) :: list,list1
 
-  ! Receiver files
-  character(120) :: receiverradiusfile ! 
-  
-
   ! DSM constants for error control
 
   real(kind(0d0)) :: re,ratc,ratl
@@ -31,29 +29,77 @@ module constants
   
   ! DSM calculation constants
   
-  real(kind(0d0)) :: tlen 
+  real(kind(0d0)) :: tlen ! Window length (s)
+  integer :: imin, imax ! frequency min/max
+
 
   ! Source depth
 
   real(kind(0d0)) :: r0
+
+  ! Source components (double couple and single force)
+  real(kind(0d0)) :: mt(:,:)
+  real(kind(0d0)) :: singleforce(:)
+
   
+!!! RECEIVER LOCATIONS
+
+
+  ! Receiver files ! NF it is better to include a preprocessing subroutine to create those files 
+  character(120) :: recradiusfile ! with i_r_index(=idummy), r_(ir_index(1:r_n))
+  character(120) :: recanglefile ! with i_angle_index(=idummy),theta(1:angle_n),phi(1:angle_n)
+  character(120) :: reclocfile ! with idummy, i_r_index(1:station_n),i_angle_index(1:station_n)
+
   ! Receiver depths and locations
 
   integer :: r_n ! number of vertical stacking points for receivers
-  integer :: theta_n ! number of lateral stacking points for receivers
+  integer :: angle_n ! number of lateral stacking points for receivers
+  integer :: station_n ! number of receivers
 
 
   real(kind(0d0)), dimension(:), allocatable :: r_ ! with r_n elements
-  real(kind(0d0)) :: theta(:), phi(:) ! with theta_n elements
+  real(kind(0d0)), dimension(:), allocatable :: theta, phi! with theta_n elements
   
   integer, dimension(:), allocatable :: i_r_index ! with r_n elements
-  integer, dimension(:), allocatable :: i_theta_index ! with theta_n elements
+  integer, dimension(:), allocatable :: i_angle_index ! with angle_n elements
 
-  
+  ! Interpolation matrices for vertical stacking points 
  
+  real(kind(0d0)), dimension(:), allocatable :: rrsta(:,:)
+  integer, dimension(:), allocatable :: iista(:,:)
   
 
 
+ !!! SCATTERER LOCATIONS
+  
+
+  ! Scatterer files ! NF it is better to include a preprocessing subroutine to create those files 
+  character(120) :: scaradiusfile ! with j_r_index(=idummy), perr_(jr_index(1:r_prn))
+  character(120) :: scaanglefile ! with j_angle_index(=idummy),pertheta(1:angle_prn),perphi(1:angle_prn)
+  character(120) :: scalocfile ! with idummy, j_r_index(1:scatter_n),j_angle_index(1:scatter_n),perturbationVpv,ph,sv,sh,Qp,Qs
+
+  ! Scatterer depths and locations
+
+  integer :: r_prn ! number of vertical stacking points for receivers
+  integer :: angle_prn ! number of lateral stacking points for receivers
+  integer :: scatter_n ! number of receivers
+
+
+  real(kind(0d0)), dimension(:), allocatable :: perr_ ! with r_n elements
+  real(kind(0d0)), dimension(:), allocatable :: pertheta, perphi! with theta_n elements
+  
+  integer, dimension(:), allocatable :: j_r_index ! with r_n elements
+  integer, dimension(:), allocatable :: j_angle_index ! with angle_n elements
+
+  ! Scatterer perturabations
+  
+  real(kind(0d0)), dimension(:), allocatable :: perturbationVpv ! with 
+
+
+  ! Interpolation matrices for vertical stacking points 
+ 
+  real(kind(0d0)), dimension(:), allocatable :: rrsta(:,:)
+  integer, dimension(:), allocatable :: iista(:,:)
 
   
 

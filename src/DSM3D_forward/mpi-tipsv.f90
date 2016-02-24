@@ -27,8 +27,7 @@ program  DSMpsv3D
   !     
   !                 
   !-----------------------------------------------------------------------
-
-
+  
   use params
   use constants
 
@@ -40,22 +39,17 @@ program  DSMpsv3D
   
   !-------------------------<< input matrix >>----------------------------------
   
-
-
-
-
-
-
-  real(kind(0d0)) :: r0min, r0max, r0delta  !!! JUST FOR ONE DEPTH FOR THIS MOMENT !!
-  real(kind(0d0)) :: thetamin, thetamax, thetadelta
-  real(kind(0d0)), allocatable :: r_(:),r0(:),theta(:)
-  real(kind(0d0)), allocatable :: rrsta(:,:)
-  integer, allocatable :: iista(:,:)
-  integer :: r_n,r0_n,ciista, ir_,ir0,imt,icomp,itheta, theta_n
-  
+  ! dummy parameters
+  integer :: idummy
   character(120) :: coutfile
-  integer :: imin, imax
-  integer :: rsgtswitch, tsgtswitch, synnswitch
+  
+  ! indices for double couple and single force component
+  integer :: imt, icomp
+  
+  ! indices for receivers
+  integer :: ir_, i_angle, i_station
+
+
 
 
   
