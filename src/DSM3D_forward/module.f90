@@ -6,7 +6,46 @@
 
 
 
+module indices
 
+  implicit none
+  
+  ! Indices fixed during some long time or throughout the whole calculation in an individual processor
+  ! and some useful dummy parameters
+
+  
+  ! Strings for time calculations
+  character(40) :: datex,timex
+
+
+  ! dummy parameters
+  integer :: idummy
+  character(120) :: coutfile
+  
+  !! indices related to constants module
+
+  ! indices for double couple and single force component
+  integer :: imt, icomp
+  
+  ! indices for receivers
+  integer :: ir_, i_angle, i_station
+
+  ! indices for scatteres
+  integer :: jr_, j_angle, j_scatter
+
+  !! indices related to variables module
+
+  integer:: inlayer,jnlayer,jnslay,jnllay
+  integer:: l,m
+  integer:: isl, ill
+  
+  ! frequency on which we are working on
+
+  real(kind(0d0)) :: omega
+
+  
+
+end module indices
 
 module constants
   
@@ -37,9 +76,14 @@ module constants
 
   real(kind(0d0)) :: r0
 
-  ! Source components (double couple and single force)
-  real(kind(0d0)) :: mt(:,:)
-  real(kind(0d0)) :: singleforce(:)
+  ! Source components (double couple and single force) only for sources in the solid part
+  real(kind(0d0)) :: mt(3,3)
+  real(kind(0d0)) :: singleforce(3)
+  
+  integer:: spn,ns
+  real(kind(0d0)):: spo
+  real(kind(0d0)):: ecC0,ecF0,ecL0
+  complex(kind(0d0)):: ya(4),yb(4),yc(4),yd(4)
 
   
 !!! RECEIVER LOCATIONS
@@ -65,8 +109,8 @@ module constants
 
   ! Interpolation matrices for vertical stacking points 
  
-  real(kind(0d0)), dimension(:), allocatable :: rrsta(:,:)
-  integer, dimension(:), allocatable :: iista(:,:)
+  real(kind(0d0)), dimension(:,:), allocatable :: rrsta
+  integer, dimension(:,:), allocatable :: iista
   
 
 
@@ -93,20 +137,51 @@ module constants
 
   ! Scatterer perturabations
   
-  real(kind(0d0)), dimension(:), allocatable :: perturbationVpv ! with 
+  real(kind(0d0)), dimension(:), allocatable :: perturbationVpv,perturbationVph,perturbationVsv,perturbationVsh
+  real(kind(0d0)), dimension(:), allocatable :: perturbationQp, perturbationQs ! with scatter_n elements
 
 
   ! Interpolation matrices for vertical stacking points 
  
-  real(kind(0d0)), dimension(:), allocatable :: rrsta(:,:)
-  integer, dimension(:), allocatable :: iista(:,:)
-
-  
-
+  real(kind(0d0)), dimension(:,:), allocatable :: ppsta
+  integer, dimension(:,:), allocatable :: jjsta
 
 
 end module constants
 
+module variables
+  
+  implicit none
+
+  ! variables for the trial function
+  integer:: nnlayer,nlay
+  integer, dimension(:), allocatable :: nlayer
+  integer:: nslay,nllay
+  real(kind(0d0)), dimension(:), allocatable:: ra
+
+
+  ! variables for 1D structure
+  integer :: nzone ! number of zones in PREM way of description
+  integer :: nsl, nll ! numbers of solid and liquid zones
+  integer, dimension(:), allocatable :: iphase ! whether solid or liquid with nzone elements
+  integer :: ndc,vnp
+  
+  real(kind(0d0)):: rmin,rmax ! model radius range
+  real(kind(0d0)),allocatable:: vrmin(:),vrmax(:),rrho(:,:),vpv(:,:),vph(:,:),vsv(:,:),vsh(:,:),eta(:,:),qmu(:),qkappa(:)
+  real(kind(0d0)),allocatable::vra(:),rho(:),kappa(:) 
+  real(kind(0d0)),allocatable::ecKx(:) !3*Kx=3A-4N
+  real(kind(0d0)),allocatable::ecKy(:) !3*Ky=3F+2N
+  real(kind(0d0)),allocatable::ecKz(:) !3*Kz=2F+C
+  real(kind(0d0)),allocatable::mu(:),ecL(:),ecN(:),rhoinv(:),kappainv(:)
+  complex(kind(0d0)),allocatable:: coef1(:),coef2(:),coef():
+
+  ! artificial attenuation 
+  real(kind(0d0)) :: omegai
+
+
+
+end module variables
+  
 
 
 
@@ -116,8 +191,6 @@ module params
   
   ! Parameters for DSMpsv3D
 
-  ! Strings for time calculations
-  character(40) :: datex,timex
 
 
 module parameters_for_KernelMaker

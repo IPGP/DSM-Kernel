@@ -29,58 +29,16 @@ program  DSMpsv3D
   !-----------------------------------------------------------------------
   
   use params
+  use variables
   use constants
+  use indices
+  
 
   implicit none
   include 'mpif.h'
   include '../../etc/config-calcul/constants.h'
   
 
-  
-  !-------------------------<< input matrix >>----------------------------------
-  
-  ! dummy parameters
-  integer :: idummy
-  character(120) :: coutfile
-  
-  ! indices for double couple and single force component
-  integer :: imt, icomp
-  
-  ! indices for receivers
-  integer :: ir_, i_angle, i_station
-
-
-
-
-  
-  ! ---------------------------<< variables >>---------------------------
-  ! variable for the trial function
-  integer:: nnlayer,nlay
-  integer, allocatable :: nlayer(:)
-  integer:: nslay,nllay
-  integer:: inlayer,jnlayer,jnslay,jnllay
-  integer:: l,m
-  real(kind(0d0)),allocatable:: ra(:)
-  ! variable for the structure
-  integer:: nzone,isl,ill,nsl,nll
-  integer,allocatable:: iphase(:)
-  integer::ndc,vnp
-  real(kind(0d0)):: rmin,rmax
-  real(kind(0d0)),allocatable:: vrmin(:),vrmax(:),rrho(:,:),vpv(:,:),vph(:,:),vsv(:,:),vsh(:,:),eta(:,:),qmu(:),qkappa(:)
-  real(kind(0d0)),allocatable::vra(:),rho(:),kappa(:) 
-  real(kind(0d0)),allocatable::ecKx(:) !3*Kx=3A-4N
-  real(kind(0d0)),allocatable::ecKy(:) !3*Ky=3F+2N
-  real(kind(0d0)),allocatable::ecKz(:) !3*Kz=2F+C
-  real(kind(0d0)),allocatable::mu(:),ecL(:),ecN(:),rhoinv(:),kappainv(:)
-  complex(kind(0d0)),allocatable:: coef1(:),coef2(:),coef(:)
-  ! variable for the periodic range
-  
-  real(kind(0d0)):: omega,omegai
-  ! variable for the source
-  integer:: spn,ns
-  real(kind(0d0)):: mt(3,3),spo
-  real(kind(0d0)):: ecC0,ecF0,ecL0
-  complex(kind(0d0)):: ya(4),yb(4),yc(4),yd(4)
 
   ! variable for the matrix elements
   complex(kind(0d0)),allocatable:: a0(:,:),a1(:,:),a2(:,:), a(:,:), c(:,:), ctmp(:,:)
