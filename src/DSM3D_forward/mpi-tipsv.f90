@@ -27,79 +27,24 @@ program  DSMpsv3D
   !     
   !                 
   !-----------------------------------------------------------------------
-  
-  use params
-  use variables
-  use constants
-  use indices
-  
 
+  use indices
+  use constants
+  use variables
+  use receiversphericals
+  use scatterersphericals
+  use outputs
+  use paramsmpi
+  
   implicit none
   include 'mpif.h'
   include '../../etc/config-calcul/constants.h'
   
-
-
-  ! variable for the matrix elements
-
-  ! variable for the stack point
-  integer,allocatable:: isp(:),issp(:),ilsp(:),jssp(:),jsp(:), ksp(:),lsp(:)
-  integer::isdr,jsdr,ildr,cista,cksta
-  ! variables for the output stack point
-  integer,allocatable:: istazone(:)
-  integer,allocatable:: ksta(:)   ! output stack point for g
-  integer,allocatable:: jsta(:)   ! output stack point for d
- 
-  ! variables for the gridding
-  integer,allocatable:: jjdr(:),kkdr(:)
-  integer:: jdr,kdr
-  real(kind(0d0)),allocatable:: vmin(:),gridpar(:),dzpar(:)
-  ! variables for l cut off
-  integer:: kc,lsuf,sufzone,ismall,llog
-  real(kind(0d0)):: maxamp
-  ! variables for the numerical integration
-  complex(kind(0d0)):: anum(4,4,10),bnum(4,4,10)
- 
-  ! other variables
-  integer:: i,j,nn,ier,itmp,jtmp,mtmp,kkdr0,nn0,ig2
-  integer:: ll(12),lli(12),llj(12)
-  real(kind(0d0)):: eps,l2,lsq
-  real(kind(0d0)),allocatable:: work(:)
-  complex(kind(0d0)), allocatable ::z(:), w(:),cwork(:)
-  
-  !-----------------------------------------------------------------------
-  !complex(kind(0d0)), allocatable :: dvec(:,:,:,:),dvecdt(:,:,:,:),dvecdp(:,:,:,:)
-  complex(kind(0d0)), allocatable :: dvec0(:,:,:),dvecdt0(:,:,:),dvecdp0(:,:,:)
-  complex(kind(0d0)), allocatable :: tsgt(:,:,:,:),rsgt(:,:,:),synn(:,:) 
-  complex(kind(0e0)), allocatable :: tsgtsngl(:,:), rsgtsngl(:,:),synnsngl(:,:)
-  real(kind(0d0)), allocatable :: plm(:,:,:)
-  complex(kind(0d0)) :: rdvec(1:3,-2:2)
-  complex(kind(0d0))::u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3)
-
-
-
-  data eps /-1.d0/
-
-  ! for Pinv : num_tsgt = 4, num_rsgt = 1
-  
-  !integer, parameter :: num_tsgt = 4
-  !integer, parameter :: num_rsgt = 1
-  !integer, parameter :: num_tsgt = 20
-  !integer, parameter :: num_rsgt = 10
-  
-  integer, parameter :: num_synn = 18 ! for 6 moment tensors
-  
-  ! for shallow events
-  real(kind(0d0)), parameter :: shallowdepth = 100.d0 
+  ! initialization
+  eps = -1.d0
   
 
   
-  !--------------------------------------------------------------------------
-  ! for MPI
-
-  integer :: nproc,my_rank,ierr
-    
-  !--------------------------------------------------------------------------
   
 
   
