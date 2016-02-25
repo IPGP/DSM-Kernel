@@ -41,13 +41,7 @@ program  DSMpsv3D
 
 
   ! variable for the matrix elements
-  complex(kind(0d0)),allocatable:: a0(:,:),a1(:,:),a2(:,:), a(:,:), c(:,:), ctmp(:,:)
-  real(kind(0d0)), allocatable :: t(:)
-  real(kind(0d0)), allocatable :: h1x(:), h1y(:), h1z(:), h2L(:), h2N(:), h3ax(:), h3ay(:), h3az(:), h4aL(:), h4aN(:), h5ax(:), h5ay(:), h5az(:), h6aL(:), h6aN(:), h3x(:), h3y(:), h3z(:), h4L(:), h4N(:), h5x(:), h5y(:), h5z(:), h6L(:), h6N(:), h7x(:), h7y(:), h7z(:), h8L(:), h8N(:), h3mx(:,:), h3my(:,:), h3mz(:,:), h5mx(:,:), h5my(:,:), h5mz(:,:), h4m1L(:,:), h4m1N(:,:), h4m2L(:,:), h4m2N(:,:), h6m1L(:,:), h6m1N(:,:), h6m2L(:,:), h6m2N(:,:)
-  real(kind(0d0)),allocatable:: p1(:),p2(:),p3(:)
-  complex(kind(0d0)),allocatable:: g0(:)
-  complex(kind(0d0)),allocatable:: d0(:)
-  complex(kind(0d0)):: g0tmp(2),g0dertmp(2) ! forward
+
   ! variable for the stack point
   integer,allocatable:: isp(:),issp(:),ilsp(:),jssp(:),jsp(:), ksp(:),lsp(:)
   integer::isdr,jsdr,ildr,cista,cksta

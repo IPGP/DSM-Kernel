@@ -39,10 +39,7 @@ module indices
   integer:: l,m
   integer:: isl, ill
   
-  ! frequency on which we are working on
-
-  real(kind(0d0)) :: omega
-
+ 
   
 
 end module indices
@@ -167,16 +164,29 @@ module variables
   integer :: ndc,vnp
   
   real(kind(0d0)):: rmin,rmax ! model radius range
-  real(kind(0d0)),allocatable:: vrmin(:),vrmax(:),rrho(:,:),vpv(:,:),vph(:,:),vsv(:,:),vsh(:,:),eta(:,:),qmu(:),qkappa(:)
-  real(kind(0d0)),allocatable::vra(:),rho(:),kappa(:) 
-  real(kind(0d0)),allocatable::ecKx(:) !3*Kx=3A-4N
-  real(kind(0d0)),allocatable::ecKy(:) !3*Ky=3F+2N
-  real(kind(0d0)),allocatable::ecKz(:) !3*Kz=2F+C
-  real(kind(0d0)),allocatable::mu(:),ecL(:),ecN(:),rhoinv(:),kappainv(:)
-  complex(kind(0d0)),allocatable:: coef1(:),coef2(:),coef():
+  real(kind(0d0)),dimension(:,:), allocatable:: vrmin,vrmax,rrho,vpv,vph,vsv,vsh,eta,qmu,qkappa
+  real(kind(0d0)),dimension(:),allocatable::vra,rho,kappa
+  real(kind(0d0)),dimension(:),allocatable::ecKx !3*Kx=3A-4N
+  real(kind(0d0)),dimension(:),allocatable::ecKy !3*Ky=3F+2N
+  real(kind(0d0)),dimension(:),allocatable::ecKz !3*Kz=2F+C
+  real(kind(0d0)),dimension(:),allocatable::mu,ecL,ecN,rhoinv,kappainv
+  complex(kind(0d0)),dimension(:),allocatable:: coef1,coef2,coef
+  
+  ! frequency on which we are working on
+  real(kind(0d0)) :: omega
 
-  ! artificial attenuation 
+  ! artificial damping attenuation 
   real(kind(0d0)) :: omegai
+
+  ! variables for the matrices
+
+  complex(kind(0d0)),allocatable:: a0(:,:),a1(:,:),a2(:,:), a(:,:), c(:,:), ctmp(:,:)
+  real(kind(0d0)), allocatable :: t(:)
+  real(kind(0d0)), allocatable :: h1x(:), h1y(:), h1z(:), h2L(:), h2N(:), h3ax(:), h3ay(:), h3az(:), h4aL(:), h4aN(:), h5ax(:), h5ay(:), h5az(:), h6aL(:), h6aN(:), h3x(:), h3y(:), h3z(:), h4L(:), h4N(:), h5x(:), h5y(:), h5z(:), h6L(:), h6N(:), h7x(:), h7y(:), h7z(:), h8L(:), h8N(:), h3mx(:,:), h3my(:,:), h3mz(:,:), h5mx(:,:), h5my(:,:), h5mz(:,:), h4m1L(:,:), h4m1N(:,:), h4m2L(:,:), h4m2N(:,:), h6m1L(:,:), h6m1N(:,:), h6m2L(:,:), h6m2N(:,:)
+  real(kind(0d0)),allocatable:: p1(:),p2(:),p3(:)
+  complex(kind(0d0)),allocatable:: g0(:)
+  complex(kind(0d0)),allocatable:: d0(:)
+  complex(kind(0d0)):: g0tmp(2),g0dertmp(2) ! forward
 
 
 
