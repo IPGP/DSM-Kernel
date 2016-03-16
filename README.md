@@ -21,6 +21,11 @@ The programmes implicitly require several third-party dependencies:
 * Make SGTpsv, SGTsh, KernelMaker by configuring etc/config_calcul/config.h (compiler options etc.) 
 * Further information will be available in ...
 
+
+## Examples
+ * [single station and event](examples/example_1station_1event/README.md)
+ * [multiple stations and events](examples/example_214km/README.md)
+
 ## Kernel Gallery
 ![3D visualization of a kernel](util/kernel1.png)
 
