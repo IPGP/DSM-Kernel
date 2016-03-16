@@ -28,7 +28,7 @@ The programmes implicitly require several third-party dependencies:
 Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) Partial derivatives of high-frequency compressional body waves for 3-D Earth structure, Geophys. J. Int., 190, 522-540.
 
 ### Authors and Contributors
-All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede (@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji Kawai, Li Zhao, Sébastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri Komatitsch (@komatits) 
+All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede (@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji Kawai, Li Zhao, Sébastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri Komatitsch, Marie Calvet, Hiromitsu Mizutani
 
 ### Support or Contact
 Having trouble with DSM Kernel Suit? Check out our [documentation](https://help.github.com/pages) or [contact support](email:nobuaki@ipgp.fr) and we’ll help you sort it out.
