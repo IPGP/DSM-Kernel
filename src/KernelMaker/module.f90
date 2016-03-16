@@ -5,7 +5,7 @@ module parameters
   implicit none
 
   !   Constants.
-  !                                        comments by LZ !!!
+  !                                       
   ! 
   !
   !     ddeltas, ddeltar - distance sampling intervals in TSGT and RSGT.
@@ -36,17 +36,21 @@ module parameters
   !                        Both radial and azimuthal aniso. are implemented, 
   !                        i.e. the axis of symmetry s=r, or s is horizontal with 
   !                        azimuth 0 <= sym <= 360.
+  !     nkvtype          - number of different types of video kernels (for the moment 2)
+  !                        synthetic 0, alpha 1, beta 2 (for attenuation, anisotropy, they will soon implemented)
+  !     
   !
-  !   Feb. & Mar. 2010:    complete debug of isotropic kernels (nktype:1-8)
-  !   Jul. & Aug. 2010:    implementation of anisotropic kernels (nktype:9-20)
-  !   Agu. 2010:           implementation of zero-phase filter
-  !   Sep. 2010:           complete debug of anisotropic kernels
-  !
-  !   Latest update:       September 30, 2010.
+  !   Feb. & Mar. 2010 LZ:    complete debug of isotropic kernels (nktype:1-8)
+  !   Jul. & Aug. 2010 LZ:    implementation of anisotropic kernels (nktype:9-20)
+  !   Agu. 2010 LZ:           implementation of zero-phase filter
+  !   Sep. 2010 LZ:           complete debug of anisotropic kernels
+  !   Apr. 2014 NF:  for video kernels
+  !   
   
   
   integer, parameter :: nfilter=0 ! it is ready for the extention nfilter > 0
   integer, parameter :: nktype = 8 ! isotropic kernels 
+  integer, parameter :: nkvtype = 2 ! isotropic video kernels
   real(kind(0d0)), parameter ::  pi=3.1415926535897932d0 
   character(120) :: SGTinfo,parentDir,eventName,stationName,phase,compo,paramWRT
   character(120) :: synnfile
@@ -151,7 +155,7 @@ module tmpSGTs
   real(kind(0d0)), allocatable :: t(:),u(:),u0(:,:),v(:),v0(:,:),hu(:),hu0(:,:)
   real(kind(0d0)), allocatable :: fwin(:,:)
   integer, allocatable :: nt1(:),nt2(:)
-  real(kind(0d0)), allocatable :: denomv(:),denomu(:),coeff(:,:,:,:)
+  real(kind(0d0)), allocatable :: denomv(:),denomu(:),coeff(:,:,:,:),coeffV(:,:)
   
 end module tmpSGTs
 
@@ -169,9 +173,14 @@ module kernels
   ! for calculation 
   real(kind(0d0)), allocatable :: tmpker(:,:)
 
+  ! tmparray for video (already in single precision)
+  real(kind(0e0)), allocatable :: videoker(:,:,:,:) ! unlike ker(:....), we stock along ip but not along ith (theta)
+  real(kind(0e0)), allocatable :: tmpvideoker(:,:,:)
+  integer :: number_of_snapshots
+  real(kind(0d0)) :: timeincrementV ! time interval for video
+  integer :: jtstep_timeincrementV ! in integer
+
   ! tmparrays
-
-
 
   complex(kind(0d0)), dimension (:), allocatable :: tmph01,tmph02,tmph03,tmph04
   complex(kind(0d0)), dimension (:), allocatable :: tmph05,tmph06,tmph07,tmph08
