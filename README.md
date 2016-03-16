@@ -27,7 +27,7 @@ The programmes implicitly require several third-party dependencies:
  * [multiple stations and events](examples/example_214km/README.md)
 
 ## Kernel Gallery
-![3D visualization of a kernel]<img src="etc/images/kernel1.png" width="300">
+<img src="etc/images/kernel1.png" width="300">
 
 ## Papers to be cited
 Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) Partial derivatives of high-frequency compressional body waves for 3-D Earth structure, Geophys. J. Int., 190, 522-540.
