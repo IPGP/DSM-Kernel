@@ -1,9 +1,9 @@
 BIN = ../../bin/
-include ../../etc/config-calcul/config.h
+include ../../etc/config_calcul/config.h
 program = $(BIN)/mpiKernelMaker
 
-objs =   bwfilt.o module.o others.o fourier.o calculateK.o KernelMaker-1.0.0.o
-FC=mpiifort
+objs = bwfilt.o module.o others.o fourier.o calculateK.o KernelMaker-1.0.0.o
+FC = mpiifort
 
 .SUFFIXES: .o .f90
 
