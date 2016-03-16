@@ -33,8 +33,12 @@ subroutine calculateKernel
   
   !   Traveltime kernel for isotropic P-wave speed perturbation. If nfilter>=3, 
   !   also calculate the group-delay kernels fro phase-delay kernels.
+ 
   
-  if((trim(paramWRT).eq.'alpha').or.(trim(paramWRT).eq.'all')) then
+  
+ 
+  if((trim(paramWRT).eq.'alpha').or.(trim(paramWRT).eq.'all').or.&
+      (trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
      if((mtype.eq.11).or.(mtype.eq.21).or.(mtype.eq.10).or.(mtype.eq.20)) then
         tmpker(1:4,:)=0.
         call isovpfreq
@@ -44,7 +48,8 @@ subroutine calculateKernel
   !   Traveltime kernel for isotropic S-wave speed perturbation. If nfilter>=3, 
   !   also calculate the group-delay kernels fro phase-delay kernels.
   
-  if((trim(paramWRT).eq.'beta').or.(trim(paramWRT).eq.'all')) then
+  if((trim(paramWRT).eq.'beta').or.(trim(paramWRT).eq.'all').or.&
+     (trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
      if((mtype.eq.12).or.(mtype.eq.22).or.(mtype.eq.32).or.(mtype.eq.10).or.(mtype.eq.20).or.(mtype.eq.30)) then
         tmpker(5:8,:)=0.
         !if((sym.ge.0.d0).and.(sym.le.360.d0)) tmpker(15,:)=0.
@@ -94,7 +99,7 @@ subroutine isovpfreq
   use kernels
   implicit none
   
-  integer :: jt,ift
+  integer :: jt,ift,jtstep
 
   !   This subroutine calculates 3 types of kernels:
   !
@@ -107,9 +112,9 @@ subroutine isovpfreq
   !
   !   Type 2 is for group-delay time sensitivity to P-wave speed. It can be 
   !   calculated later from Type 1 by numerical differentiation wrt frequency.
-	
+
     
-  du=0.d0	
+  du=0.d0
   
   u_freq=cmplx(0.d0)
   do jt = fmin,fmax
@@ -123,6 +128,16 @@ subroutine isovpfreq
         call bwfilt(du(iWindowStart:iWindowEnd),duf(ift,iWindowStart:iWindowEnd),1.d0/samplingHz,(iWindowEnd-iWindowStart+1),0,npButterworth,fclp(ift),fchp(ift))
      enddo
   endif
+
+
+
+  do ift=0,nfilter
+     if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
+        do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+           tmpvideoker(1,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
+        enddo
+     endif
+  enddo    
 
   do ift=0,nfilter
      tmpker(1,ift)=tmpker(1,ift) &
@@ -143,7 +158,6 @@ subroutine isovpfreq
      tmpker(4,ift)=tmpker(4,ift) &
           +coeff(ift,4,ir,nt2(ift))*duf(ift,nt2(ift))/2.d0
   enddo
-	
   return
 end subroutine isovpfreq
 
@@ -154,9 +168,10 @@ subroutine isovsfreq
   use tmpSGTs
   use kernels
   implicit none
-  
-  integer :: jt,ift
-  
+  real(kind(0.e0)) :: par(0:nfilter,1:nt2(0)-nt1(0)+1)
+  real(kind(0.e0)) :: parq(0:nfilter,1:nt2(0)-nt1(0)+1) 
+  integer :: jt,ift,jtstep
+  character(250) :: kerfile 
   !   This subroutine calculates 4 types of kernels:
   !
   !      5: Phase-delay time sensitivity to S-wave speed
@@ -177,13 +192,14 @@ subroutine isovsfreq
   !
   !
   
-	
   !   For Types 5, 7 and 8.
   !   Convolve the two SGTs to obtained waveform partial derivative.
   
   du=0.d0
-  duq=0.d0	
+  duq=0.d0
 
+  par=0.e0
+  parq=0.e0
   u_freq=cmplx(0.d0)
   do jt = fmin,fmax
      u_freq(jt) = (-2.d0*(h3(4,jt)*h4(4,jt) &
@@ -213,15 +229,16 @@ subroutine isovsfreq
 
   ! calculate K^u_q 
 
+
+
   do jt = fmin, fmax
-     ! first calculate K^u_mu
+     ! first calculate K^u_mu with dmu0=1Pa
      u_freq(jt) = -4.d0*(h3(4,jt)*h4(4,jt)+h3(5,jt)*h4(5,jt)+h3(6,jt)*h4(6,jt)) &
           + 2.d0/3.d0*(h3(1,jt)*(h4(2,jt)+h4(3,jt)) + h3(2,jt)*(h4(1,jt)+h4(3,jt)) + h3(3,jt)*(h4(1,jt)+h4(2,jt))) &
           - 4.d0/3.d0*(h3(1,jt)*h4(1,jt)+h3(2,jt)*h4(2,jt)+h3(3,jt)*h4(3,jt))
      ! then apply the Jacobian of Fuji et al. 2010
-
      u_freq(jt) = u_freq(jt)*jacobianFuji(ir,jt)
-
+     u_freq(jt) = u_freq(jt)*cmplx(1.d3) 
   enddo
 
   call vectorFFT_double(fmin,fmax,np1,u_freq(fmin:fmax),duq(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)
@@ -234,6 +251,49 @@ subroutine isovsfreq
      enddo
   endif
 
+
+!!$
+!!$  jtstep=1
+!!$  if(timeincrement.ne.0.d0) jtstep=int(timeincrement*samlingHz)
+!!$
+!!$  do ift=0,nfilter
+!!$     if((trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+!!$        do jt=nt1(ift),nt2(ift),jtstep
+!!$           par(ift,(jt-nt1(ift))/jtstep+1)=real(du(jt))
+!!$          parq(ift,(jt-nt1(ift))/jtstep+1)=real(duq(jt)) 
+!!$        enddo
+!!$             write(tmpchar,'(I7)') int(rx*1.d3)
+!!$     do j=1,7
+!!$        if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+!!$     enddo
+!!$     kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+!!$            //"."//ir//"."//ith//"."//ip//"."//"video"
+!!$
+!!$     open(1,file=kerfile,status='unknown',form='unformatted', &
+!!$          access = 'direct', recl=kind(0e0)*(nfilter+1)*(int((nt2(ift)-nt1(ift))/jtstep)+1))
+!!$     write(1,rec=1) par(0:nfilter,1:int((nt2(ift)-nt1(ift))/jtstep)+1)
+!!$     close(1)
+!!$
+!!$     kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+!!$            //"."//ir//"."//ith//"."//ip//"."//"videoq"
+!!$
+!!$     open(1,file=kerfile,status='unknown',form='unformatted', &
+!!$          access = 'direct', recl=kind(0e0)*(nfilter+1)*(int((nt2(ift)-nt1(ift))/jtstep)+1))
+!!$     write(1,rec=1) parq(0:nfilter,1:int((nt2(ift)-nt1(ift))/jtstep)+1)
+!!$     close(1)
+!!$ 
+!!$
+!!$    endif
+!!$  enddo
+
+  
+  do ift=0,nfilter
+     if((trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+        do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+           tmpvideoker(2,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(2,ir)*duf(ift,jt) ! 
+        enddo
+     endif
+  enddo    
   
   do ift=0,nfilter
      tmpker(5,ift)=tmpker(5,ift) &

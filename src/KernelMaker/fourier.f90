@@ -9,12 +9,6 @@ subroutine rdsgtomega(rx,ry,num_sgt,num_psv,ipsvorsh)
   complex(kind(0d0)) :: sgtdouble(1:num_sgt,1:theta_n)
   character(200) :: coutfile
 
-  !print *, ipsvorsh
-  ! ATTENTION C'EST PAS NORMAL
-  ! rx = 5751.d0
-  ! rx = 6351.d0
-
-
   ! about ipsvorsh
   ! PSV synn =  2; SH synn =  1
   ! PSV rsgt = 20; SH rsgt = 10
@@ -64,10 +58,14 @@ subroutine rdsgtomega(rx,ry,num_sgt,num_psv,ipsvorsh)
            coutfile = trim(modelname)//"."//coutfile
            coutfile = trim(PoutputDir)//"/RSGT/"//coutfile ! RSGT & SYNN
         endif
-        open(1,file=coutfile,status='unknown',form='unformatted', &
-             access = 'direct', recl=2*num_sgt*kind(0e0)*theta_n)       
-        read(1,rec=1)sgtsngl(1:num_sgt,1:theta_n)    
-        sgtdouble(1:num_sgt,1:theta_n) = sgtsngl(1:num_sgt,1:theta_n) 
+!!$        open(1,file=coutfile,status='unknown',form='unformatted', &
+!!$             access = 'direct', recl=2*num_sgt*kind(0e0)*theta_n)       
+!!$        read(1,rec=1)sgtsngl(1:num_sgt,1:theta_n)    
+!!$        sgtdouble(1:num_sgt,1:theta_n) = sgtsngl(1:num_sgt,1:theta_n) 
+
+        open(1,file=coutfile,status='old',form='unformatted',action='read')
+        read(1) sgtsngl(1:num_sgt,1:theta_n)
+        sgtdouble(1:num_sgt,1:theta_n)=sgtsngl(1:num_sgt,1:theta_n)
 
 
         ! h9 in SH is 0 !

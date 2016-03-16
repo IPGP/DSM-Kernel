@@ -1,7 +1,7 @@
 subroutine pinputKernel
 
   use parameters
-
+  use kernels
   implicit none
   character(120) :: tmpfile
   character(120) :: dummy
@@ -48,6 +48,13 @@ subroutine pinputKernel
   ! 5
   read(1,110) paramWRT
   paramWRT = trim(paramWRT)
+  timeincrementV=0.d0
+  if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.&
+     (trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'video')) then
+     ! alphaV, betaV, allV are for waveform partials, video for forward modelling (Green's function)
+    ! 5-bis
+      read(1,*) timeincrementV ! in second 
+  endif  
   ! 6a
   read(1,*) ibwfilt
   ! 6b
@@ -836,10 +843,17 @@ subroutine coeffCalculator
 
   
   allocate(coeff(0:nfilter,1:nktype,1:nr,iWindowStart:iWindowEnd))
+  allocate(coeffV(1:nkvtype,1:nr))
   allocate(jacobianFuji(1:nr,fmin:fmax))
 
   coeff=0.d0  
-  
+  coeffV=0.d0
+
+  do ir=1,nr
+     coeffV(1,ir) = -2.d0*gnormt*rhom(ir)*vpm(ir)**2
+     coeffV(2,ir) = 4.d0*gnormt*rhom(ir)*vsm(ir)**2     
+  enddo
+
   do ir=1,nr
      do ift=0,nfilter
         f0=(fclp(ift)+fchp(ift))/2.d0
@@ -869,6 +883,7 @@ subroutine coeffCalculator
           coeff(ift,8,ir,it)=gnorma/qmm(ir)* &
                 u0(ift,it)*dtn/denomu(ift)
 
+           !print *, coeff(ift,7,ir,it),coeff(ift,8,ir,it)
 
            ! This version is isotropic
 
@@ -905,10 +920,16 @@ subroutine coeffCalculator
 
   do ir=1,nr
      if(qmm(ir).ne.0.d0) then
+
         do ifreq=fmin,fmax
-           jacobianFuji(ir,ifreq)=(rhom(ir)*vsm(ir)**2*cmplx(2.d0*log(omega(ifreq)/2.d0/pi),(1+4.d0*log(omega(ifreq)/2.d0/pi)/pi/qmm(ir)))) &
-                / (1+2.d0*log(omega(ifreq)/2.d0/pi)/pi/qmm(ir))/cmplx(1.d0,1.d0/qmm(ir))
-        enddo
+            if(ifreq.ne.0) then
+           !jacobianFuji(ir,ifreq)=(rhom(ir)*vsm(ir)**2*cmplx(2.d0*log(omega(ifreq)/pi),(1+4.d0*log(omega(ifreq)/pi)/pi/qmm(ir)))) &
+            !    / (1+2.d0*log(omega(ifreq)/pi/qmm(ir)))/cmplx(1.d0,1.d0/qmm(ir))
+             jacobianFuji(ir,ifreq)=(rhom(ir)*vsm(ir)**2)*cmplx(2.d0*log(omega(ifreq)/2.d0/pi)/pi,1.d0+4.d0*log(omega(ifreq)/2.d0/pi)/pi/qmm(ir))/ &
+                     cmplx(1.d0+2*log(omega(ifreq)/2.d0/pi)/pi/qmm(ir),0.d0)/cmplx(1.d0,1.d0/qmm(ir))
+            else
+           endif
+       enddo
      endif
   enddo
                        

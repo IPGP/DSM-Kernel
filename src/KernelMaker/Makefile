@@ -1,7 +1,9 @@
-BIN = ../../bin
-program = $(BIN)/mpiKernelMaker
+BIN = ../../bin/
 include ../../etc/config-calcul/config.h
-objs =   bwfilt.o module.o others.o fourier.o calculateK.o KernelMaker-0.1.0.o
+program = $(BIN)/mpiKernelMaker
+
+objs =   bwfilt.o module.o others.o fourier.o calculateK.o KernelMaker-1.0.0.o
+FC=mpiifort
 
 .SUFFIXES: .o .f90
 
@@ -12,4 +14,4 @@ $(program): $(objs)
 
 .PHONY: clean
 clean:
-	rm $(program) $(objs)  
+	rm $(program) $(objs)  *.lst *.o
