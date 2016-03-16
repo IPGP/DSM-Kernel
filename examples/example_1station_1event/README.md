@@ -1,4 +1,4 @@
-## Example 2: single station and event
+## single station and event example
 
 ### Overview
 This example demonstrates the two central steps of this code:
