@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name deepEarth 
+#SBATCH --job-name DSM-db
 #SBATCH --nodes 16 
 #SBATCH --ntasks-per-node=16
 #SBATCH --partition cpunormal
