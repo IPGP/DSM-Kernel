@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>DSM Kernel Suite by IPGP</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>DSM Kernel Suite</h1>
+        <h2>3D waveform partial derivative calculation software for 1D reference Earth models</h2>
+        <a href="https://github.com/IPGP/DSM-Kernel" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><img src="https://github.com/IPGP/DSM-Kernel/blob/develop_NF/util/DSM_logo.png" alt=""></p>
+
+<h3>
+<a id="welcome-to-dsm-kernel-suite" class="anchor" href="#welcome-to-dsm-kernel-suite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to DSM Kernel Suite!</h3>
+
+<p>This suite of programmes is to calculate 3D finite frequency Fréchet sensitivity kernels (or 3D waveform partial derivatives) for 1D reference Earth models using Direct Solution Method. It consists of forward and back propagated strain Green's function calculation in a 2D plane, cross correlations of forward and back propagated wavefields to obtain sensitivity kernels. We developed also visualisation facilities of kernels. Those who would like to get kernels by comparing observed and synthetic waveforms, we developed python interface for that purpose as well. All the main motors are parallelised and you just have to submit prepared scripts. </p>
+
+<h2>
+<a id="programmes-inside-dsm-kernel-suite" class="anchor" href="#programmes-inside-dsm-kernel-suite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Programmes inside DSM Kernel Suite</h2>
+
+<p>DSM Kernel Suite have five independent programmes for each step. If you fetch the application's source with git, this dependency will be fetched automatically. </p>
+
+<ul>
+<li>SGTpsv : Green's function calculation for PSV mode (MPI fortran, NF) </li>
+<li>SGTsh  : Green's function calculation for SH  mode (MPI fortran, NF)</li>
+<li>wave2kernel : visualisation of SAC files in order to compare them with synthetics and to decide which phase (python, HJ)</li>
+<li>KernelMaker : 3D Fréchet derivatives calculation (MPI fortran, NF)</li>
+<li>KernelViewer : 3D Kernel visualisation facilities (python, MM)</li>
+</ul>
+
+<p>The programmes implicitly require several third-party dependencies:</p>
+
+<ul>
+<li>ifort</li>
+<li>obspy</li>
+<li>ParaView </li>
+</ul>
+
+<h2>
+<a id="build-and-install" class="anchor" href="#build-and-install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build and Install</h2>
+
+<ul>
+<li>Make SGTpsv, SGTsh, KernelMaker by configuring etc/config_calcul/config.h (compiler options etc.) </li>
+<li>Further information will be available in ...</li>
+</ul>
+
+<h2>
+<a id="kernel-gallery" class="anchor" href="#kernel-gallery" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kernel Gallery</h2>
+
+<p><img src="util/kernel1.png" alt="3D visualization of a kernel"></p>
+
+<h2>
+<a id="papers-to-be-cited" class="anchor" href="#papers-to-be-cited" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Papers to be cited</h2>
+
+<p>Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) Partial derivatives of high-frequency compressional body waves for 3-D Earth structure, Geophys. J. Int., 190, 522-540.</p>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>All rights reserved, 2016, Nobuaki Fuji (<a href="https://github.com/seismobassoon" class="user-mention">@seismobassoon</a>), Matthias Meschede (<a href="https://github.com/MMesch" class="user-mention">@MMesch</a>), Kensuke Konishi (<a href="https://github.com/kensuke1984" class="user-mention">@kensuke1984</a>), Hugo Jaegler (<a href="https://github.com/hJaegler" class="user-mention">@hJaegler</a>), Kenji Kawai, Li Zhao, Sébastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri Komatitsch (<a href="https://github.com/komatits" class="user-mention">@komatits</a>) </p>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Having trouble with DSM Kernel Suit? Check out our <a href="https://help.github.com/pages">documentation</a> or contact support and we’ll help you sort it out.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/IPGP/DSM-Kernel/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/IPGP/DSM-Kernel/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/IPGP/DSM-Kernel"></a> is maintained by <a href="https://github.com/IPGP">IPGP</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
