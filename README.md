@@ -1,4 +1,4 @@
-<img src="etc/images/DSM_logo.png"  width="250">
+<img src="etc/images/DSM_logo.png"  width="250" align="middle">
 
 ### Welcome to DSM Kernel Suite!
 This suite of programmes is to calculate 3D finite frequency Fréchet sensitivity kernels (or 3D waveform partial derivatives) for 1D reference Earth models using Direct Solution Method. It consists of forward and back propagated strain Green's function calculation in a 2D plane, cross correlations of forward and back propagated wavefields to obtain sensitivity kernels. We developed also visualisation facilities of kernels. Those who would like to get kernels by comparing observed and synthetic waveforms, we developed python interface for that purpose as well. All the main motors are parallelised and you just have to submit prepared scripts. 
@@ -37,3 +37,7 @@ All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede (@MM
 
 ### Support or Contact
 Having trouble with DSM Kernel Suit? Check out our [documentation](https://help.github.com/pages) or [contact support](email:nobuaki@ipgp.fr) and we’ll help you sort it out.
+
+### Legal info
+
+DSM Kernel Suite is Free/Libre/Open Source software. See [Licenses](Licences.txt) for a summary of its licensing. A list of contributors can be found in the about dialog.
