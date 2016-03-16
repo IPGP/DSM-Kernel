@@ -40,4 +40,4 @@ Having trouble with DSM Kernel Suit? Check out our [documentation](https://help.
 
 ### Legal info
 
-DSM Kernel Suite is Free/Libre/Open Source software. See [Licenses](Licences.md) for a summary of its licensing. A list of contributors can be found in the about dialog.
+DSM Kernel Suite is Free/Libre/Open Source software. See [Licenses](Licences.txt) for a summary of its licensing. A list of contributors can be found in the about dialog.
