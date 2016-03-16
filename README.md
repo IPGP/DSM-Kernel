@@ -18,7 +18,7 @@ The programmes implicitly require several third-party dependencies:
 
 ## Build and Install
 
-* Make SGTpsv, SGTsh, KernelMaker by configuring etc/config_calcul/config.h (compiler options etc.) 
+* Make SGTpsv, SGTsh, KernelMaker by configuring `etc/config_calcul/config.h' (compiler options etc.) 
 * Further information will be available in ...
 
 
