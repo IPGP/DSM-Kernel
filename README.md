@@ -23,8 +23,8 @@ The programmes implicitly require several third-party dependencies:
 
 
 ## Examples
- * [single station and event](examples/example_1station_1event/README.md)
- * [multiple stations and events](examples/example_214km/README.md)
+ * [single station and event](examples/single_kernel/README.md)
+ * [multiple stations and events](examples/multiple_kernels/README.md)
 
 ## Kernel Gallery
 <img src="etc/images/kernel1.png" width="300">

@@ -23,7 +23,7 @@ of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/
 1. copy the file `database.inf.example` to `database.inf`. In this file:
  * adjust the paths (replace [xy] with the path of your DSM-Kernel installation)
  * adjust the output directory path [mydatabase], where the database is stored.
-   The database needs some disk space. Make sure to have xy Gb free.
+   The database needs some disk space. Make sure to have ~2-3 Gb free.
  * generate the following subdirectories in your database folder: `[mydatabase]/log`,
    `[mydatabase]/RSGT`and `[mydatabase]/TSGT`
  * you can adjust the remaining parameters that control e.g. frequency range,
