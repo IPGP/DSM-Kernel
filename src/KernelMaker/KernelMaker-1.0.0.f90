@@ -22,7 +22,7 @@ program KernelMaker
   
   implicit none
   include 'mpif.h'
-  include '../../etc/config-calcul/constants.h'
+  include '../../etc/config_calcul/constants.h'
 
   ! file name
 
