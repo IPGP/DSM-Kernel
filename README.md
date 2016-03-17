@@ -11,16 +11,16 @@ DSM Kernel Suite have five independent programmes for each step. If you fetch th
 * KernelMaker : 3D Fréchet derivatives calculation (MPI fortran, NF)
 * KernelViewer : 3D Kernel visualisation facilities (python, MM)
 
-The programmes implicitly require several third-party dependencies:
+recommended requirements:
 * ifort
+
+optional requirements:
 * obspy
-* ParaView 
+* VTK
 
 ## Build and Install
-
 * Make SGTpsv, SGTsh, KernelMaker by configuring `etc/config_calcul/config.h` (compiler options etc.) 
 * Further information will be available in ...
-
 
 ## Examples
  * [single station and event](examples/single_kernel/README.md)
@@ -30,14 +30,20 @@ The programmes implicitly require several third-party dependencies:
 <img src="etc/images/kernel1.png" width="300">
 
 ## Papers to be cited
-Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) Partial derivatives of high-frequency compressional body waves for 3-D Earth structure, Geophys. J. Int., 190, 522-540.
+Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) [Partial derivatives of high-frequency compressional body waves for 3-D Earth structure](https://gji.oxfordjournals.org/content/190/1/522.full), Geophys. J. Int., 190, 522-540.
 
-### Authors and Contributors
-All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede (@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji Kawai, Li Zhao, Sébastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri Komatitsch, Marie Calvet, Hiromitsu Mizutani
+## Authors and Contributors
+All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede
+(@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji
+Kawai, Li Zhao, Sébastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
+Komatitsch, Marie Calvet, Hiromitsu Mizutani
 
-### Support or Contact
-Having trouble with DSM Kernel Suit? Check out our [documentation](https://help.github.com/pages) or [contact support](email:nobuaki@ipgp.fr) and we’ll help you sort it out.
+## Support or Contact
+Having trouble with DSM Kernel Suit? Check out our
+[documentation](http://ipgp.github.io/DSM-Kernel/) or [contact
+support](email:nobuaki@ipgp.fr) and we’ll help you sort it out.
 
-### Legal info
-
-DSM Kernel Suite is Free/Libre/Open Source software. See [Licenses](Licences.txt) for a summary of its licensing. A list of contributors can be found in the about dialog.
+## Legal info
+DSM Kernel Suite is Free/Libre/Open Source software and available under the
+GPLv3 license ([License](LICENSE.txt)). A list of contributors can be found in
+the about dialog.
