@@ -590,20 +590,6 @@ program  SGTpsv
   endif
 
 
-!  if(my_rank.eq.0) then
-!     call clPLM(plm(1:3,0:3,1:theta_n,0:maxlmax),maxlmax,theta(1:theta_n),theta_n)
-!  endif
-!  call MPI_BARRIER(MPI_COMM_WORLD,ierr)
-!  print *, "avant bcast", my_rank
-!  call MPI_BCAST(plm(1,0,1,0),3*4*theta_n*(maxlmax+1),MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
-!  print *, "nickel: bcast", my_rank
-
-  !print *,"avant bcast"
-  !call MPI_BCAST(dvec(1,-2,1,0),3*5*theta_n*(maxlmax+1),MPI_DOUBLE_COMPLEX,0,MPI_COMM_WORLD,ierr)
-  !call MPI_BCAST(dvecdt(1,-2,1,0),3*5*theta_n*(maxlmax+1),MPI_DOUBLE_COMPLEX,0,MPI_COMM_WORLD,ierr)
-  !call MPI_BCAST(dvecdp(1,-2,1,0),3*5*theta_n*(maxlmax+1),MPI_DOUBLE_COMPLEX,0,MPI_COMM_WORLD,ierr)  	
-  !!call MPI_BARRIER(MPI_COMM_WORLD,ierr)
-
 
   
   !******************** Computing the displacement *********************
@@ -720,8 +706,6 @@ program  SGTpsv
            rdvec = cmplx(0.d0)
            call caldveczero(l,rdvec(1:3,-2:2))
         
-           
-           
 
 
            ! computing the coefficient matrix elements
