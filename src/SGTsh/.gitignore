@@ -1,0 +1,6 @@
+$ git status
+# ignore objects and archives
+*.[oa]
+# ignore modules
+*.mod
+*.optrpt
