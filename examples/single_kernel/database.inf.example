@@ -4,7 +4,7 @@
 # 1. outputDir
 [mydatabase]/
 # 2. psvmodel
-[xy]/DSM-Kernel/etc/models/ak135.psv.model
+[xy]/etc/models/ak135.psv.model
 # 3. modelname
 ak135
 # 4. tlen (preferred to be set as 2^n*0.1 seconds
