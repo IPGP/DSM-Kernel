@@ -77,6 +77,6 @@ alpha
 #0
 #
 # F. PSV/SH (PSV only = 2; SH only = 1; PSV+SH =3)
-2
+3
 # don't forget write 'end' at the end 
 end

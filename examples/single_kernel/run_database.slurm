@@ -8,3 +8,4 @@
 module purge
 module load intel/compiler intel-mpi/64 intel/mkl slurm
 mpirun -tmi -np 256  ../../bin/mpiSGTpsv < ./database.inf 
+mpirun -tmi -np 256  ../../bin/mpiSGTsh < ./database.inf 

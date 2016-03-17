@@ -8,13 +8,13 @@
 # 3. modelname
 ak135
 # 4. tlen (preferred to be set as 2^n*0.1 seconds
-1.6384d3
+819.2d0
 # 5. minQ radius (km), maxQ radius, delta radius
 5471.d0 6371.d0 20.d0
 # 6. source radius (km)
 6157.d0
 # 7. minQ theta (degrees), maxQ theta, delta theta
-0.d0 40.d0 5.d-1
+0.d0 60.d0 5.d-1
 # 8. imin imax (omega index: tlen/imax is the shortest period)
 0 128 
 # 9. switching calculation of RSGT, TSGT, synthetics
