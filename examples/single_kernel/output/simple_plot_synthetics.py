@@ -11,6 +11,6 @@ data = np.loadtxt('eq.Explosion.Zs.dat.100s10s')
 time = data[:,0]
 raw = data[:,1]
 filtered = data[:,2]
-plt.plot(time, raw)
+#plt.plot(time, raw)
 plt.plot(time, filtered)
 plt.show()
