@@ -10,22 +10,22 @@ This example demonstrates the two central steps of this code:
 #### The Green function database
 To compute the database you need the two programs SGTpsv and SGTsh. That
 compute the databases necessary for PSV and SH waves, respectively. The sources
-of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/`
+of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/`.
 
 ##### Compilation
 1. adjust the Makefiles (e.g. `DSM-Kernel/src/SGTpsv/Makefile`). You should for
    example chose you fortran compiler, e.g. `FC=mpif90` or `FC=mpiifort`.
 2. type: `make` in the SGTsh and in the SGTpsv directories.
 3. check that there were no errors and if you can find the binaries:
-   `bin/mpiSGTpsv` and `DSM-Kernel/bin/mpiSGTsh`
+   `DSM-Kernel/bin/mpiSGTpsv` and `DSM-Kernel/bin/mpiSGTsh`
 
-##### Configuration and Running
+##### Configuration and Execution
 1. copy the file `database.inf.example` to `database.inf`. In this file:
  * adjust the paths (replace [xy] with the path of your DSM-Kernel installation)
  * adjust the output directory path [mydatabase], where the database is stored.
    The database needs some disk space. Make sure to have ~2-3 Gb free.
- * generate the following subdirectories in your database folder: `[mydatabase]/log`,
-   `[mydatabase]/RSGT`and `[mydatabase]/TSGT`
+ * generate the following empty subdirectories in your database folder:
+   `[mydatabase]/log`, `[mydatabase]/RSGT`and `[mydatabase]/TSGT`
  * you can adjust the remaining parameters that control e.g. frequency range,
    domain size and sampling of the database. In particular chose the source depth
    for which you want to compute the database!
@@ -35,11 +35,20 @@ of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/
    example script that submits this process to the IPGP cluster malbec.
 
 #### Kernel Calculation
+#### Compilation
+2. type: `make` in the KernelMaker directory
+3. check that there were no errors and that you can find the binaries:
+   `DSM-Kernel/bin/mpiKernelMaker`.
+
+#### Configuration and Execution
 1. copy the file `kernel.inf.example` to `kernel.inf`. In this file:
  * adjust the directory `[xy]` to point to your DSM-Kernels installation
  * check out the other parameters that are used to control the source, filters
    and other parameters. The time window controls for which phase you compute
-   the sensitivity kernel. The source depth has to correspond to the one specified
-   in the database configuration (`database.inf`).
+   the sensitivity kernel. The time window, source depth and source-station distance
+   have to correspond or be within the ranges specified
+   in the database configuration file (`database.inf`).
+2. make sure that the output directory that you specified has an empty subdirectoy
+   called `log`. (e.g. output/log/)
 
 #### Visualization
