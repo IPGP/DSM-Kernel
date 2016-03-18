@@ -26,7 +26,7 @@ program KernelMaker
 
   ! file name
 
-  character(200) :: kerfile,kertotalfile
+  character(200) :: infofile, gridfile, kerfile, kertotalfile
   character(120) :: tmpchar
   integer :: i,icheck,jt,it,k,j
   character(40) :: datex,timex
@@ -924,7 +924,7 @@ program KernelMaker
      do j=1,7
         if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
      enddo
-     kerfile = trim(parentDir)//"/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
+     kerfile = trim(parentDir)//"/tmp/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
      
      open(1,file=kerfile,status='unknown',form='unformatted', &
           access = 'direct', recl=kind(0e0)*nphi*ntheta*(nktype+1)*(nfilter+1))    
@@ -944,7 +944,7 @@ program KernelMaker
            if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
         enddo
 
-        kerfile = trim(parentDir)//"/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
+        kerfile = trim(parentDir)//"/tmp/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
         
         open(1,file=kerfile,status='unknown',form='unformatted', &
              access = 'direct', recl=kind(0e0)*nphi*ntheta*(nktype+1)*(nfilter+1))    
@@ -954,7 +954,7 @@ program KernelMaker
 
 
      do ift = 0,nfilter
-        kertotalfile = trim(parentDir)//"/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))
+        kertotalfile = trim(parentDir)//"/kernel."//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))
         open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
         if(compo.eq.'Z') then
            kc=1
@@ -967,13 +967,13 @@ program KernelMaker
        endif
        idum=0
        fdum=0.e0
-       
+
        write(1) totalker(:,:,:,:,ift)
        close(1) 
      enddo
 
 
-     kerfile=trim(parentDir)//"kernelinfo"
+     infofile = trim(parentDir)//"/info."//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))
      open(1,file=kerfile,status='new',form='unformatted',access='sequential')
      write(1) nr,nphi,ntheta,nkvtype,nfilter,iWindowEnd-iWindowStart+1,number_of_snapshots
      write(1) real(t(nt1(ift))),real(t(nt2(ift)))
@@ -983,7 +983,7 @@ program KernelMaker
      close(1)
 
 
-     kerfile=trim(parentDir)//"gridinfo"
+     gridfile = trim(parentDir)//"/grid."//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))
      open(1,file=kerfile,status='new',form='unformatted',access='sequential')
      write(1) nr,nphi,ntheta,nkvtype,nfilter,number_of_snapshots
      write(1) real(r)
