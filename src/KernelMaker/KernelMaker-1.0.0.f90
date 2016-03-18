@@ -968,41 +968,29 @@ program KernelMaker
        idum=0
        fdum=0.e0
        
-       write(1) nr,nphi,ntheta,iWindowEnd-iWindowStart+1,kc,mtype,nktype,real(sym),nfilter,ift
-       write(1) real(dtn),(real(twin(i)),i=1,4), real(t(nt1(ift))),real(t(nt2(ift)))
-       
-       !write(1) real(fclp(ift)),real(fchp(ift)),mb(ift),mid(ift),mbmax
-       write(1) real(fclp(ift)),real(fchp(ift)),idum,idum,idum       
-       write(1) real(slat),real(slon),real(sdep),real(sdep),real(rlat),real(rlon),real(distan)
-       !write(1) (real(xm(i)),i=1,7)
-       write(1) fdum,fdum,fdum,fdum,fdum,fdum
-       write(1) (real(mt(i)),i=1,6)
-       write(1) real(r0D)
-       write(1) real(r)
-       write(1) real(phitheta)
-       write(1) real(thetaphi)
        write(1) totalker(:,:,:,:,ift)
-       !write(1) real(fwin(ift,:))
-       !write(1) real(u0(ift,:))
-       !write(1) real(u(:))
-       !write(1) real(v0(ift,:))
-       !write(1) real(hu0(ift,:))
-       write(1) real(phi*180.d0/pi)
-       write(1) real(theta*180.d0/pi)
-       !evto=''
-       !stao=''
-       !evto=eventid
-       !stao=staid
-       !ncevt=index(evto,' ')-1
-       !ncsta=index(stao,' ')-1
-       !write(1) ncevt,ncsta
-	!  write(1) evto(1:ncevt),stao(1:ncsta)
-       write(1) 0,0
-       close(1)
-        
-        
-
+       close(1) 
      enddo
+
+
+     kerfile=trim(parentDir)//"kernelinfo"
+     open(1,file=kerfile,status='new',form='unformatted',access='sequential')
+     write(1) nr,nphi,ntheta,nkvtype,nfilter,iWindowEnd-iWindowStart+1,number_of_snapshots
+     write(1) real(t(nt1(ift))),real(t(nt2(ift)))
+     write(1) (real(mt(i)),i=1,6)
+     write(1) real(r0D)
+     write(1) real(u)
+     close(1)
+
+
+     kerfile=trim(parentDir)//"gridinfo"
+     open(1,file=kerfile,status='new',form='unformatted',access='sequential')
+     write(1) nr,nphi,ntheta,nkvtype,nfilter,number_of_snapshots
+     write(1) real(r)
+     write(1) real(phitheta)
+     write(1) real(thetaphi)
+     close(1)
+
 
      list = trim(parentDir)//"/log/calLog"//"."// &
           trim(stationName)//"."//trim(eventName)//"."//trim(compo)//"."//trim(paramWRT)//".log"   
