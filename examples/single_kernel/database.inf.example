@@ -16,7 +16,7 @@ ak135
 # 7. minQ theta (degrees), maxQ theta, delta theta
 0.d0 60.d0 5.d-1
 # 8. imin imax (omega index: tlen/imax is the shortest period)
-0 128 
+0 256
 # 9. switching calculation of RSGT, TSGT, synthetics
 # if 1 we calculate
 1 1 1

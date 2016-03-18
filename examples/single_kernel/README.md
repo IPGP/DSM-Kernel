@@ -33,6 +33,8 @@ of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/
    to compute the psv database. Select the number of processors that you want to use
    with the -np parameter (256 in this example). `run_database.slurm` shows an
    example script that submits this process to the IPGP cluster malbec.
+3. check if there were any errors. The subfolders in [mydatabase] should
+   be full of files (carful, typing `ls` will take some time)
 
 #### Kernel Calculation
 #### Compilation
@@ -50,5 +52,9 @@ of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/
    in the database configuration file (`database.inf`).
 2. make sure that the output directory that you specified has an empty subdirectoy
    called `log`. (e.g. output/log/)
+3. submit the command `mpirun -tmi -np 128 ../../bin/mpiKernelMaker < ./kernel.inf`
+4. check if there were errors. If not, the output directory should contain
+   files named: `eq.Explosion.Z.Z.5471000` up to `eq.Explosion.Z.Z.6371000` that
+   contain a slice of the kernel at one particular depth.
 
 #### Visualization

@@ -30,7 +30,7 @@ alpha
 100s10s
 # 6c. if butterworth = 1; lowest freq. [Hz], highest freq. [Hz], number of poles
 #     if butterworth = 0; just comment out those parameters (subroutine won't read them)
-1d-2 1d-1 4
+1d-2 1d-1 2
 # 7. time wi4dow t1, t2, t3, t4 
 #  (if t1=t2 and t3=t4, fwin(:) will be rectangular)
 #  (normally taper functions are sine functions) 
