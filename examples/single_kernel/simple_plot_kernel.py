@@ -49,7 +49,7 @@ print 'thetas range = {} -> {}'.format(theta_min, theta_max)
 # plot a slice of the kernel:
 itheta = ntheta/2 # plot the greatcircle plane
 
-fig = plt.figure(figsize=(14, 7))
+fig = plt.figure(figsize=(10, 5))
 ncols = 3
 irow_max = (nktype - 1) / ncols
 nrows = irow_max + 1
@@ -72,6 +72,5 @@ for iktype in range(nktype):
     else:
         ax.set_ylabel('radius [km]')
 
-fig.tight_layout(pad=0.1)
-fig.subplots_adjust(bottom=0.1)
+fig.tight_layout(rect=[0.01, 0.03, 0.95, 0.99])
 fig.savefig(fname_plot)
