@@ -610,8 +610,7 @@ program KernelMaker
   
   ! Now loop over all grid ponts to compute the kernels
   ! for the parallelisation, I devide nr into nproc
-  
-  
+
   allocate(tmpker(0:nktype,0:nfilter))
   allocate(tmpvideoker(0:nkvtype,0:nfilter,1:number_of_snapshots))
   allocate(ker(1:nphi,1:ntheta,0:nktype,0:nfilter))
@@ -949,12 +948,12 @@ program KernelMaker
         open(1,file=kerfile,status='unknown',form='unformatted', &
              access = 'direct', recl=kind(0e0)*nphi*ntheta*(nktype+1)*(nfilter+1))    
         read(1,rec=1) totalker(ir,1:nphi,1:ntheta,0:nktype,0:nfilter)
-        close(1)        
+        close(1) 
      enddo
 
 
      do ift = 0,nfilter
-        kertotalfile = trim(parentDir)//"/kernel."//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))
+        kertotalfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))//trim(".kernel")
         open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
         if(compo.eq.'Z') then
            kc=1
@@ -973,8 +972,10 @@ program KernelMaker
      enddo
 
 
-     infofile = trim(parentDir)//"/info."//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))
-     open(1,file=kerfile,status='new',form='unformatted',access='sequential')
+     infofile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
+                trim(phase)//"."//trim(compo)//trim(".info")
+     print *,infofile
+     open(1,file=infofile,status='unknown',form='unformatted',access='sequential')
      write(1) nr,nphi,ntheta,nkvtype,nfilter,iWindowEnd-iWindowStart+1,number_of_snapshots
      write(1) real(t(nt1(ift))),real(t(nt2(ift)))
      write(1) (real(mt(i)),i=1,6)
@@ -983,8 +984,9 @@ program KernelMaker
      close(1)
 
 
-     gridfile = trim(parentDir)//"/grid."//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))
-     open(1,file=kerfile,status='new',form='unformatted',access='sequential')
+     gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
+                trim(phase)//"."//trim(compo)//trim(".grid")
+     open(1,file=gridfile,status='unknown',form='unformatted',access='sequential')
      write(1) nr,nphi,ntheta,nkvtype,nfilter,number_of_snapshots
      write(1) real(r)
      write(1) real(phitheta)
