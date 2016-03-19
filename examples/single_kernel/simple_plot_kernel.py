@@ -17,7 +17,7 @@ def read_fortran_record(binfile, count, dtype):
 
 fname_kernel = 'output/eq.Explosion.Z.Z.100s10s.kernel'
 fname_grid = 'output/eq.Explosion.Z.Z.grid'
-fname_plot = fname_kernel.split('/')[-1] + '.png'
+fname_plot = 'kernel.png'
 
 kernelfile = open(fname_kernel, 'rb')
 gridfile = open(fname_grid, 'rb')

@@ -12,6 +12,10 @@ data = np.loadtxt(fname_synthetics)
 time = data[:,0]
 raw = data[:,1]
 filtered = data[:,2]
-#plt.plot(time, raw)
-plt.plot(time, filtered)
-plt.show()
+
+fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+ax.plot(time, filtered, label='filtered synthetics')
+ax.set(xlabel='time [s]', ylabel='displacement [?]')
+ax.legend()
+
+fig.savefig('synthetics.png')
