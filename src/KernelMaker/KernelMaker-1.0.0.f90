@@ -932,7 +932,8 @@ program KernelMaker
   enddo! ir-loop termine
   
   call MPI_BARRIER(MPI_COMM_WORLD,ierr)
-  
+
+  ! write final reordered kernel output
   if(my_rank.eq.0) then   
      deallocate(ker)
      allocate(totalker(nr,nphi,ntheta,0:nktype,0:nfilter))
@@ -974,9 +975,8 @@ program KernelMaker
 
      infofile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".info")
-     print *,infofile
      open(1,file=infofile,status='unknown',form='unformatted',access='sequential')
-     write(1) nr,nphi,ntheta,nkvtype,nfilter,iWindowEnd-iWindowStart+1,number_of_snapshots
+     write(1) nr,nphi,ntheta,nktype,nfilter,iWindowEnd-iWindowStart+1,number_of_snapshots
      write(1) real(t(nt1(ift))),real(t(nt2(ift)))
      write(1) (real(mt(i)),i=1,6)
      write(1) real(r0D)
@@ -987,7 +987,7 @@ program KernelMaker
      gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".grid")
      open(1,file=gridfile,status='unknown',form='unformatted',access='sequential')
-     write(1) nr,nphi,ntheta,nkvtype,nfilter,number_of_snapshots
+     write(1) nr, nphi, ntheta, nktype
      write(1) real(r)
      write(1) real(phitheta)
      write(1) real(thetaphi)
