@@ -30,7 +30,7 @@ all
 100s10s
 # 6c. if butterworth = 1; lowest freq. [Hz], highest freq. [Hz], number of poles
 #     if butterworth = 0; just comment out those parameters (subroutine won't read them)
-1d-2 0.66d-1 2
+1d-2 1.d-1 2
 # 7. time wi4dow t1, t2, t3, t4 
 #  (if t1=t2 and t3=t4, fwin(:) will be rectangular)
 #  (normally taper functions are sine functions) 
@@ -65,7 +65,7 @@ all
 # Da. time window (start, end in sec)  
 400.d0 460.d0
 # Db. sampling Hz 
-1.d0
+2.0d0
 # Ea. ignoring criteria (calculrapide: we ignore the values below; if 0.d0 we don't use the algo)
 #         (in Fuji et al. 2012b, we chose 5.d-3)
 0.d0
