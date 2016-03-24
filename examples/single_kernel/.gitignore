@@ -1,0 +1,4 @@
+# ignore the real inf file
+*.inf 
+slurm-*
+tmpworkingfile*

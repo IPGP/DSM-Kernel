@@ -25,6 +25,7 @@ CCFLAGS = -O3
 FFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
 
 # useful for debugging:
+#FFLAGS=    -g -O0 -traceback
 #FFLAGS=    -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -assume byterecl -L/cm/shared/apps/intel/composer_xe/current/compiler/lib/intel64
 
 #FFLAGS=    -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -assume byterecl
