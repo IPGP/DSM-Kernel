@@ -56,8 +56,8 @@ program ModelDrawer
   do iradius = 0, nradius
      radius = vrminD(1)+pas*dble(iradius)
      call calstg_for_card(radius,nzone,vrminD,vrmaxD,rrhoD,vpvD,vphD,vsvD,vshD,etaD,qmuD,qkappaD,tmparray(1:9))
-     print 130, radius,tmparray(2)*1.d-3,tmparray(3)*1.d-3,tmparray(4)*1.d-3
-
+     !print *, 6371.d0-radius,",",tmparray(2)*1.d-3,",",tmparray(3)*1.d-3,",",tmparray(4)*1.d-3
+     print *, 6371.d0-radius,",",tmparray(4)*1.d-3
 130  format (4(f10.4))
   enddo
 end program ModelDrawer
