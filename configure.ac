@@ -36,6 +36,8 @@ AC_HEADER_STDBOOL
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
+                 src/ModelDrawer/Makefile
+		 src/ReadKernel/Makefile
                  src/SGTpsv/Makefile
                  src/SGTsh/Makefile
 		 src/KernelMaker/Makefile])

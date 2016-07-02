@@ -322,7 +322,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile src/Makefile src/SGTpsv/Makefile src/SGTsh/Makefile src/KernelMaker/Makefile"
+config_files=" Makefile src/Makefile src/ModelDrawer/Makefile src/ReadKernel/Makefile src/SGTpsv/Makefile src/SGTsh/Makefile src/KernelMaker/Makefile"
 config_headers=" ./config.h"
 config_commands=" depfiles"
 
@@ -470,6 +470,8 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "src/ModelDrawer/Makefile") CONFIG_FILES="$CONFIG_FILES src/ModelDrawer/Makefile" ;;
+    "src/ReadKernel/Makefile") CONFIG_FILES="$CONFIG_FILES src/ReadKernel/Makefile" ;;
     "src/SGTpsv/Makefile") CONFIG_FILES="$CONFIG_FILES src/SGTpsv/Makefile" ;;
     "src/SGTsh/Makefile") CONFIG_FILES="$CONFIG_FILES src/SGTsh/Makefile" ;;
     "src/KernelMaker/Makefile") CONFIG_FILES="$CONFIG_FILES src/KernelMaker/Makefile" ;;
