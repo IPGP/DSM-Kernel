@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.63])
 AC_INIT([DSM Kernel], [1.0.0], [nobuaki@ipgp.fr])
-#AM_INIT_AUTOMAKE([SGTpsv])
+AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([README.md])
 AC_CONFIG_HEADERS([./config.h])
 
@@ -36,7 +36,6 @@ AC_HEADER_STDBOOL
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-                 src/ReadKernel/Makefile
                  src/SGTpsv/Makefile])
 
 
