@@ -6,8 +6,8 @@ CCFLAGS = -O3
 
 # for full vectorization on CURIE, change -xHost to -xAVX (since the frontend node has Nehalem processors, not Sandy Bridge)
 
-#FFLAGS = -O3 -check nobounds -xHost -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
-#FFLAGS = -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
+#FCFLAGS = -O3 -check nobounds -xHost -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
+#FCFLAGS = -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
 
 
 ################################################
@@ -22,13 +22,13 @@ CCFLAGS = -O3
 # I/O throughput lingers at 2.5 MB/s, with it it can increase to ~44 MB/s
 # However it does not make much of a difference on NFS mounted volumes or with SFS 3.1.1 / Lustre 1.6.7.1
 #FC = mpif90
-FFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
+FCFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
 
 # useful for debugging:
-#FFLAGS=    -g -O0 -traceback
-#FFLAGS=    -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -assume byterecl -L/cm/shared/apps/intel/composer_xe/current/compiler/lib/intel64
+#FCFLAGS=    -g -O0 -traceback
+#FCFLAGS=    -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -assume byterecl -L/cm/shared/apps/intel/composer_xe/current/compiler/lib/intel64
 
-#FFLAGS=    -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -assume byterecl
+#FCFLAGS=    -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -assume byterecl
 # change    -vec-report0      to      -vec-report3     to get a vectorization report
 
 ################################################
@@ -36,7 +36,7 @@ FFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -ve
 ################################################
 
 #FC = mpif90
-#FFLAGS = -std=gnu -fimplicit-none -frange-check -O2 -pedantic -pedantic-errors -Waliasing -Wampersand -Wline-truncation -Wsurprising -Wunderflow -fbounds-check
+#FCFLAGS = -std=gnu -fimplicit-none -frange-check -O2 -pedantic -pedantic-errors -Waliasing -Wampersand -Wline-truncation -Wsurprising -Wunderflow -fbounds-check
 
 ################################################
 #   IBM Blue Gene
@@ -57,5 +57,5 @@ FFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -ve
 # options -qreport -qsource -qlist create a *.lst file containing detailed information about vectorization
 #
 #FC = mpixlf95_r
-#FFLAGS = -O4 -qnostrict -qhot -qsimd=auto -qassert=contig -g -Q -qarch=auto -q64 -qfree=f90 -qsuffix=f=f90 -qsuppress=1500-036 -qreport -qsource -qlist
+#FCFLAGS = -O4 -qnostrict -qhot -qsimd=auto -qassert=contig -g -Q -qarch=auto -q64 -qfree=f90 -qsuffix=f=f90 -qsuppress=1500-036 -qreport -qsource -qlist
 

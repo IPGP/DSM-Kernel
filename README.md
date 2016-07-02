@@ -35,13 +35,13 @@ Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) [Finite-frequenc
 ## Authors and Contributors
 All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede
 (@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji
-Kawai, Li Zhao, Sébastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
+Kawai, Li Zhao, Sebastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
 Komatitsch, Marie Calvet, Hiromitsu Mizutani
 
 ## Support or Contact
-Having trouble with DSM Kernel Suit? Check out our
+Having trouble with DSM Kernel Suite? Check out our
 [documentation](http://ipgp.github.io/DSM-Kernel/) or [contact
-support](email:nobuaki@ipgp.fr) and we’ll help you sort it out.
+support](email:nobuaki@ipgp.fr) and we will help you sort it out.
 
 ## Legal info
 DSM Kernel Suite is Free/Libre/Open Source software and available under the
