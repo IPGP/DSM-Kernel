@@ -322,7 +322,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile src/Makefile src/SGTpsv/Makefile"
+config_files=" Makefile src/Makefile src/SGTpsv/Makefile src/SGTsh/Makefile src/KernelMaker/Makefile"
 config_headers=" ./config.h"
 config_commands=" depfiles"
 
@@ -471,6 +471,8 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "src/SGTpsv/Makefile") CONFIG_FILES="$CONFIG_FILES src/SGTpsv/Makefile" ;;
+    "src/SGTsh/Makefile") CONFIG_FILES="$CONFIG_FILES src/SGTsh/Makefile" ;;
+    "src/KernelMaker/Makefile") CONFIG_FILES="$CONFIG_FILES src/KernelMaker/Makefile" ;;
 
   *) { { $as_echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 $as_echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
@@ -541,9 +543,9 @@ S["LIBOBJS"]=""
 S["EGREP"]="/bin/grep -E"
 S["GREP"]="/bin/grep"
 S["CPP"]="gcc -E"
-S["ac_ct_FC"]="mpiifort"
-S["FCFLAGS"]="-g"
-S["FC"]="mpiifort"
+S["ac_ct_FC"]="gfortran"
+S["FCFLAGS"]="-g -O2"
+S["FC"]="gfortran"
 S["am__fastdepCC_FALSE"]="#"
 S["am__fastdepCC_TRUE"]=""
 S["CCDEPMODE"]="depmode=gcc3"

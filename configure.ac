@@ -13,7 +13,7 @@ AC_CONFIG_HEADERS([./config.h])
 
 AC_PROG_CC
 
-AC_PROG_FC([mpiifort mpif90])
+AC_PROG_FC
 #AM_INIT_AUTOMAKE([-O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel])
 
 #AC_SUBST([AM_MAKEFLAGS],[-O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel])
