@@ -10,6 +10,7 @@ DSM Kernel Suite have five independent programmes for each step. If you fetch th
 * wave2kernel : visualisation of SAC files in order to compare them with synthetics and to decide which phase (python, HJ)
 * KernelMaker : 3D Fréchet derivatives calculation (MPI fortran, NF)
 * KernelViewer : 3D Kernel visualisation facilities (python, MM)
+* ModelDrawer : 1D model ASCII file generator from polynomial model file (NF)
 
 recommended requirements:
 * ifort
@@ -19,8 +20,8 @@ optional requirements:
 * VTK
 
 ## Build and Install
-* Make SGTpsv, SGTsh, KernelMaker by configuring `etc/config_calcul/config.h` (compiler options etc.) 
-* Further information will be available in ...
+* Precise compiler options using `etc/config_calcul/config.h` (compiler options etc.) 
+* Now you just have to generate executables by `./configure; make'
 
 ## Examples
  * [single station and event](examples/single_kernel/README.md)
