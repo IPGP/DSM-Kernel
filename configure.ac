@@ -36,7 +36,9 @@ AC_HEADER_STDBOOL
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-                 src/SGTpsv/Makefile])
+                 src/SGTpsv/Makefile
+                 src/SGTsh/Makefile
+		 src/KernelMaker/Makefile])
 
 
 AC_OUTPUT

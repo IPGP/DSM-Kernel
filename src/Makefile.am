@@ -1,2 +1,2 @@
-SUBDIRS = SGTpsv
+SUBDIRS = SGTpsv SGTsh KernelMaker
 
