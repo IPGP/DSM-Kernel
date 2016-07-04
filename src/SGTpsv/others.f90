@@ -5,6 +5,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
   integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
+  character(120) :: commandline
 
   open(unit=1, file=tmpfile,status='unknown')
 100 continue
@@ -35,6 +36,18 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   read(1,*) imin,imax
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
   close(1)
+  
+  ! making directories
+
+  commandline = 'mkdir '//trim(outputDir)
+  call system(commandline)
+  commandline = 'mkdir '//trim(outputDir)//'/RSGT'
+  call system(commandline)
+  commandline = 'mkdir '//trim(outputDir)//'/TSGT'
+  call system(commandline)
+  commandline = 'mkdir '//trim(outputDir)//'/log'
+  
+
 
 end subroutine pinput
 
