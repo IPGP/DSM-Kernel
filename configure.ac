@@ -40,7 +40,16 @@ AC_CONFIG_FILES([Makefile
 		 src/ReadKernel/Makefile
                  src/SGTpsv/Makefile
                  src/SGTsh/Makefile
-		 src/KernelMaker/Makefile])
+		 src/KernelMaker/Makefile
+ 	         examples/global_kernels/database.inf
+                 examples/global_kernels/kernel.inf
+                 examples/innercorekernels/database.inf
+                 examples/innercorekernels/kernel.inf
+                 examples/multiple_kernels/database.inf
+                 examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf
+                 examples/single_kernel/database.inf
+                 examples/single_kernel/kernel.inf
+])
 
 
 AC_OUTPUT

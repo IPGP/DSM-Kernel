@@ -34,8 +34,16 @@ POST_UNINSTALL = :
 subdir = .
 DIST_COMMON = $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/configure COPYING INSTALL depcomp install-sh \
-	missing
+	$(top_srcdir)/configure \
+	$(top_srcdir)/examples/global_kernels/database.inf.in \
+	$(top_srcdir)/examples/global_kernels/kernel.inf.in \
+	$(top_srcdir)/examples/innercorekernels/database.inf.in \
+	$(top_srcdir)/examples/innercorekernels/kernel.inf.in \
+	$(top_srcdir)/examples/multiple_kernels/database.inf.in \
+	$(top_srcdir)/examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf.in \
+	$(top_srcdir)/examples/single_kernel/database.inf.in \
+	$(top_srcdir)/examples/single_kernel/kernel.inf.in COPYING \
+	INSTALL depcomp install-sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -44,7 +52,14 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = examples/global_kernels/database.inf \
+	examples/global_kernels/kernel.inf \
+	examples/innercorekernels/database.inf \
+	examples/innercorekernels/kernel.inf \
+	examples/multiple_kernels/database.inf \
+	examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf \
+	examples/single_kernel/database.inf \
+	examples/single_kernel/kernel.inf
 CONFIG_CLEAN_VPATH_FILES =
 SOURCES =
 DIST_SOURCES =
@@ -188,7 +203,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = src
+SUBDIRS = src examples
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -244,6 +259,22 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
+examples/global_kernels/database.inf: $(top_builddir)/config.status $(top_srcdir)/examples/global_kernels/database.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+examples/global_kernels/kernel.inf: $(top_builddir)/config.status $(top_srcdir)/examples/global_kernels/kernel.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+examples/innercorekernels/database.inf: $(top_builddir)/config.status $(top_srcdir)/examples/innercorekernels/database.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+examples/innercorekernels/kernel.inf: $(top_builddir)/config.status $(top_srcdir)/examples/innercorekernels/kernel.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+examples/multiple_kernels/database.inf: $(top_builddir)/config.status $(top_srcdir)/examples/multiple_kernels/database.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf: $(top_builddir)/config.status $(top_srcdir)/examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+examples/single_kernel/database.inf: $(top_builddir)/config.status $(top_srcdir)/examples/single_kernel/database.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+examples/single_kernel/kernel.inf: $(top_builddir)/config.status $(top_srcdir)/examples/single_kernel/kernel.inf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
