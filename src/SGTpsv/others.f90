@@ -495,7 +495,7 @@ subroutine calra( maxnlay,maxnslay,maxnllay,maxnzone,maxnstack,nlayer,inlayer,jn
            if( (ra(itmp).lt.rsta(ista)).and.(rsta(ista).le.ra(itmp+1)) ) then
               if(i.ne.nnl(izone)) then
                  istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) pause 'rsta is in liquid layer. (calra)'
+                 if(iphase(istazone(ista)).eq.2)  pause 'rsta is in liquid layer. (calra)'
                  rrsta(1,ista) = ra(itmp)
                  rrsta(2,ista) = ra(itmp+1)
                  rrsta(3,ista) = ra(itmp+2)
