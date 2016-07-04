@@ -1,6 +1,6 @@
 CC=icc
-AM_FC=mpif90
-#AM_FC=mpiifort
+#AM_FC=mpif90
+FC=mpiifort
 CCFLAGS = -O3
 # for debugging: change -O3 -check nobounds to      -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv
 
@@ -22,8 +22,8 @@ CCFLAGS = -O3
 # I/O throughput lingers at 2.5 MB/s, with it it can increase to ~44 MB/s
 # However it does not make much of a difference on NFS mounted volumes or with SFS 3.1.1 / Lustre 1.6.7.1
 #AM_FC = mpif90
-#AM_FCFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
-AM_FCFLAGS = -O0 -ffree-line-length-none
+AM_FCFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
+#AM_FCFLAGS = -O0 -ffree-line-length-none
 
 # useful for debugging:
 #AM_FCFLAGS=    -g -O0 -traceback
