@@ -322,7 +322,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile src/Makefile src/ModelDrawer/Makefile src/ReadKernel/Makefile src/SGTpsv/Makefile src/SGTsh/Makefile src/KernelMaker/Makefile examples/global_kernels/database.inf"
+config_files=" Makefile src/Makefile src/ModelDrawer/Makefile src/ReadKernel/Makefile src/SGTpsv/Makefile src/SGTsh/Makefile src/KernelMaker/Makefile examples/global_kernels/database.inf examples/global_kernels/kernel.inf examples/innercorekernels/database.inf examples/innercorekernels/kernel.inf examples/multiple_kernels/database.inf examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf examples/single_kernel/database.inf examples/single_kernel/kernel.inf"
 config_headers=" ./config.h"
 config_commands=" depfiles"
 
@@ -476,6 +476,13 @@ do
     "src/SGTsh/Makefile") CONFIG_FILES="$CONFIG_FILES src/SGTsh/Makefile" ;;
     "src/KernelMaker/Makefile") CONFIG_FILES="$CONFIG_FILES src/KernelMaker/Makefile" ;;
     "examples/global_kernels/database.inf") CONFIG_FILES="$CONFIG_FILES examples/global_kernels/database.inf" ;;
+    "examples/global_kernels/kernel.inf") CONFIG_FILES="$CONFIG_FILES examples/global_kernels/kernel.inf" ;;
+    "examples/innercorekernels/database.inf") CONFIG_FILES="$CONFIG_FILES examples/innercorekernels/database.inf" ;;
+    "examples/innercorekernels/kernel.inf") CONFIG_FILES="$CONFIG_FILES examples/innercorekernels/kernel.inf" ;;
+    "examples/multiple_kernels/database.inf") CONFIG_FILES="$CONFIG_FILES examples/multiple_kernels/database.inf" ;;
+    "examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf") CONFIG_FILES="$CONFIG_FILES examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf" ;;
+    "examples/single_kernel/database.inf") CONFIG_FILES="$CONFIG_FILES examples/single_kernel/database.inf" ;;
+    "examples/single_kernel/kernel.inf") CONFIG_FILES="$CONFIG_FILES examples/single_kernel/kernel.inf" ;;
 
   *) { { $as_echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 $as_echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
