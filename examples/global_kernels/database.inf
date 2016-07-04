@@ -2,9 +2,9 @@
 # 0. DSM configuration file
 /home/nobuaki/gpfs/git/DSM-Kernel/etc/DSMconfiguration/DSM.config 
 # 1. outputDir
-/home/nobuaki/gpfs/data/highfreqglobal/
+/home/nobuaki/gpfs/data/highfreqglobal2/
 # 2. psvmodel
-/home/nobuaki/gpfs/git/DSM-Kernel/etc/models/ak135.PREM.model
+/home/nobuaki/gpfs/git/DSM-Kernel/etc/models/ak135.psv.model
 # 3. modelname
 PREM
 # 4. tlen (preferred to be set as 2^n*0.1 seconds
