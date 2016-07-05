@@ -658,34 +658,49 @@ program  SGTpsv
                           
                           call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                           call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
+                     
                           
-                          ! NF introduces liquid terms (this should be done more efficiently)                      
-                          
-                          !if(iphase(istazone(ista)).eq.2) then
-                          if(0.eq.1) then
+                          if(log_solid_liquid(ir_)) then
+                             
+                             do itheta = 1, theta_n
+                                u = cmplx(0.d0)
+                                udr = cmplx(0.d0)
+                                udt = cmplx(0.d0)
+                                udp = cmplx(0.d0)
+                                uder = cmplx(0.d0)
+                                call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
+                                call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
+                                call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
+                                call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
+                                call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
+                                
+                             enddo
+                             
+                             
+                          elseif
+
+                                  
+                             ! NF introduces liquid terms (this should be done more efficiently)                      
+                             
                              ! NF will write like \omega*g0tmp(1)/\lambda
                              
-                             else
+                             do itheta = 1,theta_n
                                 
+                                uder = cmplx(0.d0)
+                                uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                uder(2,2) = uder(1,1)
+                                uder(3,3) = uder(1,1)
+
+                                call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
                                 
-                                
-                                do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0)
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
-                                   call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
-                                   call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
-                                   call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
-                                   call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
-                                   call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
-                                   call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
-                                   
-                                enddo
-                                
-                                
-                             endif
+                             enddo
+
+
+                          endif
+                             
+                             
+                             
                        enddo
                     enddo ! imt-loop
             
@@ -703,19 +718,43 @@ program  SGTpsv
                              g0dertmp = cmplx(0.d0)
                              call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                              call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
-                             do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0) 
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
-                                call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
-                                call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
-                                call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
-                                call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
-                                call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
-                                call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
-                             enddo
+                             
+                             if(log_solid_liquid(ir_)) then
+
+                                do itheta = 1, theta_n
+                                   u = cmplx(0.d0)
+                                   udr = cmplx(0.d0)
+                                   udt = cmplx(0.d0) 
+                                   udp = cmplx(0.d0)
+                                   uder = cmplx(0.d0)
+                                   call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
+                                   call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
+                                   call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
+                                   call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
+                                   call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                enddo
+
+                             elseif
+
+                                ! NF introduces liquid terms (this should be done more efficiently)                      
+                                
+                                ! NF will write like \omega*g0tmp(1)/\lambda
+                                
+                                do itheta = 1,theta_n
+                                   
+                                   uder = cmplx(0.d0)
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(2,2) = uder(1,1)
+                                   uder(3,3) = uder(1,1)
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                   
+                                enddo
+             
+                             endif
+
+                             
+                             
                           enddo
                        enddo
                     endif
@@ -734,19 +773,40 @@ program  SGTpsv
                              g0dertmp = cmplx(0.d0)
                              call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                              call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
-                             do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0) 
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
-                                call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
-                                call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
-                                call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
-                                call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
-                                call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
-                                call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
-                             enddo
+                             
+                             if(log_solid_liquid(ir_)) then
+                                
+                                do itheta = 1, theta_n
+                                   u = cmplx(0.d0)
+                                   udr = cmplx(0.d0)
+                                   udt = cmplx(0.d0) 
+                                   udp = cmplx(0.d0)
+                                   uder = cmplx(0.d0)
+                                   call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
+                                   call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
+                                   call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
+                                   call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
+                                   call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                enddo
+                                
+                             elseif
+
+                                ! NF introduces liquid terms (this should be done more efficiently)                      
+                                
+                                ! NF will write like \omega*g0tmp(1)/\lambda
+                                
+                                do itheta = 1,theta_n
+                                   
+                                   uder = cmplx(0.d0)
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(2,2) = uder(1,1)
+                                   uder(3,3) = uder(1,1)
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                   
+                                enddo
+
+                             endif
                           enddo
                        enddo
                     endif
@@ -801,22 +861,49 @@ program  SGTpsv
                           g0dertmp = cmplx(0.d0)
                           call interpolate( 2,0,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0tmp(1:2))
                           call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
-                          do itheta = 1, theta_n
-                             u = cmplx(0.d0)
-                             udr = cmplx(0.d0)
-                             udt = cmplx(0.d0)
-                             udp = cmplx(0.d0)
-                             uder = cmplx(0.d0)
-                             call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
-                             call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
-                             call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
-                             call calup(g0tmp(1),g0tmp(2),lsq,dvecdp0(1:3,m,itheta),udp(1:3))
-                             call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+
+                          if(log_solid_liquid(ir_)) then
                           
-                             call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
-                           
-               
-                          enddo
+                             do itheta = 1, theta_n
+                                u = cmplx(0.d0)
+                                udr = cmplx(0.d0)
+                                udt = cmplx(0.d0)
+                                udp = cmplx(0.d0)
+                                uder = cmplx(0.d0)
+                                call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
+                                call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
+                                call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
+                                call calup(g0tmp(1),g0tmp(2),lsq,dvecdp0(1:3,m,itheta),udp(1:3))
+                                call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                
+                                call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
+                                
+                                
+                             enddo
+
+                          elseif
+
+                             ! NF introduces liquid terms (this should be done more efficiently)                      
+                             
+                             ! NF will write like \omega*g0tmp(1)/\lambda
+                             
+                             do itheta = 1,theta_n
+                                
+                                uder = cmplx(0.d0)
+                                uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                uder(2,2) = uder(1,1)
+                                uder(3,3) = uder(1,1)
+                                
+                                call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
+                                
+                             enddo
+
+
+
+
+                          endif
+
+
                        enddo   ! stack point
                     enddo ! mt-loop
 
@@ -835,19 +922,44 @@ program  SGTpsv
                              g0dertmp = cmplx(0.d0)
                              call interpolate( 2,0,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0tmp(1:2))
                              call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
-                             do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0)
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
-                                call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
-                                call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
-                                call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
-                                call calup(g0tmp(1),g0tmp(2),lsq,dvecdp0(1:3,m,itheta),udp(1:3))
-                                call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
-                                call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
-                             enddo
+
+
+                             if(log_solid_liquid(ir_)) then
+
+                                do itheta = 1, theta_n
+                                   u = cmplx(0.d0)
+                                   udr = cmplx(0.d0)
+                                   udt = cmplx(0.d0)
+                                   udp = cmplx(0.d0)
+                                   uder = cmplx(0.d0)
+                                   call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
+                                   call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
+                                   call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
+                                   call calup(g0tmp(1),g0tmp(2),lsq,dvecdp0(1:3,m,itheta),udp(1:3))
+                                   call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                enddo
+                                
+                             elseif
+                                
+                                ! NF introduces liquid terms (this should be done more efficiently)                      
+                                
+                                ! NF will write like \omega*g0tmp(1)/\lambda
+                                
+                                do itheta = 1,theta_n
+                                   
+                                   uder = cmplx(0.d0)
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(2,2) = uder(1,1)
+                                   uder(3,3) = uder(1,1)
+                                   
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                enddo
+                                   
+                             endif
+
+
+
                           enddo
                        enddo
                     endif
@@ -865,19 +977,40 @@ program  SGTpsv
                              g0dertmp = cmplx(0.d0)
                              call interpolate( 2,0,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0tmp(1:2))
                              call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
-                             do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0)
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
-                                call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
-                                call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
-                                call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
-                                call calup(g0tmp(1),g0tmp(2),lsq,dvecdp0(1:3,m,itheta),udp(1:3))
-                                call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
-                                call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
-                             enddo
+                             
+                             if(log_solid_liquid(ir_)) then
+                             
+                                do itheta = 1, theta_n
+                                   u = cmplx(0.d0)
+                                   udr = cmplx(0.d0)
+                                   udt = cmplx(0.d0)
+                                   udp = cmplx(0.d0)
+                                   uder = cmplx(0.d0)
+                                   call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
+                                   call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
+                                   call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
+                                   call calup(g0tmp(1),g0tmp(2),lsq,dvecdp0(1:3,m,itheta),udp(1:3))
+                                   call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                enddo
+                                
+                             elseif
+                                
+                                ! NF introduces liquid terms (this should be done more efficiently)                      
+                                
+                                ! NF will write like \omega*g0tmp(1)/\lambda
+                                
+                                do itheta = 1,theta_n
+                                   
+                                   uder = cmplx(0.d0)
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(2,2) = uder(1,1)
+                                   uder(3,3) = uder(1,1)
+                                   call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+                                enddo                                                                
+                             endif
+
+
                           enddo
                        enddo
                     endif
