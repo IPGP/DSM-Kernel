@@ -27,7 +27,6 @@ program  SGTpsv
   call MPI_COMM_RANK(MPI_COMM_WORLD,my_rank,ierr)
   
 
-
   if(my_rank.eq.0) then 
 
      call pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
