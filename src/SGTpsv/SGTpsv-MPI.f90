@@ -125,7 +125,7 @@ program  SGTpsv
   call MPI_BCAST(r_n,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
   allocate(r_(1:r_n))
-  allocate(log_solid_fluid(1:r_n))
+  allocate(log_solid_liquid(1:r_n))
   allocate(rrsta(1:3,1:r_n))
   allocate(iista(1:3,1:r_n))
   allocate(istazone(1:r_n))
