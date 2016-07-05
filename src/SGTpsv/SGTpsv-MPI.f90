@@ -4,7 +4,7 @@ program  SGTpsv
   !-----------------------------------------------------------------------
   !      SGTpsv
   !
-  !  
+  !   kyo no seminar omorokatta 
   !   
   !
   !    calculation de la fonction de Green pour l'inversion des ondes PSV
