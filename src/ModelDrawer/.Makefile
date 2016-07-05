@@ -16,4 +16,4 @@ $(program): $(objs)
 
 .PHONY: clean
 clean:
-	rm $(program) $(objs)  
+	rm $(program) $(objs) *.mod 

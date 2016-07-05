@@ -10,6 +10,7 @@ DSM Kernel Suite have five independent programmes for each step. If you fetch th
 * wave2kernel : visualisation of SAC files in order to compare them with synthetics and to decide which phase (python, HJ)
 * KernelMaker : 3D Fréchet derivatives calculation (MPI fortran, NF)
 * KernelViewer : 3D Kernel visualisation facilities (python, MM)
+* ModelDrawer : 1D model ASCII file generator from polynomial model file (NF)
 
 recommended requirements:
 * ifort
@@ -19,8 +20,8 @@ optional requirements:
 * VTK
 
 ## Build and Install
-* Make SGTpsv, SGTsh, KernelMaker by configuring `etc/config_calcul/config.h` (compiler options etc.) 
-* Further information will be available in ...
+* Precise compiler options using `etc/config_calcul/config.h` (compiler options etc.) 
+* Now you just have to generate executables by `./configure; make'
 
 ## Examples
  * [single station and event](examples/single_kernel/README.md)
@@ -35,13 +36,13 @@ Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) [Finite-frequenc
 ## Authors and Contributors
 All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede
 (@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji
-Kawai, Li Zhao, Sébastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
+Kawai, Li Zhao, Sebastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
 Komatitsch, Marie Calvet, Hiromitsu Mizutani
 
 ## Support or Contact
-Having trouble with DSM Kernel Suit? Check out our
+Having trouble with DSM Kernel Suite? Check out our
 [documentation](http://ipgp.github.io/DSM-Kernel/) or [contact
-support](email:nobuaki@ipgp.fr) and we’ll help you sort it out.
+support](email:nobuaki@ipgp.fr) and we will help you sort it out.
 
 ## Legal info
 DSM Kernel Suite is Free/Libre/Open Source software and available under the

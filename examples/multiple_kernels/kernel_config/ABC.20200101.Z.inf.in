@@ -1,15 +1,15 @@
 # 0a. Green function database information file (for a certain depth only for the instance)
-ehzfoi
+@abs_top_builddir@/examples/multiple_kernels/database.inf 
 # 0b. output directory (parentdir)
-oifeh
+[parentdir]
 # 1a. event name
-20071031
+20200101
 # 1b. event latitude, longitude, depth (however, interpolation for depths won't be performed)
 18.87, 145.6, 214.0
 # 1c. Mrr, Mtt, Mpp, Mrt, Mrp, Mtp
 1.0 1.0 0.0 1.0 0.0 1.0
 # 2a. station name
-ABU
+ABC
 # 2b. station latitude, longitude
 34.8635, 135.571
 # 3. phase name
@@ -19,18 +19,20 @@ Z
 # 5. seismic parameter (alpha, beta, or all for this version)
 #    if you choose "test" the program will only give you the synthetic
 #          (fort.13 in your directory too)
+alpha
 # 6a. Butterworth filter (if 1 on; if 0 off)
+1
 # 6b. filter name (mandatory even if 6a. =0 )
-
+filter01
 # 6c. if butterworth = 1; lowest freq., highest freq., number of poles
 #     if butterworth = 0; just comment out those parameters (subroutine won't read them)
-#
+0.005,0.05,4
 # 7. time window t1, t2, t3, t4 
 #  (if t1=t2 and t3=t4, fwin(:) will be rectangular)
 #  (normally taper functions are sine functions)
-, , , 
+600, 601,604,605
 # 8. itranslat (1 if you convert geodetic latitude to geocentric latitude)
-
+1
 #
 #
 #  Below are minor parameters for kernel calculations

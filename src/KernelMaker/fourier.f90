@@ -360,53 +360,53 @@ subroutine tsgt2h4freq
 
   h4(1,fmin:fmax)=tsgtF(1,fmin:fmax)*mt(1)+(tmph05(fmin:fmax)-tsgtF(2,fmin:fmax))*mt(2)+&
        (-tmph05(fmin:fmax)-tsgtF(2,fmin:fmax))*mt(3) &
-       -2.d0*tsgtF(5,fmin:fmax)*(cqs(ip,ith)*mt(4)+sqs(ip,ith)*mt(5)) &
-       +2.d0*tsgtF(9,fmin:fmax)*sqs2(ip,ith)*mt(6)
+       -tsgtF(5,fmin:fmax)*(cqs(ip,ith)*mt(4)+sqs(ip,ith)*mt(5)) &
+       +tsgtF(9,fmin:fmax)*sqs2(ip,ith)*mt(6)
 	  
   !   tt component.
   
   h4(2,fmin:fmax)=(tmph06(fmin:fmax)-tsgtF(3,fmin:fmax))*mt(1) & 
        +(tmph21(fmin:fmax)+tmph19(fmin:fmax)-tmph07(fmin:fmax)-tmph09(fmin:fmax)+tsgtF(4,fmin:fmax))*mt(2) &
        +(-tmph21(fmin:fmax)-tmph19(fmin:fmax)-tmph07(fmin:fmax)+tmph09(fmin:fmax)+tsgtF(4,fmin:fmax))*mt(3) &
-       +2.d0*(tmph23(fmin:fmax)-tmph15(fmin:fmax)+tmph01(fmin:fmax))*mt(4) &
-       +2.d0*(-tmph24(fmin:fmax)-tmph16(fmin:fmax)+tmph02(fmin:fmax))*mt(5) &
-       +2.d0*(-tmph22(fmin:fmax)+tmph20(fmin:fmax)-tmph10(fmin:fmax))*mt(6)
+       +(tmph23(fmin:fmax)-tmph15(fmin:fmax)+tmph01(fmin:fmax))*mt(4) &
+       +(-tmph24(fmin:fmax)-tmph16(fmin:fmax)+tmph02(fmin:fmax))*mt(5) &
+       +(-tmph22(fmin:fmax)+tmph20(fmin:fmax)-tmph10(fmin:fmax))*mt(6)
      
   !   pp component. 
 
   h4(3,fmin:fmax)=(-tmph06(fmin:fmax)-tsgtF(3,fmin:fmax))*mt(1) &
        +(-tmph21(fmin:fmax)-tmph19(fmin:fmax)+tmph07(fmin:fmax)-tmph09(fmin:fmax)+tsgtF(4,fmin:fmax))*mt(2) &
        +(tmph21(fmin:fmax)+tmph19(fmin:fmax)+tmph07(fmin:fmax)+tmph09(fmin:fmax)+tsgtF(4,fmin:fmax))*mt(3) &
-       +2.d0*(-tmph23(fmin:fmax)+tmph15(fmin:fmax)+tmph01(fmin:fmax))*mt(4) &
-       +2.d0*(tmph24(fmin:fmax)+tmph16(fmin:fmax)+tmph02(fmin:fmax))*mt(5) &
-       +2.d0*(tmph22(fmin:fmax)-tmph20(fmin:fmax)-tmph10(fmin:fmax))*mt(6)
+       +(-tmph23(fmin:fmax)+tmph15(fmin:fmax)+tmph01(fmin:fmax))*mt(4) &
+       +(tmph24(fmin:fmax)+tmph16(fmin:fmax)+tmph02(fmin:fmax))*mt(5) &
+       +(tmph22(fmin:fmax)-tmph20(fmin:fmax)-tmph10(fmin:fmax))*mt(6)
      
   !   rt component. 
 
   h4(4,fmin:fmax)=-tsgtF(6,fmin:fmax)*csq(ip,ith)*mt(1) &
        +(tmph25(fmin:fmax)-tmph17(fmin:fmax)+tmph03(fmin:fmax))*mt(2) &
        +(-tmph25(fmin:fmax)+tmph17(fmin:fmax)+tmph03(fmin:fmax))*mt(3) &
-       +2.d0*(-tmph13(fmin:fmax)+tmph11(fmin:fmax))*mt(4) &
-       +2.d0*(tmph14(fmin:fmax)+tmph12(fmin:fmax))*mt(5) &
-       +2.d0*(-tmph26(fmin:fmax)-tmph18(fmin:fmax))*mt(6)
+       +(-tmph13(fmin:fmax)+tmph11(fmin:fmax))*mt(4) &
+       +(tmph14(fmin:fmax)+tmph12(fmin:fmax))*mt(5) &
+       +(-tmph26(fmin:fmax)-tmph18(fmin:fmax))*mt(6)
      
   !   rp component 
 
   h4(5,fmin:fmax)=(-tsgtF(6,fmin:fmax)*ssq(ip,ith))*mt(1) &
        +(tmph26(fmin:fmax)-tmph18(fmin:fmax)+tmph04(fmin:fmax))*mt(2) &
        +(-tmph26(fmin:fmax)+tmph18(fmin:fmax)+tmph04(fmin:fmax))*mt(3) &
-       +2.d0*(-tmph14(fmin:fmax)+tmph12(fmin:fmax))*mt(4) &
-       +2.d0*(-tmph13(fmin:fmax)-tmph11(fmin:fmax))*mt(5) &
-       +2.d0*(tmph25(fmin:fmax)+tmph17(fmin:fmax))*mt(6)
+       +(-tmph14(fmin:fmax)+tmph12(fmin:fmax))*mt(4) &
+       +(-tmph13(fmin:fmax)-tmph11(fmin:fmax))*mt(5) &
+       +(tmph25(fmin:fmax)+tmph17(fmin:fmax))*mt(6)
      
   !   tp component. 
 
   h4(6,fmin:fmax)=tsgtF(10,fmin:fmax)*ssq2(ip,ith)*mt(1) &
        +(tmph22(fmin:fmax)+tmph20(fmin:fmax)-tmph08(fmin:fmax))*mt(2) &
        +(-tmph22(fmin:fmax)-tmph20(fmin:fmax)-tmph08(fmin:fmax))*mt(3) &
-       +2.d0*(tmph24(fmin:fmax)-tmph16(fmin:fmax))*mt(4) &
-       +2.d0*(tmph23(fmin:fmax)+tmph15(fmin:fmax))*mt(5) &
-       +2.d0*(tmph21(fmin:fmax)-tmph19(fmin:fmax))*mt(6)
+       +(tmph24(fmin:fmax)-tmph16(fmin:fmax))*mt(4) &
+       +(tmph23(fmin:fmax)+tmph15(fmin:fmax))*mt(5) &
+       +(tmph21(fmin:fmax)-tmph19(fmin:fmax))*mt(6)
 
   return
 end subroutine tsgt2h4freq

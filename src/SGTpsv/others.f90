@@ -5,6 +5,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
   integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
+  character(120) :: commandline
 
   open(unit=1, file=tmpfile,status='unknown')
 100 continue
@@ -35,6 +36,18 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   read(1,*) imin,imax
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
   close(1)
+  
+  ! making directories
+
+  commandline = 'mkdir '//trim(outputDir)
+  call system(commandline)
+  commandline = 'mkdir '//trim(outputDir)//'/RSGT'
+  call system(commandline)
+  commandline = 'mkdir '//trim(outputDir)//'/TSGT'
+  call system(commandline)
+  commandline = 'mkdir '//trim(outputDir)//'/log'
+  
+
 
 end subroutine pinput
 
@@ -405,224 +418,6 @@ subroutine calgrid( nzone,vrmin,vrmax,vp,vs,rmin,rmax, imax,lmin,tlen,vmin,gridp
   return
 end subroutine calgrid
 
-
-!
-
-subroutine calra( maxnlay,maxnslay,maxnllay,maxnzone,maxnstack,nlayer,inlayer,jnlayer,jnslay,jnllay,gridpar,dzpar,nzone,vrmin,vrmax,iphase,rmin,rmax,nslay,nllay,nnl,ra,re, nsta,rsta,rrsta,istazone,iista,r0,cista) 
-  ! Computing the number and the location of grid points.
-  
-  implicit none
-  real(kind(0d0)), parameter:: pi=3.1415926535897932d0 
-  integer:: maxnlay,maxnslay,maxnllay,maxnzone,maxnstack
-  integer:: nlayer,inlayer,jnlayer,jnslay,jnllay
-  integer:: nzone,iphase(*),nslay,nllay,nnl(maxnzone)
-  real(kind(0d0)):: gridpar(*),dzpar(*),vrmin(*),vrmax(*),rmin,rmax,r0
-  real(kind(0d0)):: ra(maxnlay+maxnzone+1)
-  integer:: izone,itmp,i,ntmp
-  real(kind(0d0)):: rh,re    
-  integer:: nsta
-  real(kind(0d0)):: rsta(maxnstack),rrsta(3,maxnstack)
-  real(kind(0d0)):: ctmp               ! distance betwee source and the nearst
-  integer:: istazone(maxnstack)
-  integer:: iista(3,maxnstack)
-  integer:: ista,j,cista
-
-  ctmp = 7000.d0
-  ! Initializing the data
-  nslay = 0
-  nllay = 0
-  inlayer = 0
-  do i=1,maxnlay+maxnzone+1
-     ra(i) = 0.d0
-  enddo
-  do izone=1,nzone
-     nnl(izone) = 0
-  enddo
-  jnlayer = 0
-  jnslay = 0
-  jnllay = 0
-  do i=1,maxnstack
-     do j=1,3
-        rrsta(j,i) = 0.d0
-        iista(j,i) = 0
-     enddo
-  enddo
-  
-  do i=1,maxnstack
-     istazone(i) = 0
-  enddo
-  ! computing the number and the location of the grid points
-  ra(1) = rmin
-  itmp = 1
-  do izone=1,nzone
-     rh = vrmax(izone) - vrmin(izone)
-     if(dzpar(izone).eq.0.d0) then
-        ntmp = 1
-     else
-        ntmp = int( sqrt(3.3d0 / re ) * rh / dzpar(izone) / 2.d0 / pi  / 7.d-1 + 1 )
-     endif
-     !                            ! ntmp (see Geller & Takeuchi 1995 6.2)
-     nnl(izone) = ntmp
-     if ( nnl(izone).lt.5 ) nnl(izone)=5
-     if ( iphase(izone).eq.1 ) nslay = nslay + nnl(izone)
-     if ( nslay.gt.maxnslay )  pause  'nslay is too large. (calra)'
-     if ( iphase(izone).eq.2 ) nllay = nllay + nnl(izone)
-     if ( nllay.gt.maxnllay )  pause  'nllay is too large. (calra)'
-     do I=1,nnl(izone)
-        itmp = itmp + 1
-        if ( itmp.gt.maxnlay ) pause  'nlay is too large. (calra)'
-        ra(itmp) = vrmin(izone) + rh * dble(i) / dble( nnl(izone) )
-     enddo
-  enddo
-  
-  itmp = 1
-  do izone=1,nzone
-     do i=1,nnl(izone)
-        do ista=1,nsta
-           if( (ra(itmp).lt.rsta(ista)).and.(rsta(ista).le.ra(itmp+1)) ) then
-              if(i.ne.nnl(izone)) then
-                 istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) pause 'rsta is in liquid layer. (calra)'
-                 rrsta(1,ista) = ra(itmp)
-                 rrsta(2,ista) = ra(itmp+1)
-                 rrsta(3,ista) = ra(itmp+2)
-                     
-                 iista(1,ista) = i
-                 iista(2,ista) = i + 1
-                 iista(3,ista) = i + 2
-              else
-                 istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) pause 'rsta is in liquid layer. (calra)'
-                 rrsta(1,ista) = ra(itmp-1) 
-                 rrsta(2,ista) = ra(itmp) 
-                 rrsta(3,ista) = ra(itmp+1)
-                     
-                 iista(1,ista) = i - 1 
-                 iista(2,ista) = i 
-                 iista(3,ista) = i + 1
-              endif
-              if(dabs(r0-rsta(ista)).lt.ctmp) then
-                 cista = ista
-                 ctmp = dabs(r0-rsta(ista))
-              endif
-           endif
-        enddo
-        itmp = itmp + 1
-     enddo
-  enddo
-
-  ! recouting the total number of grid points
-  inlayer = 0
-  do izone=1,nzone
-     inlayer = inlayer + nnl(izone)
-  enddo
-  jnlayer = jnlayer + inlayer
-  jnslay  = jnslay  + nslay
-  jnllay  = jnllay  + nllay
-  
-  return
-end subroutine calra
-
-!
-
-
-subroutine calra2( maxnlay,maxnzone,maxnstack,nlayer,inlayer,jnlayer,jnslay,jnllay,gridpar,nzone,vrmin,vrmax,iphase, rmin,rmax,r0,nslay,nllay,nnl,ra, nsta,rsta,rrsta,istazone,iista) 
-  ! Computing the number and the location of grid points.
-  
-  implicit none
-  integer:: maxnlay,maxnzone,maxnstack
-  integer:: nlayer,inlayer,jnlayer,jnslay,jnllay
-  integer:: nzone,iphase(*),nslay,nllay,nnl(maxnzone)
-  real(kind(0d0)):: gridpar(*),vrmin(*),vrmax(*),rmin,rmax,r0
-  real(kind(0d0)):: ra(maxnlay+maxnzone+1)
-  integer:: izone,itmp,i
-  real(kind(0d0)):: rh
-  
-  integer:: nsta
-  real(kind(0d0)):: rsta(maxnstack),rrsta(3,maxnstack)
-  integer:: istazone(maxnstack)
-  integer:: iista(3,maxnstack)
-  integer:: ista,j
-
-  ! Initializing the data
-  nslay = 0
-  nllay = 0
-  inlayer = 0
-  do i=1,maxnlay+maxnzone+1
-     ra(i) = 0.d0
-  enddo
-  do izone=1,nzone
-     nnl(izone) = 0
-  enddo
-  do i=1,maxnstack
-     do j=1,3
-        rrsta(j,i) = 0.d0
-        iista(j,i) = 0
-     enddo
-  enddo
-  do i=1,maxnstack
-     istazone(i) = 0
-  enddo
-  jnlayer = 0
-  jnslay = 0
-  jnllay = 0
-
-  !     computing the number and the location of the grid points
-  ra(1) = rmin
-  itmp = 1
-  do izone=1,nzone
-     rh = vrmax(izone) - vrmin(izone)
-     nnl(izone) = dint( dble(nlayer) * gridpar(izone) )+ 1
-     if ( nnl(izone).lt.5 ) nnl(izone)=5
-     if ( iphase(izone).eq.1 ) nslay = nslay + nnl(izone)
-     if ( iphase(izone).eq.2 ) nllay = nllay + nnl(izone)
-     do i=1,nnl(izone)
-        itmp = itmp + 1
-        ra(itmp) = vrmin(izone) + rh * dble(i) / dble( nnl(izone) )
-     enddo
-  enddo
-  itmp = 1
-  do izone=1,nzone
-     do i=1,nnl(izone)
-        do ista=1,nsta
-           if( (ra(itmp).lt.rsta(ista)).and.(rsta(ista).le.ra(itmp+1)) ) then
-              if(i.ne.nnl(izone)) then
-                 istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) pause 'rsta is in liquid layer. (calra)'
-                 rrsta(1,ista) = ra(itmp)
-                 rrsta(2,ista) = ra(itmp+1)
-                 rrsta(3,ista) = ra(itmp+2)
-                     
-                 iista(1,ista) = i
-                 iista(2,ista) = i + 1
-                 iista(3,ista) = i + 2
-              else
-                 istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) pause 'rsta is in liquid layer. (calra)'
-                 rrsta(1,ista) = ra(itmp-1) 
-                 rrsta(2,ista) = ra(itmp) 
-                 rrsta(3,ista) = ra(itmp+1)
-                      
-                 iista(1,ista) = i - 1 
-                 iista(2,ista) = i 
-                 iista(3,ista) = i + 1
-              endif
-           endif
-        enddo
-        itmp = itmp + 1
-     enddo
-  enddo
-  ! recouting the total number of grid points
-  inlayer = 0
-  do izone=1,nzone
-     inlayer = inlayer + nnl(izone)
-  enddo
-  jnlayer = jnlayer + inlayer
-  jnslay  = jnslay  + nslay
-  jnllay  = jnllay  + nllay
-  
-  return
-end subroutine calra2
 
 !
 
@@ -1330,7 +1125,7 @@ end subroutine callsuf
 !
 
 subroutine calra_psv(nlayer,inlayer,jnlayer,jnslay,jnllay,gridpar,dzpar,nzone,vrmin,vrmax,iphase,rmin,rmax,nslay,nllay,nnl,re )
-
+  
   implicit none
   real(kind(0d0)), parameter :: pi=3.1415926535897932d0 
   integer :: nlayer,inlayer,jnlayer,jnslay,jnllay
@@ -1381,7 +1176,7 @@ end subroutine calra_psv
 
 !
 
-subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re,nsta, rsta, rrsta, iista, rs, cista,iphase,istazone,ciista)
+subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re,nsta, rsta, rrsta, iista,log_solid_liquid ,rs, cista,iphase,istazone,ciista)
 
   implicit none
   real(kind(0d0)), parameter :: pi=3.1415926535897932d0 
@@ -1392,6 +1187,7 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
   real(kind(0d0)) :: rsta(1:nsta),rrsta(1:3,1:nsta)
   real(kind(0d0)) :: rh,re,rs,ctmp
   real(kind(0d0)) :: chikasa
+  logical :: log_solid_liquid(1:nsta)
   integer :: iphase(*),istazone(1:nsta),ciista
   
   chikasa = 0.d0
@@ -1420,7 +1216,8 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
            if( (ra(itmp).lt.rsta(ista)) .and.(rsta(ista).le.ra(itmp+1))) then
               if(i.ne.nnl(izone)) then
                  istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) pause 'rsta is in liquid layer (calra2_psv)'
+                 if(iphase(istazone(ista)).eq.2) log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'
+                 log_solid_liquid(ista) = .true.
                  rrsta(1,ista) = ra(itmp)
                  rrsta(2,ista) = ra(itmp+1)
                  rrsta(3,ista) = ra(itmp+2)
@@ -1430,7 +1227,8 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
                  iista(3,ista) = i + 2
               else
                  istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) pause 'rsta is in liquid layer (calra2_psv)'
+                 if(iphase(istazone(ista)).eq.2) log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'
+                 log_solid_liquid(ista) = .true.
                  rrsta(1,ista) = ra(itmp-1)
                  rrsta(2,ista) = ra(itmp)
                  rrsta(3,ista) = ra(itmp+1)

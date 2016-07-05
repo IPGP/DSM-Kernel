@@ -1,7 +1,7 @@
 # 0a. Green function database information file (for a certain depth only for the instance)
-[xy]/examples/single_kernel/database.inf
+@abs_top_builddir@/examples/single_kernel/database.inf
 # 0b. output directory (parentdir)
-[xy]/examples/single_kernel/output/
+@abs_top_builddir@/examples/single_kernel/output/
 # 1a. event name
 Explosion
 # 1b. event latitude, longitude, depth (however, interpolation for depths won't be performed)

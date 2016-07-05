@@ -12,4 +12,4 @@ $(program): $(objs)
 
 .PHONY: clean
 clean:
-	rm $(program) $(objs)  *.lst *.o
+	rm $(program) $(objs) *mod  *optrpt *.lst *.o

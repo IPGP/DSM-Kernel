@@ -1,4 +1,3 @@
-
 program  SGTpsv
 
 
@@ -11,133 +10,17 @@ program  SGTpsv
   !    calculation de la fonction de Green pour l'inversion des ondes PSV
   !       
   !                                               2004.10.KAWAI Kenji
-  !                                               2009.6. FUJI Nobuaki
-  !                                               2010.10. FUJI Nobuaki
+  !                                               2009.6. FUJI Nobuaki (f90)
+  !                                               2010.10. FUJI Nobuaki (MPI, rewriting)
+  !                                               2016.07. FUJI Nobuaki (outer core)
   !
   !      0.2.0 plm calculating with one frequency by one frequency
   !                 
   !-----------------------------------------------------------------------
   use mpi
+  use parameters
   implicit none
-  !-------------------------<< input matrix >>----------------------------------
-  !include 'mpif.h'  
-  character(120) :: outputDir, psvmodel, modelname,DSMconfFile 
-  character(120) :: list,list1
-  character(40) :: datex,timex
-  real(kind(0d0)), parameter :: pi=3.1415926535897932d0
-  real(kind(0d0)) :: re,ratc,ratl
-  integer :: maxlmax
 
-  real(kind(0d0)) :: tlen 
-  real(kind(0d0)) :: rmin_, rmax_, rdelta_ 
-  real(kind(0d0)) :: r0min, r0max, r0delta  !!! JUST FOR ONE DEPTH FOR THIS MOMENT !!
-  real(kind(0d0)) :: thetamin, thetamax, thetadelta
-  real(kind(0d0)), allocatable :: r_(:),r0(:),theta(:)
-  real(kind(0d0)), allocatable :: rrsta(:,:)
-  integer, allocatable :: iista(:,:)
-  integer :: r_n,r0_n,ciista, ir_,ir0,imt,icomp,itheta, theta_n
-  
-  character(120) :: coutfile
-  integer :: imin, imax
-  integer :: rsgtswitch, tsgtswitch, synnswitch
-
-
-  
-  ! ---------------------------<< variables >>---------------------------
-  ! variable for the trial function
-  integer:: nnlayer,nlay
-  integer, allocatable :: nlayer(:)
-  integer:: nslay,nllay
-  integer:: inlayer,jnlayer,jnslay,jnllay
-  integer:: l,m
-  real(kind(0d0)),allocatable:: ra(:)
-  ! variable for the structure
-  integer:: nzone,isl,ill,nsl,nll
-  integer,allocatable:: iphase(:)
-  integer::ndc,vnp
-  real(kind(0d0)):: rmin,rmax
-  real(kind(0d0)),allocatable:: vrmin(:),vrmax(:),rrho(:,:),vpv(:,:),vph(:,:),vsv(:,:),vsh(:,:),eta(:,:),qmu(:),qkappa(:)
-  real(kind(0d0)),allocatable::vra(:),rho(:),kappa(:) 
-  real(kind(0d0)),allocatable::ecKx(:) !3*Kx=3A-4N
-  real(kind(0d0)),allocatable::ecKy(:) !3*Ky=3F+2N
-  real(kind(0d0)),allocatable::ecKz(:) !3*Kz=2F+C
-  real(kind(0d0)),allocatable::mu(:),ecL(:),ecN(:),rhoinv(:),kappainv(:)
-  complex(kind(0d0)),allocatable:: coef1(:),coef2(:),coef(:)
-  ! variable for the periodic range
-  
-  real(kind(0d0)):: omega,omegai
-  ! variable for the source
-  integer:: spn,ns
-  real(kind(0d0)):: mt(3,3),spo
-  real(kind(0d0)):: ecC0,ecF0,ecL0
-  complex(kind(0d0)):: ya(4),yb(4),yc(4),yd(4)
-
-  ! variable for the matrix elements
-  complex(kind(0d0)),allocatable:: a0(:,:),a1(:,:),a2(:,:), a(:,:), c(:,:), ctmp(:,:)
-  real(kind(0d0)), allocatable :: t(:)
-  real(kind(0d0)), allocatable :: h1x(:), h1y(:), h1z(:), h2L(:), h2N(:), h3ax(:), h3ay(:), h3az(:), h4aL(:), h4aN(:), h5ax(:), h5ay(:), h5az(:), h6aL(:), h6aN(:), h3x(:), h3y(:), h3z(:), h4L(:), h4N(:), h5x(:), h5y(:), h5z(:), h6L(:), h6N(:), h7x(:), h7y(:), h7z(:), h8L(:), h8N(:), h3mx(:,:), h3my(:,:), h3mz(:,:), h5mx(:,:), h5my(:,:), h5mz(:,:), h4m1L(:,:), h4m1N(:,:), h4m2L(:,:), h4m2N(:,:), h6m1L(:,:), h6m1N(:,:), h6m2L(:,:), h6m2N(:,:)
-  real(kind(0d0)),allocatable:: p1(:),p2(:),p3(:)
-  complex(kind(0d0)),allocatable:: g0(:)
-  complex(kind(0d0)),allocatable:: d0(:)
-  complex(kind(0d0)):: g0tmp(2),g0dertmp(2) ! forward
-  ! variable for the stack point
-  integer,allocatable:: isp(:),issp(:),ilsp(:),jssp(:),jsp(:), ksp(:),lsp(:)
-  integer::isdr,jsdr,ildr,cista,cksta
-  ! variables for the output stack point
-  integer,allocatable:: istazone(:)
-  integer,allocatable:: ksta(:)   ! output stack point for g
-  integer,allocatable:: jsta(:)   ! output stack point for d
- 
-  ! variables for the gridding
-  integer,allocatable:: jjdr(:),kkdr(:)
-  integer:: jdr,kdr
-  real(kind(0d0)),allocatable:: vmin(:),gridpar(:),dzpar(:)
-  ! variables for l cut off
-  integer:: kc,lsuf,sufzone,ismall,llog
-  real(kind(0d0)):: maxamp
-  ! variables for the numerical integration
-  complex(kind(0d0)):: anum(4,4,10),bnum(4,4,10)
- 
-  ! other variables
-  integer:: i,j,nn,ier,itmp,jtmp,mtmp,kkdr0,nn0,ig2
-  integer:: ll(12),lli(12),llj(12)
-  real(kind(0d0)):: eps,l2,lsq
-  real(kind(0d0)),allocatable:: work(:)
-  complex(kind(0d0)), allocatable ::z(:), w(:),cwork(:)
-  
-  !-----------------------------------------------------------------------
-  !complex(kind(0d0)), allocatable :: dvec(:,:,:,:),dvecdt(:,:,:,:),dvecdp(:,:,:,:)
-  complex(kind(0d0)), allocatable :: dvec0(:,:,:),dvecdt0(:,:,:),dvecdp0(:,:,:)
-  complex(kind(0d0)), allocatable :: tsgt(:,:,:,:),rsgt(:,:,:),synn(:,:) 
-  complex(kind(0e0)), allocatable :: tsgtsngl(:,:), rsgtsngl(:,:),synnsngl(:,:)
-  real(kind(0d0)), allocatable :: plm(:,:,:)
-  complex(kind(0d0)) :: rdvec(1:3,-2:2)
-  complex(kind(0d0))::u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3)
-
-
-
-  data eps /-1.d0/
-
-  ! for Pinv : num_tsgt = 4, num_rsgt = 1
-  
-  !integer, parameter :: num_tsgt = 4
-  !integer, parameter :: num_rsgt = 1
-  integer, parameter :: num_tsgt = 20
-  integer, parameter :: num_rsgt = 10
-  integer, parameter :: num_synn = 10
-
-
-
-  
-  !--------------------------------------------------------------------------
-  ! for MPI
-
-  integer :: nproc,my_rank,ierr
-    
-  !--------------------------------------------------------------------------
-  
-
-  
 
   call MPI_INIT(ierr)
   call MPI_COMM_SIZE(MPI_COMM_WORLD,nproc,ierr)
@@ -242,6 +125,7 @@ program  SGTpsv
   call MPI_BCAST(r_n,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
   allocate(r_(1:r_n))
+  allocate(log_solid_liquid(1:r_n))
   allocate(rrsta(1:3,1:r_n))
   allocate(iista(1:3,1:r_n))
   allocate(istazone(1:r_n))
@@ -320,7 +204,7 @@ program  SGTpsv
   call calra_psv(nnlayer,inlayer,jnlayer,jnslay,jnllay,gridpar,dzpar,nzone,vrmin,vrmax,iphase,rmin,rmax,nslay,nllay,nlayer,re )
   
   allocate(ra(1:nnlayer+nzone+1))
-  call calra2_psv(nnlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nlayer,ra,re,r_n,r_,rrsta,iista,r0(ir0),cista,iphase,istazone,ciista)
+  call calra2_psv(nnlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nlayer,ra,re,r_n,r_,rrsta,iista,log_solid_liquid,r0(ir0),cista,iphase,istazone,ciista)
   
      
 
@@ -773,22 +657,37 @@ program  SGTpsv
                        do ir_=1,r_n
                           g0tmp = cmplx(0.d0)
                           g0dertmp = cmplx(0.d0)
+                          
                           call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                           call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
-                          do itheta = 1, theta_n
-                             u = cmplx(0.d0)
-                             udr = cmplx(0.d0)
-                             udt = cmplx(0.d0)
-                             udp = cmplx(0.d0)
-                             uder = cmplx(0.d0)
-                             call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
-                             call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
-                             call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
-                             call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
-                             call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
-                             call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
-                       
-                          enddo
+                          
+                          ! NF introduces liquid terms (this should be done more efficiently)                      
+                          
+                          !if(iphase(istazone(ista)).eq.2) then
+                          if(0.eq.1) then
+                             ! NF will write like \omega*g0tmp(1)/\lambda
+                             
+                             else
+                                
+                                
+                                
+                                do itheta = 1, theta_n
+                                   u = cmplx(0.d0)
+                                   udr = cmplx(0.d0)
+                                   udt = cmplx(0.d0)
+                                   udp = cmplx(0.d0)
+                                   uder = cmplx(0.d0)
+                                   call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
+                                   call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
+                                   call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
+                                   call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
+                                   call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                   call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
+                                   
+                                enddo
+                                
+                                
+                             endif
                        enddo
                     enddo ! imt-loop
             

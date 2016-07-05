@@ -2,7 +2,7 @@
 #SBATCH --job-name DSM-db
 #SBATCH --nodes 8 
 #SBATCH --ntasks-per-node=16
-#SBATCH --partition data 
+#SBATCH --partition cpunormal 
 #SBATCH --exclusive
 
 module purge

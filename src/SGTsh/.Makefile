@@ -10,7 +10,7 @@ $(program): $(objs)
 	        $(FC) -o $@ -c $< $(FFLAGS)
 
 .PHONY: clean
-	clean:
-	        rm $(program) $(objs)  
+clean:
+	        rm $(program) $(objs) *.optrpt *.mod 
 
 
