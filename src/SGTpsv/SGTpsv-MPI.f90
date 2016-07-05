@@ -678,7 +678,7 @@ program  SGTpsv
                              enddo
                              
                              
-                          elseif
+                          else
 
                                   
                              ! NF introduces liquid terms (this should be done more efficiently)                      
@@ -735,7 +735,7 @@ program  SGTpsv
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
                                 enddo
 
-                             elseif
+                             else
 
                                 ! NF introduces liquid terms (this should be done more efficiently)                      
                                 
@@ -790,7 +790,7 @@ program  SGTpsv
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
                                 enddo
                                 
-                             elseif
+                             else
 
                                 ! NF introduces liquid terms (this should be done more efficiently)                      
                                 
@@ -881,7 +881,7 @@ program  SGTpsv
                                 
                              enddo
 
-                          elseif
+                          else
 
                              ! NF introduces liquid terms (this should be done more efficiently)                      
                              
@@ -940,7 +940,7 @@ program  SGTpsv
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
                                 enddo
                                 
-                             elseif
+                             else
                                 
                                 ! NF introduces liquid terms (this should be done more efficiently)                      
                                 
@@ -994,7 +994,7 @@ program  SGTpsv
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
                                 enddo
                                 
-                             elseif
+                             else
                                 
                                 ! NF introduces liquid terms (this should be done more efficiently)                      
                                 
