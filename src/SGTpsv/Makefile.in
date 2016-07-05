@@ -48,8 +48,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am___top_builddir__bin_mpiSGTpsv_OBJECTS = trial.$(OBJEXT) \
 	rk3.$(OBJEXT) glu2.$(OBJEXT) dcsymbdl.$(OBJEXT) \
-	dcsymbdl3.$(OBJEXT) others.$(OBJEXT) calmat.$(OBJEXT) \
-	SGTpsv-MPI.$(OBJEXT)
+	dcsymbdl3.$(OBJEXT) others.$(OBJEXT) modules.$(OBJEXT) \
+	calmat.$(OBJEXT) SGTpsv-MPI.$(OBJEXT)
 __top_builddir__bin_mpiSGTpsv_OBJECTS =  \
 	$(am___top_builddir__bin_mpiSGTpsv_OBJECTS)
 __top_builddir__bin_mpiSGTpsv_LDADD = $(LDADD)
@@ -174,7 +174,7 @@ CCFLAGS = -O3
 # However it does not make much of a difference on NFS mounted volumes or with SFS 3.1.1 / Lustre 1.6.7.1
 #AM_FC = mpif90
 AM_FCFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
-__top_builddir__bin_mpiSGTpsv_SOURCES = trial.f90 rk3.f90 glu2.f90 dcsymbdl.f90 dcsymbdl3.f90 others.f90 calmat.f90 SGTpsv-MPI.f90
+__top_builddir__bin_mpiSGTpsv_SOURCES = trial.f90 rk3.f90 glu2.f90 dcsymbdl.f90 dcsymbdl3.f90 others.f90 modules.f90 calmat.f90 SGTpsv-MPI.f90
 all: all-am
 
 .SUFFIXES:
