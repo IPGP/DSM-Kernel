@@ -48,7 +48,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am___top_builddir__bin_mpiSGTsh_OBJECTS = glu2.$(OBJEXT) \
 	dclib.$(OBJEXT) dclib3.$(OBJEXT) others.$(OBJEXT) \
-	trial.$(OBJEXT) calmat.$(OBJEXT) SGTsh-0.1.0-MPI.$(OBJEXT)
+	trial.$(OBJEXT) calmat.$(OBJEXT) SGTsh-MPI.$(OBJEXT)
 __top_builddir__bin_mpiSGTsh_OBJECTS =  \
 	$(am___top_builddir__bin_mpiSGTsh_OBJECTS)
 __top_builddir__bin_mpiSGTsh_LDADD = $(LDADD)
@@ -173,7 +173,7 @@ CCFLAGS = -O3
 # However it does not make much of a difference on NFS mounted volumes or with SFS 3.1.1 / Lustre 1.6.7.1
 #AM_FC = mpif90
 AM_FCFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
-__top_builddir__bin_mpiSGTsh_SOURCES = glu2.f90 dclib.f90 dclib3.f90 others.f90 trial.f90 calmat.f90 SGTsh-0.1.0-MPI.f90
+__top_builddir__bin_mpiSGTsh_SOURCES = glu2.f90 dclib.f90 dclib3.f90 others.f90 trial.f90 calmat.f90 SGTsh-MPI.f90
 all: all-am
 
 .SUFFIXES:
