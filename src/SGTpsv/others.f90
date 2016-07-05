@@ -499,7 +499,7 @@ subroutine calra( maxnlay,maxnslay,maxnllay,maxnzone,maxnstack,nlayer,inlayer,jn
                  rrsta(1,ista) = ra(itmp)
                  rrsta(2,ista) = ra(itmp+1)
                  rrsta(3,ista) = ra(itmp+2)
-                     
+                 
                  iista(1,ista) = i
                  iista(2,ista) = i + 1
                  iista(3,ista) = i + 2

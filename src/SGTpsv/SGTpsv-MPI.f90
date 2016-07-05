@@ -780,8 +780,8 @@ program  SGTpsv
                           
                           ! NF introduces liquid terms (this should be done more efficiently)                      
                           
-                          if(iphase(istazone(ista)).eq.2) then
-                             
+                          !if(iphase(istazone(ista)).eq.2) then
+                          if(0.eq.1) then
                              ! NF will write like \omega*g0tmp(1)/\lambda
                              
                              else
