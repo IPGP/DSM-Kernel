@@ -13,6 +13,7 @@ program  SGTpsv
   !                                               2009.6. FUJI Nobuaki (f90)
   !                                               2010.10. FUJI Nobuaki (MPI, rewriting)
   !                                               2016.07. FUJI Nobuaki (outer core)
+  !                kyo no seminar kuso yatta
   !
   !      0.2.0 plm calculating with one frequency by one frequency
   !                 
