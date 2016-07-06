@@ -1176,7 +1176,7 @@ end subroutine calra_psv
 
 !
 
-subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re,nsta, rsta, rrsta, iista,log_solid_liquid ,rs, cista,iphase,istazone,ciista)
+subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re,nsta, rsta, rrsta, iista,log_solid_liquid ,rs, cista,iphase,istazone,ciista,rrho,vpv,lambda_liquid)
 
   implicit none
   real(kind(0d0)), parameter :: pi=3.1415926535897932d0 
@@ -1189,6 +1189,12 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
   real(kind(0d0)) :: chikasa
   logical :: log_solid_liquid(1:nsta)
   integer :: iphase(*),istazone(1:nsta),ciista
+
+  ! for lambda_liquid calculation
+   
+  real(kind(0d0)) :: rrho(1:4,1:nzone),  vpv(1:4,nzone),lambda_liquid(1:nsta)
+  real(kind(0d0)) :: coef,r,trho,tvpv
+  integer :: j
   
   chikasa = 0.d0
 
@@ -1238,6 +1244,24 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
                  iista(3,ista) = i + 1
               endif
               
+              ! NF calculates lambda only for liquid layers
+
+              if(.not.log_solid_liquid(ista)) then
+                 
+                 do j=1,4
+                    if ( j.eq.1 ) then
+                       coef = 1.d0
+                    else
+                       coef = coef * ( r / rmax )
+                    endif
+                    trho  = trho  + rrho(j,izone)  * coef
+                    tvpv  = tvpv  + vpv(j,izone)   * coef
+                 enddo
+                 lambda_liquid(ista) = trho * tvpv * tvpv
+                 
+              endif
+              
+
               if((abs(rs-rsta(ista)).lt.ctmp).and.(abs(rs-rsta(ista)).ge.chikasa)) then
                  cista = ista
                  ciista = itmp

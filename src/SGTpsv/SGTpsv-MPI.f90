@@ -129,7 +129,10 @@ program  SGTpsv
   allocate(istazone(1:r_n))
   allocate(jsta(1:r_n))
   allocate(ksta(1:r_n))
-  
+  allocate(lambda_liquid(1:r_n))
+
+  lambda_liquid = 0.d0
+
   if(my_rank.eq.0) then
      do i = 1, r_n
         r_(i) = rmin_ + dble(i-1)*rdelta_
@@ -202,7 +205,7 @@ program  SGTpsv
   call calra_psv(nnlayer,inlayer,jnlayer,jnslay,jnllay,gridpar,dzpar,nzone,vrmin,vrmax,iphase,rmin,rmax,nslay,nllay,nlayer,re )
   
   allocate(ra(1:nnlayer+nzone+1))
-  call calra2_psv(nnlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nlayer,ra,re,r_n,r_,rrsta,iista,log_solid_liquid,r0(ir0),cista,iphase,istazone,ciista)
+  call calra2_psv(nnlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nlayer,ra,re,r_n,r_,rrsta,iista,log_solid_liquid,r0(ir0),cista,iphase,istazone,ciista,rrho,vpv,lambda_liquid)
   
      
 
@@ -688,7 +691,7 @@ program  SGTpsv
                              do itheta = 1,theta_n
                                 
                                 uder = cmplx(0.d0)
-                                uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta) /lambda_liquid(ir_) ! / lambda
                                 uder(2,2) = uder(1,1)
                                 uder(3,3) = uder(1,1)
 
@@ -744,7 +747,7 @@ program  SGTpsv
                                 do itheta = 1,theta_n
                                    
                                    uder = cmplx(0.d0)
-                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta) /lambda_liquid(ir_)  ! / lambda
                                    uder(2,2) = uder(1,1)
                                    uder(3,3) = uder(1,1)
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
@@ -799,7 +802,7 @@ program  SGTpsv
                                 do itheta = 1,theta_n
                                    
                                    uder = cmplx(0.d0)
-                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta) /lambda_liquid(ir_)  ! / lambda
                                    uder(2,2) = uder(1,1)
                                    uder(3,3) = uder(1,1)
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
@@ -890,7 +893,7 @@ program  SGTpsv
                              do itheta = 1,theta_n
                                 
                                 uder = cmplx(0.d0)
-                                uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta) /lambda_liquid(ir_)  ! / lambda
                                 uder(2,2) = uder(1,1)
                                 uder(3,3) = uder(1,1)
                                 
@@ -949,7 +952,7 @@ program  SGTpsv
                                 do itheta = 1,theta_n
                                    
                                    uder = cmplx(0.d0)
-                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta) /lambda_liquid(ir_)  ! / lambda
                                    uder(2,2) = uder(1,1)
                                    uder(3,3) = uder(1,1)
                                    
@@ -1003,7 +1006,7 @@ program  SGTpsv
                                 do itheta = 1,theta_n
                                    
                                    uder = cmplx(0.d0)
-                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta)  ! / lambda
+                                   uder(1,1) = omega*g0tmp(1)*dvec0(1,m,itheta) /lambda_liquid(ir_)   ! / lambda
                                    uder(2,2) = uder(1,1)
                                    uder(3,3) = uder(1,1)
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
