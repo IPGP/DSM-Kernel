@@ -40,6 +40,7 @@ AC_CONFIG_FILES([Makefile
 		 src/ReadKernel/Makefile
                  src/SGTpsv/Makefile
                  src/SGTsh/Makefile
+                 src/MINEOStoDSMmodels/Makefile
 		 src/KernelMaker/Makefile
  	         examples/global_kernels/database.inf
                  examples/global_kernels/kernel.inf
