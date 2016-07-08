@@ -58,6 +58,8 @@ subroutine rdsgtomega(rx,ry,num_sgt,num_psv,ipsvorsh)
            coutfile = trim(modelname)//"."//coutfile
            coutfile = trim(PoutputDir)//"/RSGT/"//coutfile ! RSGT & SYNN
         endif
+
+
         open(1,file=coutfile,status='unknown',form='unformatted', &
              access = 'direct', recl=2*num_sgt*kind(0e0)*theta_n)       
         read(1,rec=1)sgtsngl(1:num_sgt,1:theta_n)    

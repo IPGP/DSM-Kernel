@@ -10,7 +10,7 @@ program KernelMaker
   !   
   !     0.3.1    video mode             Nobuaki Fuji 2014.3.
   !
-  !     1.0.0    for new file format (compatible with SGTpsv/sh >1.0.0)
+  !     1.0.0    for new file format
   !              
 
 
