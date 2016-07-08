@@ -96,7 +96,7 @@ program modelConverter
      deallocate(a,at,ata,atainv,tmparray)
   enddo
         
-     
+end program modelConverter
   
   
   
