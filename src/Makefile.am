@@ -1,4 +1,4 @@
-SUBDIRS = SGTpsv SGTsh KernelMaker ModelDrawer ReadKernel
+SUBDIRS = SGTpsv SGTsh KernelMaker ModelDrawer ReadKernel MINEOStoDSMmodels 
 clean-local: clean-local-check
 .PHONY: clean-local-check
 clean-local-check:
