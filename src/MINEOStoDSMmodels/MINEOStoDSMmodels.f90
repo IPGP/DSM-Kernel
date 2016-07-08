@@ -95,6 +95,8 @@ program modelConverter
      
      deallocate(a,at,ata,atainv,tmparray)
   enddo
+
+  call writepsvmodel
         
 end program modelConverter
   
