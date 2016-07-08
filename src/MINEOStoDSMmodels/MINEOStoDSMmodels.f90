@@ -7,8 +7,8 @@ program modelConverter
   double precision, allocatable, dimension (:,:) :: a,at,ata,atainv,tmparray
   double precision :: rnormalised,coef
   
-  call getarg(1,model1d)
-  model1d = trim(model1d)
+  call getarg(1,modelid)
+  modelid = trim(modelid)
   call getarg(2,psvfile)
   psvfile = trim(psvfile)
 
