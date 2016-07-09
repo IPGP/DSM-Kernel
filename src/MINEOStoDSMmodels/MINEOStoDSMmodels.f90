@@ -5,7 +5,8 @@ program modelConverter
   use parameters
   implicit none
   integer :: i,j,k,kmax,iirlength
-  double precision, allocatable, dimension (:,:) :: a,at,ata,atainv,tmparray
+  double precision, allocatable, dimension (:,:) :: a,at,ata,atainv
+  double precision, allocatable, dimension (:) :: tmparray
   double precision :: rnormalised,coef
   
   call getarg(1,model1d)
