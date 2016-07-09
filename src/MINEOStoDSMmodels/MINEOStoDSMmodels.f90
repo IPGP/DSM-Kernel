@@ -61,7 +61,7 @@ program modelConverter
      kmax = min(4,irlength(j))
      
      allocate(a(1:irlength(j),1:kmax))
-     allocate(at(1:kmax,1:irlength(j))
+     allocate(at(1:kmax,1:irlength(j)))
      allocate(ata(1:kmax,1:kmax))
      allocate(atainv(1:kmax,1:kmax))
      allocate(tmparray(1:irlength))
