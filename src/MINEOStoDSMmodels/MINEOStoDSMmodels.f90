@@ -2,6 +2,7 @@ program modelConverter
   ! Nobuaki Fuji for DSM Kernel
   !  July 2016, Institut de Physique du Globe de Paris
   
+  use parameters
   implicit none
   integer :: i,j,k,kmax
   double precision, allocatable, dimension (:,:) :: a,at,ata,atainv,tmparray
