@@ -4,7 +4,7 @@ module parameters
   
   ! MINEOS
   
-  character(120) :: modelid
+  character(120) :: modelid,model1d
   integer :: ifanis,ifdeck
   double precision :: tref
   integer :: nrmod,nicb,ncmb,nmspl
