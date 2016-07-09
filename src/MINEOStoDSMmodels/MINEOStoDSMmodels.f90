@@ -11,7 +11,7 @@ program modelConverter
   call getarg(1,model1d)
   model1d = trim(model1d)
   call getarg(2,psvmodel)
-  psvfile = trim(psvmodel)
+  psvmodel = trim(psvmodel)
 
   call readMINEOScard
 
@@ -59,7 +59,8 @@ program modelConverter
 
   
   do j = 1,nzone
-     kmax = min(4,irlength(j))
+     kmax = irlength(j)
+     kmax = min(4,kmax)
      
      allocate(a(1:irlength(j),1:kmax))
      allocate(at(1:kmax,1:irlength(j)))
