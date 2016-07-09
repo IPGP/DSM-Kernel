@@ -10,8 +10,8 @@ program modelConverter
   
   call getarg(1,model1d)
   model1d = trim(model1d)
-  call getarg(2,psvfile)
-  psvfile = trim(psvfile)
+  call getarg(2,psvmodel)
+  psvfile = trim(psvmodel)
 
   call readMINEOScard
 
