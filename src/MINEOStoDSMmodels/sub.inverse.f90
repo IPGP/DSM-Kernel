@@ -49,7 +49,7 @@ subroutine inverseLU(nmax,a,ia)
 
   !     1st, LU deconposition of 'ia' using 'dgetrf'
 
-  call dgetrf(n,n,ia,nmax,ipiv,info)
+  call getrf(n,n,ia,nmax,ipiv,info)
 
   !    if info < 0: some probrem about 'a', make sure of type of 'a'
   !                                                     or size of arrays
@@ -82,7 +82,7 @@ subroutine inverseLU(nmax,a,ia)
   
   !     after LU decomposition,inverse 'ia' by using 'dgetri'
   
-  call dgetri(n,ia,nmax,ipiv,work,n,info)
+  call getri(n,ia,nmax,ipiv,work,n,info)
   
   !     in fact error handling should be finished at the step of LU decomposition
   
