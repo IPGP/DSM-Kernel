@@ -81,7 +81,7 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
-FC = gfortran
+FC = ifort
 FCFLAGS = @FCFLAGS@
 GREP = @GREP@
 INSTALL = @INSTALL@
@@ -150,7 +150,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_FCFLAGS = -llapack
+#AM_FCFLAGS = -L /cm/shared/modulefiles/lapack/intel/64/3.4.2 
+#AM_FCFLAGS = -llapack --ffixed-line-length-none
+AM_FCFLAGS = -O2 -ftz -fpe0 -traceback -ftrapuv -implicitnone -check all -assume byterecl -warn truncated_source -warn argument_checking -warn unused -warn declarations -warn alignments -warn ignore_loc -warn usage
 __top_builddir__bin_MINEOStoDSMmodels_SOURCES = modules.f90 others.f90 sub.inverse.f90 MINEOStoDSMmodels.f90 
 all: all-am
 
