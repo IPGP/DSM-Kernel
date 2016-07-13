@@ -77,7 +77,7 @@ program modelConverter
         coef = 1.d0
         rnormalised = rmod(i)/vrmax(nzone)
         do k = 1,kmax
-           a(i,k) = coef
+           a(i-irmin(j)+1,k) = coef
            coef = coef * rnormalised 
         enddo
 
