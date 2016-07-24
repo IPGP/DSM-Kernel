@@ -16,8 +16,8 @@ recommended requirements:
 * ifort
 
 optional requirements:
-* obspy
-* VTK
+* [obspy](http://obspy.org/)
+* [VTK](http://www.vtk.org)
 
 ## Build and Install
 * Precise compiler options using `etc/config_calcul/config.h` (compiler options etc.) 
@@ -31,11 +31,11 @@ optional requirements:
 <img src="etc/images/kernel1.png" width="300">
 
 ## Papers to be cited
-Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) [Finite-frequency structural sensitivities of short-period compressional body waves](https://gji.oxfordjournals.org/content/190/1/522.full), _Geophys. J. Int._, *190*, 522-540.
+Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) [Finite-frequency structural sensitivities of short-period compressional body waves](https://gji.oxfordjournals.org/content/190/1/522.full), _Geophys. J. Int._, __190__, 522-540.
 
 ## Authors and Contributors
-All rights reserved, 2016, Nobuaki Fuji [(@seismobassoon)](https://github.com/seismobassoon), Matthias Meschede
-[(@MMesch)](https://github.com/MMesch), Kensuke Konishi [(@kensuke1984)](https://github.com/kensuke1984), Hugo Jaegler [(@hJaegler)](https://github.com/hJaegler), Kenji
+All rights reserved, 2016, Nobuaki Fuji [@seismobassoon](https://github.com/seismobassoon), Matthias Meschede
+[@MMesch](https://github.com/MMesch), Kensuke Konishi [@kensuke1984](https://github.com/kensuke1984), Hugo Jaegler [@hJaegler](https://github.com/hJaegler), Kenji
 Kawai, Li Zhao, Sebastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
 Komatitsch, Marie Calvet, Hiromitsu Mizutani
 
