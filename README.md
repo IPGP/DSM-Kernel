@@ -35,7 +35,7 @@ Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) [Finite-frequenc
 
 ## Authors and Contributors
 All rights reserved, 2016, Nobuaki Fuji [(@seismobassoon)](https://github.com/seismobassoon), Matthias Meschede
-(@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji
+[(@MMesch)](https://github.com/MMesch), Kensuke Konishi [(@kensuke1984)](https://github.com/kensuke1984), Hugo Jaegler [(@hJaegler)](https://github.com/hJaegler), Kenji
 Kawai, Li Zhao, Sebastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
 Komatitsch, Marie Calvet, Hiromitsu Mizutani
 
