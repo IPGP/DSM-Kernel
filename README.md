@@ -13,7 +13,7 @@ DSM Kernel Suite have five independent programmes for each step. If you fetch th
 * ModelDrawer : 1D model ASCII file generator from polynomial model file (NF)
 
 recommended requirements:
-* ifort
+* [Intel&reg; Fortran Compilers](https://software.intel.com/en-us/fortran-compilers)
 
 optional requirements:
 * [obspy](http://obspy.org/)
