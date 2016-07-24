@@ -34,7 +34,7 @@ optional requirements:
 Fuji, N., Chevrot, S., Zhao, L., Geller, R.J., Kawai, K. (2012) [Finite-frequency structural sensitivities of short-period compressional body waves](https://gji.oxfordjournals.org/content/190/1/522.full), Geophys. J. Int., 190, 522-540.
 
 ## Authors and Contributors
-All rights reserved, 2016, Nobuaki Fuji (@seismobassoon), Matthias Meschede
+All rights reserved, 2016, Nobuaki Fuji [(@seismobassoon)](https://github.com/seismobassoon), Matthias Meschede
 (@MMesch), Kensuke Konishi (@kensuke1984), Hugo Jaegler (@hJaegler), Kenji
 Kawai, Li Zhao, Sebastien Chevrot, Robert J. Geller, Vadim Monteiller, Dimitri
 Komatitsch, Marie Calvet, Hiromitsu Mizutani
