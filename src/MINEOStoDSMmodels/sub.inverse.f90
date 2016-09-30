@@ -49,7 +49,7 @@ subroutine inverseLU(nmax,a,ia)
 
   !     1st, LU deconposition of 'ia' using 'dgetrf'
 
-  call getrf(n,n,ia,nmax,ipiv,info)
+  call dgetrf(n,n,ia,nmax,ipiv,info)
 
   !    if info < 0: some probrem about 'a', make sure of type of 'a'
   !                                                     or size of arrays
@@ -72,7 +72,7 @@ subroutine inverseLU(nmax,a,ia)
   !    in the case of |ia(i,i)|~0, it's regarded as division by 0
   
   do i = 1,n
-     if(abs(ia(i,i)) .lt. 1.D-10) then
+     if(abs(ia(i,i)) .lt. 1.D-14) then
         write(*,*) "LU decomposition error!"
         write(*,*) "Input matrix may be not regular."
         write(*,*) "it has eigen values near 0."
@@ -82,7 +82,7 @@ subroutine inverseLU(nmax,a,ia)
   
   !     after LU decomposition,inverse 'ia' by using 'dgetri'
   
-  call getri(n,ia,nmax,ipiv,work,n,info)
+  call dgetri(n,ia,nmax,ipiv,work,n,info)
   
   !     in fact error handling should be finished at the step of LU decomposition
   

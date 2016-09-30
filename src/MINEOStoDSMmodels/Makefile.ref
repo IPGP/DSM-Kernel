@@ -1,5 +1,4 @@
-#BIN = ../../bin
-BIN = ../bin/
+BIN = ../../bin
 program = $(BIN)/modelConverter
 FC=gfortran
 FFLAGS = -g  -std=gnu  -fimplicit-none -frange-check -O2 -pedantic -pedantic-errors -Waliasing -Wampersand -Wline-truncation -Wsurprising -Wunderflow -fbounds-check -llapack -w
