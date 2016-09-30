@@ -1,4 +1,4 @@
-FC=ifort
+FC=gfortran
 #AM_FCFLAGS = -L /cm/shared/modulefiles/lapack/intel/64/3.4.2 
 #AM_FCFLAGS = -llapack --ffixed-line-length-none
 # this flag for malbec IPGP
