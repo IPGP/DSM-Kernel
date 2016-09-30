@@ -1,7 +1,7 @@
 # makefile .fr tipsv
 
-FC	= ifort
-FFLAGS	= -O
+FC	= gfortran
+FFLAGS	= -O4
 OBJS	= calmat.f trialf.f others.f rk3.f glu2.f dcsymbdl0.f dcsymbdl.f tipsv.f
 
 

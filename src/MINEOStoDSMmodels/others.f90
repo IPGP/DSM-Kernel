@@ -38,15 +38,17 @@ subroutine writepsvmodel
   open(20, file = psvmodel, status = 'unknown', action='write')
   write(20,*) nzone
   do i = 1, nzone
-     write(20,*) vrmin(i),vrmax(i), rrhoD(1,i), rrhoD(2,i), rrhoD(3,i), rrhoD(4,i)
-     write(20,*) vpvD(1,i), vpvD(2,i), vpvD(3,i), vpvD(4,i)
-     write(20,*) vphD(1,i), vphD(2,i), vphD(3,i), vphD(4,i)
-     write(20,*) vsvD(1,i), vsvD(2,i), vsvD(3,i), vsvD(4,i)
-     write(20,*) vshD(1,i), vshD(2,i), vshD(3,i), vshD(4,i)
-     write(20,*) etaD(1,i), etaD(2,i), etaD(3,i), etaD(4,i), qmuD(i), qkappaD(i)
+     write(20,123) vrmin(i),vrmax(i), rrhoD(1,i), rrhoD(2,i), rrhoD(3,i), rrhoD(4,i)
+     write(20,124) vpvD(1,i), vpvD(2,i), vpvD(3,i), vpvD(4,i)
+     write(20,124) vphD(1,i), vphD(2,i), vphD(3,i), vphD(4,i)
+     write(20,124) vsvD(1,i), vsvD(2,i), vsvD(3,i), vsvD(4,i)
+     write(20,124) vshD(1,i), vshD(2,i), vshD(3,i), vshD(4,i)
+     write(20,123) etaD(1,i), etaD(2,i), etaD(3,i), etaD(4,i), qmuD(i), qkappaD(i)
      !write (20, *) vrmin(i), vrmax(i), rrhoD(1,i), rrhoD(2,i), rrhoD(3,i), rrhoD(4,i), vpvD(1,i), vpvD(2,i), vpvD(3,i), vpvD(4,i), vphD(1,i), vphD(2,i), vphD(3,i), vphD(4,i), vsvD(1,i), vsvD(2,i), vsvD(3,i), vsvD(4,i), vshD(1,i), vshD(2,i), vshD(3,i), vshD(4,i), etaD(1,i), etaD(2,i), etaD(3,i), etaD(4,i), qmuD(i), qkappaD(i)
   enddo
   close(20)
+123 format(6(1x,F10.4))
+124 format(4(1x,F10.4))
 
 end subroutine writepsvmodel
 
