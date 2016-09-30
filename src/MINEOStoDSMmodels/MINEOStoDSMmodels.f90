@@ -2,15 +2,17 @@ program modelConverter
   ! Nobuaki Fuji for DSM Kernel
   !  July 2016, Institut de Physique du Globe de Paris
   
+  use parameters
   implicit none
-  integer :: i,j,k,kmax
-  double precision, allocatable, dimension (:,:) :: a,at,ata,atainv,tmparray
+  integer :: i,j,k,kmax,iirlength
+  double precision, allocatable, dimension (:,:) :: a,at,ata,atainv
+  double precision, allocatable, dimension (:) :: tmparray
   double precision :: rnormalised,coef
   
-  call getarg(1,modelid)
-  modelid = trim(modelid)
-  call getarg(2,psvfile)
-  psvfile = trim(psvfile)
+  call getarg(1,model1d)
+  model1d = trim(model1d)
+  call getarg(2,psvmodel)
+  psvmodel = trim(psvmodel)
 
   call readMINEOScard
 
@@ -58,13 +60,14 @@ program modelConverter
 
   
   do j = 1,nzone
-     kmax = min(4,irlength(j))
+     iirlength = irlength(j)
+     kmax = min(4,iirlength)
      
-     allocate(a(1:irlength(j),1:kmax))
-     allocate(at(1:kmax,1:irlength(j))
+     allocate(a(1:iirlength,1:kmax))
+     allocate(at(1:kmax,1:iirlength))
      allocate(ata(1:kmax,1:kmax))
      allocate(atainv(1:kmax,1:kmax))
-     allocate(tmparray(1:irlength))
+     allocate(tmparray(1:iirlength))
      a = 0.d0
      at = 0.d0
      ata = 0.d0
@@ -74,7 +77,7 @@ program modelConverter
         coef = 1.d0
         rnormalised = rmod(i)/vrmax(nzone)
         do k = 1,kmax
-           a(i,k) = coef
+           a(i-irmin(j)+1,k) = coef
            coef = coef * rnormalised 
         enddo
 

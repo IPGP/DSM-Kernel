@@ -203,7 +203,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = src examples
+SUBDIRS = src 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

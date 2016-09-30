@@ -1,1 +1,0 @@
-SUBDIRS = global_kernels innercorekernels multiple_kernels single_kernel

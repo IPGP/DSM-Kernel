@@ -4,7 +4,7 @@ module parameters
   
   ! MINEOS
   
-  character(120) :: modelid
+  character(120) :: modelid,model1d
   integer :: ifanis,ifdeck
   double precision :: tref
   integer :: nrmod,nicb,ncmb,nmspl
@@ -15,6 +15,7 @@ module parameters
 
   ! DSM
 
+  character(120) :: psvmodel
   integer :: nzone
   double precision, allocatable, dimension (:) :: vrmin, vrmax,qmuD,qkappaD
   double precision, allocatable, dimension (:) :: irmin, irmax,irlength
