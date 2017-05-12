@@ -1,0 +1,21 @@
+BIN = ../../bin
+program = $(BIN)/modelConverter
+FC=gfortran
+FFLAGS = -g  -std=gnu  -fimplicit-none -frange-check -O2 -pedantic -pedantic-errors -Waliasing -Wampersand -Wline-truncation -Wsurprising -Wunderflow -fbounds-check -llapack -w
+
+#include ../../etc/config_calcul/config.h
+objs = modules.o MINEOStoDSMmodels.o others.o sub.inverse.o 
+
+all : $(program) 
+
+.SUFFIXES: .o .f90
+
+$(program): $(objs)
+	$(FC)  -o $@ $(objs) $(FFLAGS)
+.f90.o:
+	$(FC) -o $@ -c $< $(FFLAGS)
+
+.PHONY: clean
+clean:
+	rm $(program) $(objs) *.optrpt  
+
