@@ -12,9 +12,6 @@
 ## M4sh Initialization.  ##
 ## --------------------- ##
 
-#Avoid some problems related to escape sequences in the output of `ls`
-unset CLICOLOR
-
 # Be more Bourne compatible
 DUALCASE=1; export DUALCASE # for MKS sh
 if test -n "${ZSH_VERSION+set}" && (emulate sh) >/dev/null 2>&1; then
@@ -4616,7 +4613,7 @@ fi
 
 # Checks for library functions.
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/ModelDrawer/Makefile src/ReadKernel/Makefile src/SGTpsv/Makefile src/SGTsh/Makefile src/MINEOStoDSMmodels/Makefile src/KernelMaker/Makefile examples/global_kernels/database.inf examples/global_kernels/kernel.inf examples/innercorekernels/database.inf examples/innercorekernels/kernel.inf examples/multiple_kernels/database.inf examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf examples/single_kernel/database.inf examples/single_kernel/kernel.inf"
+ac_config_files="$ac_config_files Makefile src/Makefile src/ModelDrawer/Makefile src/ReadKernel/Makefile src/SGTpsv/Makefile src/SGTsh/Makefile src/KernelMaker/Makefile examples/global_kernels/database.inf examples/global_kernels/kernel.inf examples/innercorekernels/database.inf examples/innercorekernels/kernel.inf examples/multiple_kernels/database.inf examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf examples/single_kernel/database.inf examples/single_kernel/kernel.inf"
 
 
 
@@ -5255,7 +5252,6 @@ do
     "src/ReadKernel/Makefile") CONFIG_FILES="$CONFIG_FILES src/ReadKernel/Makefile" ;;
     "src/SGTpsv/Makefile") CONFIG_FILES="$CONFIG_FILES src/SGTpsv/Makefile" ;;
     "src/SGTsh/Makefile") CONFIG_FILES="$CONFIG_FILES src/SGTsh/Makefile" ;;
-    "src/MINEOStoDSMmodels/Makefile") CONFIG_FILES="$CONFIG_FILES src/MINEOStoDSMmodels/Makefile" ;;
     "src/KernelMaker/Makefile") CONFIG_FILES="$CONFIG_FILES src/KernelMaker/Makefile" ;;
     "examples/global_kernels/database.inf") CONFIG_FILES="$CONFIG_FILES examples/global_kernels/database.inf" ;;
     "examples/global_kernels/kernel.inf") CONFIG_FILES="$CONFIG_FILES examples/global_kernels/kernel.inf" ;;
@@ -5318,8 +5314,7 @@ $debug ||
 if test -n "$CONFIG_FILES"; then
 
 
-ac_cr='
-'
+ac_cr=''
 ac_cs_awk_cr=`$AWK 'BEGIN { print "a\rb" }' </dev/null 2>/dev/null`
 if test "$ac_cs_awk_cr" = "a${ac_cr}b"; then
   ac_cs_awk_cr='\\r'

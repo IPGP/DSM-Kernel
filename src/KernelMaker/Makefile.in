@@ -69,7 +69,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CC = @CC@
+CC = icc
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPP = @CPP@
@@ -83,7 +83,7 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 #AM_FC=mpif90
-FC = @FC@
+FC = mpiifort
 FCFLAGS = @FCFLAGS@
 GREP = @GREP@
 INSTALL = @INSTALL@
@@ -172,7 +172,7 @@ CCFLAGS = -O3
 # I/O throughput lingers at 2.5 MB/s, with it it can increase to ~44 MB/s
 # However it does not make much of a difference on NFS mounted volumes or with SFS 3.1.1 / Lustre 1.6.7.1
 #AM_FC = mpif90
-AM_FCFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
+AM_FCFLAGS = -O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel
 __top_builddir__bin_mpiKernelMaker_SOURCES = bwfilt.f90 module.f90 others.f90 fourier.f90 calculateK.f90 KernelMaker.f90
 all: all-am
 
@@ -187,9 +187,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/../../etc/config_calcul/
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/KernelMaker/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/KernelMaker/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/KernelMaker/Makefile
+	  $(AUTOMAKE) --foreign src/KernelMaker/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
