@@ -1,6 +1,4 @@
 CC=icc
-#AM_FC=mpif90
-FC=mpiifort
 CCFLAGS = -O3
 # for debugging: change -O3 -check nobounds to      -check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv
 

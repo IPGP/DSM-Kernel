@@ -1,55 +1,34 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.63])
-AC_INIT([DSM Kernel], [1.0.0], [nobuaki@ipgp.fr])
+AC_PREREQ([2.69])
+AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([README.md])
-AC_CONFIG_HEADERS([./config.h])
+AC_CONFIG_SRCDIR([config.h.in])
+AC_CONFIG_HEADERS([config.h])
 
 
 # Checks for programs.
-
-
 AC_PROG_CC
-
-AC_PROG_FC
-#AM_INIT_AUTOMAKE([-O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel])
-
-#AC_SUBST([AM_MAKEFLAGS],[-O4 -check nobounds -xAVX -ftz -assume buffered_io -assume byterecl -vec-report3 -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel])
-
-# Checks for programs.
-
-# a courtesy to the installed base of users
-
-#AC_FC_MODULE_FLAG([-check all -debug -g -O0 -fp-stack-check -traceback -ftrapuv -assume byterecl])
-
+AC_PROG_FC([mpiifort mpif90])
+AC_SUBST([AC_SAVE_FCFLAGS],[-O4 -check nobounds -xAVX -qopt-report -ftz -assume buffered_io -assume byterecl -implicitnone -warn truncated_source -warn argument_checking -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel])
 
 # Checks for libraries.
 
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_STDBOOL
+AC_CHECK_HEADER_STDBOOL
 
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile
+                 examples/Makefile
+                 examples/multiple_kernels/Makefile
+                 src/KernelMaker/Makefile
                  src/Makefile
                  src/ModelDrawer/Makefile
-		 src/ReadKernel/Makefile
+                 src/ReadKernel/Makefile
                  src/SGTpsv/Makefile
-                 src/SGTsh/Makefile
-		 src/KernelMaker/Makefile
- 	         examples/global_kernels/database.inf
-                 examples/global_kernels/kernel.inf
-                 examples/innercorekernels/database.inf
-                 examples/innercorekernels/kernel.inf
-                 examples/multiple_kernels/database.inf
-                 examples/multiple_kernels/kernel_config/ABC.20200101.Z.inf
-                 examples/single_kernel/database.inf
-                 examples/single_kernel/kernel.inf
-])
-
-
+                 src/SGTsh/Makefile])
 AC_OUTPUT

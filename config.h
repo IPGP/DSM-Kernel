@@ -1,14 +1,11 @@
-/* ./config.h.  Generated from config.h.in by configure.  */
-/* ./config.h.in.  Generated from configure.ac by autoheader.  */
+/* config.h.  Generated from config.h.in by configure.  */
+/* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
-
-/* Define to 1 if stdbool.h conforms to C99. */
-#define HAVE_STDBOOL_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -35,25 +32,28 @@
 #define HAVE__BOOL 1
 
 /* Name of package */
-#define PACKAGE "dsm-kernel"
+#define PACKAGE "full-package-name"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "nobuaki@ipgp.fr"
+#define PACKAGE_BUGREPORT "BUG-REPORT-ADDRESS"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "DSM Kernel"
+#define PACKAGE_NAME "FULL-PACKAGE-NAME"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "DSM Kernel 1.0.0"
+#define PACKAGE_STRING "FULL-PACKAGE-NAME VERSION"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "dsm-kernel"
+#define PACKAGE_TARNAME "full-package-name"
+
+/* Define to the home page for this package. */
+#define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.0"
+#define PACKAGE_VERSION "VERSION"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.0.0"
+#define VERSION "VERSION"

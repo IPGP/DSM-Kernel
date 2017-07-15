@@ -1,1 +1,3 @@
 autoreconf -vi
+
+aclocal; automake -a; autoheader; autoconf; ./configure; make
