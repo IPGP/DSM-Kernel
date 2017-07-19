@@ -1,3 +1,6 @@
-autoreconf -vi
-
-aclocal; automake -a; autoheader; autoconf; ./configure; make
+#!/usr/bin/sh
+aclocal; autoconf; automake --addmissing; autoheader; ./configure FCFLAGS="-O4";make
+#autoreconf -vi
+#autoreconf;./configure; make
+#automake -a; autoconf;./configure; make
+#aclocal; automake -a; autoheader; autoconf; ./configure FCFLAGS="-O4"; make
