@@ -675,6 +675,10 @@ program  SGTpsv
                                 uder = cmplx(0.d0)
                                 call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                 ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
+                                ! that said, u_{r,r}=u_{t,t}=u_{p,p}=omega/(3 lambda)*Q
+                                ! also, u_i=-1/(\rho \omega) * \partial_i Q
+
+                                
                                 
                                 
 
