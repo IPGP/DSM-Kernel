@@ -8,7 +8,7 @@ DSM Kernel Suite have five independent programmes for each step. If you fetch th
 * SGTpsv : Green's function calculation for PSV mode (MPI fortran, NF) 
 * SGTsh  : Green's function calculation for SH  mode (MPI fortran, NF)
 * wave2kernel : visualisation of SAC files in order to compare them with synthetics and to decide which phase (python, HJ)
-* KernelMaker : 3D Fréchet derivatives calculation (MPI fortran, NF)
+* KernelMaker : 3D Frchet derivatives calculation (MPI fortran, NF)
 * KernelViewer : 3D Kernel visualisation facilities (python, MM)
 * ModelDrawer : 1D model ASCII file generator from polynomial model file (NF)
 
@@ -20,9 +20,8 @@ optional requirements:
 * [VTK](http://www.vtk.org)
 
 ## Build and Install
-* Precise compiler options using `etc/config_calcul/config.h` (compiler options etc.) 
 * Now you just have to generate executables by `./configure; make'
-
+* If you want to change the compile options you should write `./configure FCFLAGS="-O3 ...";make'
 ## Examples
  * [single station and event](examples/single_kernel/README.md)
  * [multiple stations and events](examples/multiple_kernels/README.md)
