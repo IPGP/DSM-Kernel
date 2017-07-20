@@ -5,7 +5,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
   integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
-  character(200) :: commandliner
+  character(200) :: commandline
   open(unit=1, file=tmpfile,status='unknown')
 100 continue
   read(5,110) dummy
