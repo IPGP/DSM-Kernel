@@ -133,26 +133,29 @@ subroutine utosynnSH(imt,u,ssynn)
   synn(9) = ssynn(4)
   synn(10)= ssynn(5) 
   
-  if(imt.eq.1) then
-     synn(1) = synn(1) + u(1)
-     synn(5) = synn(5) + u(2)
-   endif
+
+
+  !if(imt.eq.1) then
+     !synn(1) = synn(1) + u(1)
+     !synn(5) = synn(5) + u(2)
+   !endif
 
    if(imt.eq.2) then
-      synn(3) = synn(3) + 5.d-1*u(1)
-      synn(4) = synn(4) - 5.d-1*u(1)
+      !synn(3) = synn(3) + 5.d-1*u(1)
+      !synn(4) = synn(4) - 5.d-1*u(1)
       synn(6) = synn(6) - 5.d-1*u(2)
       synn(7) = synn(7) - 5.d-1*u(2)
    endif
    
    if(imt.eq.3) then
-      synn(3) = synn(3) - 5.d-1*u(1)
-      synn(4) = synn(4) - 5.d-1*u(1)
+      !synn(3) = synn(3) - 5.d-1*u(1)
+      !synn(4) = synn(4) - 5.d-1*u(1)
       synn(6) = synn(6) - 5.d-1*u(2)
       synn(7) = synn(7) + 5.d-1*u(2)
    endif
 
    if(imt.eq.4) then
+      !synn(2) = synn(2) + u(1)
       synn(9) = synn(9) + u(2)
    endif
 
@@ -164,22 +167,23 @@ subroutine utosynnSH(imt,u,ssynn)
       synn(8) = synn(8) - u(3)
    endif
 
-
-
-
-
     
-  ssynn(1) = synn(6)
-  ssynn(2) = synn(7)
-  ssynn(3) = synn(8)
-  ssynn(4) = synn(9)
-  ssynn(5) = synn(10) 
-
-  return
+   ssynn(1) = synn(6)
+   ssynn(2) = synn(7)
+   ssynn(3) = synn(8)
+   ssynn(4) = synn(9)
+   ssynn(5) = synn(10) 
+   
+   return
 end subroutine utosynnSH
  
 
 !
+
+
+
+
+
 
 subroutine udertorsgtSH(icomp,uder,rrsgt)
   implicit none
@@ -201,24 +205,26 @@ subroutine udertorsgtSH(icomp,uder,rrsgt)
 
   
 
-  if(icomp.eq.1) then ! vertical component
-     rsgt(1) = rsgt(1) + uder(1,1)
-     rsgt(2) = rsgt(2) + uder(2,1) + uder(1,2)
-     rsgt(3) = rsgt(3) + 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
-     rsgt(4) = rsgt(4) - 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
-  endif
+  
+  !if(icomp.eq.1) then ! vertical component
+     !rsgt(1) = rsgt(1) + uder(1,1)
+     !rsgt(2) = rsgt(2) - 5.d-1*uder(2,1) - 5.d-1*uder(1,2)
+     !rsgt(3) = rsgt(3) + 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
+     !rsgt(4) = rsgt(4) - 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
+  !endif
 
   if(icomp.eq.2) then ! radial component
-     rsgt(5) = rsgt(5) + uder(1,1)
+     !rsgt(5) = rsgt(5) + uder(1,1)
      rsgt(6) = rsgt(6) - 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
      rsgt(7) = rsgt(7) - 5.d-1*uder(2,2) + 5.d-1*uder(3,3)
-     rsgt(9) = rsgt(9) - uder(1,2) - uder(2,1) 
+     rsgt(9) = rsgt(9) + 5.d-1*uder(1,2) + 5.d-1*uder(2,1) 
   endif
 
   if(icomp.eq.3) then ! transverse component
-     rsgt(8) = rsgt(8) - uder(2,3) - uder(3,2)
-     rsgt(10) = rsgt(10) - uder(1,3) - uder(3,1)
+     rsgt(8) = rsgt(8) - 5.d-1*uder(2,3) - 5.d-1*uder(3,2)
+     rsgt(10) = rsgt(10) + 5.d-1*uder(1,3) + 5.d-1*uder(3,1)
   endif
+  
 
   rrsgt(1) = rsgt(6)
   rrsgt(2) = rsgt(7)
@@ -250,56 +256,58 @@ subroutine udertotsgtSH(imt,uder,ttsgt)
   tsgt(20) = ttsgt(10)
 
 
-  if(imt.eq.1) then ! rr source
-     tsgt(1) = tsgt(1) + uder(1,1)
-     tsgt(3) = tsgt(3) - 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
-     tsgt(6) = tsgt(6) + uder(1,2) + uder(2,1)
-     tsgt(10)= tsgt(10)+ 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
-  endif
+
+  !if(imt.eq.1) then ! rr source
+     !tsgt(1) = tsgt(1) + uder(1,1)
+     !tsgt(3) = tsgt(3) - 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
+     !tsgt(6) = tsgt(6) - 5.d-1*uder(1,2) - 5.d-1*uder(2,1) 
+     !tsgt(10)= tsgt(10)+ 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
+  !endif
   if(imt.eq.2) then ! tt source
-     tsgt(2) = tsgt(2) - 5.d-1*uder(1,1)
-     tsgt(4) = tsgt(4) + 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
-     tsgt(8) = tsgt(8) - 5.d-1*uder(1,2) - 5.d-1*uder(2,1)
-     tsgt(9) = tsgt(9) + 5.d-1*uder(1,1) 
-     tsgt(11)= tsgt(11)- 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
+     !tsgt(2) = tsgt(2) - 5.d-1*uder(1,1)
+     !tsgt(4) = tsgt(4) + 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
+     !tsgt(8) = tsgt(8) + 2.5d-1*uder(1,2) + 2.5d-1*uder(2,1)
+     !tsgt(9) = tsgt(9) + 5.d-1*uder(1,1) 
+     !tsgt(11)= tsgt(11)- 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
      tsgt(12)= tsgt(12)- 2.5d-1*uder(2,2) - 2.5d-1*uder(3,3)
-     tsgt(17)= tsgt(17)+ 2.5d-1*uder(1,2) + 2.5d-1*uder(2,1)
-     tsgt(18)= tsgt(18)- 2.5d-1*uder(1,2) - 2.5d-1*uder(2,1)
+     tsgt(17)= tsgt(17)- 1.25d-1*uder(1,2) - 1.25d-1*uder(2,1)
+     tsgt(18)= tsgt(18)+ 1.25d-1*uder(1,2) + 1.25d-1*uder(2,1)
      tsgt(19)= tsgt(19)+ 1.25d-1*uder(2,2) - 1.25d-1*uder(3,3)
      tsgt(20)= tsgt(20)+ 1.25d-1*uder(2,2) - 1.25d-1*uder(3,3)
   endif
   if(imt.eq.3) then ! pp source
-     tsgt(2) = tsgt(2) - 5.d-1*uder(1,1)
-     tsgt(4) = tsgt(4) + 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
-     tsgt(8) = tsgt(8) - 5.d-1*uder(1,2) - 5.d-1*uder(2,1)
-     tsgt(9) = tsgt(9) - 5.d-1*uder(1,1)
-     tsgt(11)= tsgt(11) -2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
+     !tsgt(2) = tsgt(2) - 5.d-1*uder(1,1)
+     !tsgt(4) = tsgt(4) + 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
+     !tsgt(8) = tsgt(8) - 2.5d-1*uder(1,2) - 2.5d-1*uder(2,1)
+     !tsgt(9) = tsgt(9) - 5.d-1*uder(1,1)
+     !tsgt(11)= tsgt(11) -2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
      tsgt(12)= tsgt(12) +2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
-     tsgt(17)= tsgt(17) -2.5d-1*uder(1,2) - 2.5d-1*uder(2,1)
-     tsgt(18)= tsgt(18) +2.5d-1*uder(1,2) + 2.5d-1*uder(2,1)
+     tsgt(17)= tsgt(17) -1.25d-1*uder(1,2) - 1.25d-1*uder(2,1)
+     tsgt(18)= tsgt(18) +1.25d-1*uder(1,2) + 1.25d-1*uder(2,1)
      tsgt(19)= tsgt(19) -1.25d-1*uder(2,2) + 1.25d-1*uder(3,3)
      tsgt(20)= tsgt(20) -1.25d-1*uder(2,2) + 1.25d-1*uder(3,3)
   endif
   if(imt.eq.4) then ! rt source
-     tsgt(5) = tsgt(5) - uder(1,1)
-     tsgt(7) = tsgt(7) + 5.d-1*uder(2,2) + 5.d-1*uder(3,3)
-     tsgt(13)= tsgt(13)- 5.d-1*uder(1,2) - 5.d-1*uder(2,1)
-     tsgt(14)= tsgt(14)+ 5.d-1*uder(1,2) + 5.d-1*uder(2,1)
-     tsgt(15)= tsgt(15)- 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
-     tsgt(16)= tsgt(16)+ 2.5d-1*uder(2,2) - 2.5d-1*uder(3,3)
+     !tsgt(5) = tsgt(5) + uder(1,1)
+     tsgt(7) = tsgt(7) - 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
+     tsgt(13)= tsgt(13)- 2.5d-1*uder(1,2) - 2.5d-1*uder(2,1)
+     tsgt(14)= tsgt(14)+ 2.5d-1*uder(1,2) + 2.5d-1*uder(2,1)
+     tsgt(15)= tsgt(15)+ 2.5d-1*uder(2,2) - 2.5d-1*uder(3,3)
+     tsgt(16)= tsgt(16)- 2.5d-1*uder(2,2) + 2.5d-1*uder(3,3)
   endif
   if(imt.eq.5) then ! rp source
-     tsgt(13)= tsgt(13)+ 5.d-1*uder(1,3) + 5.d-1*uder(3,1)
-     tsgt(14)= tsgt(14)+ 5.d-1*uder(1,3) + 5.d-1*uder(3,1)
-     tsgt(15)= tsgt(15)+ 5.d-1*uder(2,3) + 5.d-1*uder(3,2)
-     tsgt(16)= tsgt(16)+ 5.d-1*uder(2,3) + 5.d-1*uder(3,2)
+     tsgt(13)= tsgt(13)+ 2.5d-1*uder(1,3) + 2.5d-1*uder(3,1)
+     tsgt(14)= tsgt(14)+ 2.5d-1*uder(1,3) + 2.5d-1*uder(3,1)
+     tsgt(15)= tsgt(15)- 2.5d-1*uder(2,3) - 2.5d-1*uder(3,2)
+     tsgt(16)= tsgt(16)- 2.5d-1*uder(2,3) - 2.5d-1*uder(3,2)
   endif
   if(imt.eq.6) then ! tp source
-     tsgt(17)= tsgt(17)- 5.d-1*uder(1,3) - 5.d-1*uder(3,1)
-     tsgt(18)= tsgt(18)- 5.d-1*uder(1,3) - 5.d-1*uder(3,1)
-     tsgt(19)= tsgt(19)- 5.d-1*uder(2,3) - 5.d-1*uder(3,2)
-     tsgt(20)= tsgt(20)+ 5.d-1*uder(2,3) + 5.d-1*uder(3,2)
+     tsgt(17)= tsgt(17)+ 2.5d-1*uder(1,3) + 2.5d-1*uder(3,1)
+     tsgt(18)= tsgt(18)+ 2.5d-1*uder(1,3) + 2.5d-1*uder(3,1)
+     tsgt(19)= tsgt(19)- 2.5d-1*uder(2,3) - 2.5d-1*uder(3,2)
+     tsgt(20)= tsgt(20)+ 2.5d-1*uder(2,3) + 2.5d-1*uder(3,2)
   endif
+
 
   ttsgt(1) = tsgt(7)
   ttsgt(2) = tsgt(12)
