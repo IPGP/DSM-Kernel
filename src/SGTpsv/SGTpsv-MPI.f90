@@ -647,12 +647,25 @@ program  SGTpsv
                        
                        
                        if(synnswitch.eq.1) then
-                          do itheta = 1, theta_n
-                             u = cmplx(0.d0)
-                             call calup0(d0(nn0),dvec0(1:3,m,itheta),u(1:3))
-                             call utosynn(imt,u(1:3),synn(1:num_synn,itheta))
-                          enddo
-                       endif
+
+                          !if(iphase(istazone(ista)).eq.2) then
+                          if(0.eq.1) then
+                             do itheta = 1, theta_n
+                                u = cmplx(0.d0)
+                                ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
+                                ! that said, u_{r,r}=u_{t,t}=u_{p,p}=omega/(3 lambda)*Q
+                                ! also, u_i=-1/(\rho \omega) * \partial_i Q
+                                
+                                !call calup0(d0(nn0),dvec0(1:3,m,itheta),u(1:3))
+                                !call utosynn(imt,u(1:3),synn(1:num_synn,itheta))
+                             enddo
+                          else
+                             do itheta = 1, theta_n
+                                u = cmplx(0.d0)
+                                call calup0(d0(nn0),dvec0(1:3,m,itheta),u(1:3))
+                                call utosynn(imt,u(1:3),synn(1:num_synn,itheta))
+                             enddo
+                          endif
                     
                        do ir_=1,r_n
                           g0tmp = cmplx(0.d0)
@@ -677,7 +690,7 @@ program  SGTpsv
                                 ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
                                 ! that said, u_{r,r}=u_{t,t}=u_{p,p}=omega/(3 lambda)*Q
                                 ! also, u_i=-1/(\rho \omega) * \partial_i Q
-
+                                
                                 
                                 
                                 
