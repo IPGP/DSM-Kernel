@@ -1,5 +1,6 @@
 #!/usr/bin/sh
-aclocal; autoconf; automake --addmissing; autoheader; ./configure FCFLAGS="-O4";make
+#aclocal; autoconf; automake -a ;autoheader; ./configure FCFLAGS="-O4";make
+aclocal; autoconf;automake -a;autoheader;./configure;make
 #autoreconf -vi
 #autoreconf;./configure; make
 #automake -a; autoconf;./configure; make
