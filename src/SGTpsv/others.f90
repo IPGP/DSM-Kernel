@@ -897,6 +897,9 @@ subroutine calup0(c1,bvec,u)
 end subroutine calup0
 
 
+
+
+
 !
 
 
@@ -1220,8 +1223,8 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
            if( (ra(itmp).lt.rsta(ista)) .and.(rsta(ista).le.ra(itmp+1))) then
               if(i.ne.nnl(izone)) then
                  istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'
                  log_solid_liquid(ista) = .true.
+                 if(iphase(istazone(ista)).eq.2) then log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'         
                  rrsta(1,ista) = ra(itmp)
                  rrsta(2,ista) = ra(itmp+1)
                  rrsta(3,ista) = ra(itmp+2)
@@ -1231,8 +1234,8 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
                  iista(3,ista) = i + 2
               else
                  istazone(ista) = izone
-                 if(iphase(istazone(ista)).eq.2) log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'
                  log_solid_liquid(ista) = .true.
+                 if(iphase(istazone(ista)).eq.2) log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'
                  rrsta(1,ista) = ra(itmp-1)
                  rrsta(2,ista) = ra(itmp)
                  rrsta(3,ista) = ra(itmp+1)

@@ -667,27 +667,47 @@ program  SGTpsv
                           if(0.eq.1) then
                              ! NF will write like \omega*g0tmp(1)/\lambda
                              
-                             else
+                             do itheta = 1, theta_n
+                                u = cmplx(0.d0)
+                                udr = cmplx(0.d0)
+                                udt = cmplx(0.d0)
+                                udp = cmplx(0.d0)
+                                uder = cmplx(0.d0)
+                                call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
+                                ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
                                 
                                 
+
+                                !call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
+                                !call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
+                                !call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
+                                !call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                !call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
                                 
-                                do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0)
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
-                                   call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
-                                   call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
-                                   call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
-                                   call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
-                                   call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
-                                   call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
-                                   
-                                enddo
+                             enddo
+
+
+
+
+                          else
+                             
+                             do itheta = 1, theta_n
+                                u = cmplx(0.d0)
+                                udr = cmplx(0.d0)
+                                udt = cmplx(0.d0)
+                                udp = cmplx(0.d0)
+                                uder = cmplx(0.d0)
+                                call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
+                                call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
+                                call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
+                                call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
+                                call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
                                 
-                                
-                             endif
+                             enddo
+                             
+                             
+                          endif
                        enddo
                     enddo ! imt-loop
             
