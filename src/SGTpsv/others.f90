@@ -46,7 +46,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   commandline = 'mkdir '//trim(outputDir)//'/TSGT'
   call system(commandline)
   commandline = 'mkdir '//trim(outputDir)//'/log'
-  
+  call system(commandline)  
 
 
 end subroutine pinput
