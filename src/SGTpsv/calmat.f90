@@ -571,7 +571,7 @@ end subroutine cala2
 
 subroutine calb0( nlayer,omega,omegai,p1,p3,coef,b0 )
 
-  ! Computing the coefficient matrix 'b' in the solid part.
+  ! Computing the coefficient matrix 'b' in the fluid part.
   implicit none
   integer:: nlayer
   real(kind(0d0)):: omega,omegai,p1(*),p3(*)
@@ -599,7 +599,7 @@ end subroutine calb0
 
 subroutine calb2( nlayer,omega,omegai,p2,coef,b2 )
 
-  ! Computing the coefficient matrix 'b' in the solid part.
+  ! Computing the coefficient matrix 'b' in the fluid part.
   implicit none
   integer:: nlayer
   real(kind(0d0)):: omega,omegai,p2(*)

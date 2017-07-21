@@ -16,7 +16,10 @@ module parameters
   real(kind(0d0)) :: thetamin, thetamax, thetadelta
   real(kind(0d0)), allocatable :: r_(:),r0(:),theta(:)
   real(kind(0d0)), allocatable :: rrsta(:,:)
+  real(kind(0d0)), allocatable :: lambda(:),qkp(:) !! only for stack points and only used for fluid regions
+
   logical, allocatable :: log_solid_liquid(:) ! true for solid and false for liquid
+   
   integer, allocatable :: iista(:,:)
   integer :: r_n,r0_n,ciista, ir_,ir0,imt,icomp,itheta, theta_n
   
