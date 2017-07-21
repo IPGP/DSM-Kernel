@@ -1322,7 +1322,7 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
               if(i.ne.nnl(izone)) then
                  istazone(ista) = izone
                  log_solid_liquid(ista) = .true.
-                 if(iphase(istazone(ista)).eq.2) then log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'         
+                 if(iphase(istazone(ista)).eq.2)  log_solid_liquid(ista) = .false. !pause 'rsta is in liquid layer (calra2_psv)'         
                  rrsta(1,ista) = ra(itmp)
                  rrsta(2,ista) = ra(itmp+1)
                  rrsta(3,ista) = ra(itmp+2)
