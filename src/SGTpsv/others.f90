@@ -732,7 +732,7 @@ subroutine calstg_for_stackpoints(r,nzone,vrmin,vrmax,rrho,vpv,vph,vsv,vsh,eta,q
   enddo
 
   return
-end subroutine calstg_for_card
+end subroutine calstg_for_stackpoints
 
 
 !
