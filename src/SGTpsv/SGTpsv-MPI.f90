@@ -676,7 +676,7 @@ program  SGTpsv
                           
                           ! NF introduces liquid terms (this should be done more efficiently)                      
                           
-                          if(iphase(istazone(ista)).eq.2) then
+                          if(iphase(istazone(ir_)).eq.2) then
                           !if(0.eq.1) then
                              ! NF will write like \omega*g0tmp(1)/\lambda
                              
@@ -751,7 +751,7 @@ program  SGTpsv
                              call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                              call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
 
-                             if(iphase(istazone(ista)).eq.2) then
+                             if(iphase(istazone(ir_)).eq.2) then
                              !if(0.eq.1) then
                                 ! NF for fluid
                                 do itheta = 1, theta_n
@@ -803,7 +803,7 @@ program  SGTpsv
                              call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                              call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
 
-                             if(iphase(istazone(ista)).eq.2) then
+                             if(iphase(istazone(ir_)).eq.2) then
                              !if(0.eq.1) then
                                 ! NF for fluid
                                 do itheta = 1, theta_n
@@ -896,7 +896,7 @@ program  SGTpsv
                           call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
                           
                           
-                          if(iphase(istazone(ista)).eq.2) then
+                          if(iphase(istazone(ir_)).eq.2) then
                           !if(0.eq.1) then
                              ! NF for fluid
                              
@@ -955,7 +955,7 @@ program  SGTpsv
                              call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
 
 
-                             if(iphase(istazone(ista)).eq.2) then
+                             if(iphase(istazone(ir_)).eq.2) then
                              !if(0.eq.1) then
                                 ! NF for fluid
                                 
@@ -1010,7 +1010,7 @@ program  SGTpsv
                              call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
 
                              
-                             if(iphase(istazone(ista)).eq.2) then
+                             if(iphase(istazone(ir_)).eq.2) then
                              !if(0.eq.1) then
                                 ! NF for fluid
                                 do itheta = 1, theta_n
