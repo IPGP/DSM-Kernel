@@ -6,6 +6,7 @@ subroutine pinputKernel
   character(120) :: tmpfile
   character(120) :: dummy
   integer :: iitmp,maxlmax
+  character(200) :: commandline
 
   tmpfile='tmpworkingfile_for_SynViewer'
 
@@ -109,6 +110,12 @@ subroutine pinputKernel
   endif
   read(1,*) iPSVSH
   close(1)
+
+
+  commandline = 'mkdir '//trim(parentDir)
+  call system(commandline)
+  commandline = 'mkdir '//trim(parentDir)//'/log'
+  call system(commandline)
 
   call pinputDSM(DSMconfFile,PoutputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,SGTinfo)
   call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
