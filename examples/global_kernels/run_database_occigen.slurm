@@ -9,9 +9,9 @@
 #SBATCH --constraint="HSW24"
 
 module purge
-module load intel/16.0.1 bullxmpi
+#module load intel/16.0.1 bullxmpi
 #module load intel/compiler intel-mpi/64 intel/mkl slurm
-
+module load intel intelmpi slurm
 
 
 ulimit -s unlimited
