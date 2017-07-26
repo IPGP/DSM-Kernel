@@ -89,9 +89,10 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am___top_builddir__bin_mpiSGTsh_OBJECTS = glu2.$(OBJEXT) \
-	dclib.$(OBJEXT) dclib3.$(OBJEXT) others.$(OBJEXT) \
-	trial.$(OBJEXT) calmat.$(OBJEXT) SGTsh-MPI.$(OBJEXT)
+am___top_builddir__bin_mpiSGTsh_OBJECTS = modules.$(OBJEXT) \
+	glu2.$(OBJEXT) dclib.$(OBJEXT) dclib3.$(OBJEXT) \
+	others.$(OBJEXT) trial.$(OBJEXT) calmat.$(OBJEXT) \
+	SGTsh-MPI.$(OBJEXT)
 __top_builddir__bin_mpiSGTsh_OBJECTS =  \
 	$(am___top_builddir__bin_mpiSGTsh_OBJECTS)
 __top_builddir__bin_mpiSGTsh_LDADD = $(LDADD)
@@ -238,7 +239,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-__top_builddir__bin_mpiSGTsh_SOURCES = glu2.f90 dclib.f90 dclib3.f90 others.f90 trial.f90 calmat.f90 SGTsh-MPI.f90
+__top_builddir__bin_mpiSGTsh_SOURCES = modules.f90 glu2.f90 dclib.f90 dclib3.f90 others.f90 trial.f90 calmat.f90 SGTsh-MPI.f90
 all: all-am
 
 .SUFFIXES:
