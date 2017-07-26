@@ -8,16 +8,19 @@ This example demonstrates the two central steps of this code:
 
 ### Instructions
 #### The Green function database
-To compute the database you need the two programs SGTpsv and SGTsh. That
+To compute the database you need the two programs SGTpsv and SGTsh that
 compute the databases necessary for PSV and SH waves, respectively. The sources
 of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/`.
 
+<!---
 ##### Compilation
+
 1. adjust the Makefiles (e.g. `DSM-Kernel/src/SGTpsv/Makefile`). You should for
    example chose you fortran compiler, e.g. `FC=mpif90` or `FC=mpiifort`.
 2. type: `make` in the SGTsh and in the SGTpsv directories.
 3. check that there were no errors and if you can find the binaries:
    `DSM-Kernel/bin/mpiSGTpsv` and `DSM-Kernel/bin/mpiSGTsh`
+-->
 
 ##### Configuration and Execution
 1. copy the file `database.inf.example` to `database.inf`. In this file:
@@ -29,12 +32,12 @@ of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/
  * you can adjust the remaining parameters that control e.g. frequency range,
    domain size and sampling of the database. In particular chose the source depth
    for which you want to compute the database!
-2. submit the command `mpirun -tmi -np 256  ../../bin/mpiSGTpsv < ./database.inf`
+2. submit the command `mpirun -np 256  ../../bin/mpiSGTpsv < ./database.inf`
    to compute the psv database. Select the number of processors that you want to use
    with the -np parameter (256 in this example). `run_database.slurm` shows an
    example script that submits this process to the IPGP cluster malbec.
 3. check if there were any errors. The subfolders in [mydatabase] should
-   be full of files (carful, typing `ls` will take some time)
+   be full of files (be careful, typing `ls` will take some time)
 
 #### Kernel Calculation
 #### Compilation
