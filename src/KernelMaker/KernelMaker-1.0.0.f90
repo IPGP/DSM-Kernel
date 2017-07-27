@@ -283,7 +283,9 @@ program KernelMaker
   call MPI_BCAST(qmuD,nzone,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
   call MPI_BCAST(qkappaD,nzone,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
   
-  
+
+  rEarth=vrmaxD(nzone) 
+
   !-----------------------------------------------------------------------
 
   ! Record the date and time at the beginning of the job

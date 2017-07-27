@@ -292,7 +292,8 @@ subroutine calstg_for_card(r,nzone,vrmin,vrmax,rrho,vpv,vph,vsv,vsh,eta,qmu,qkap
   integer:: nzone
   real(kind(0d0)):: r,rrho(4,nzone),vpv(4,nzone),vph(4,nzone),vsv(4,nzone),vsh(4,nzone),eta(4,nzone)
   real(kind(0d0)):: qmu(nzone), qkappa(nzone),vrmin(nzone),vrmax(nzone)
-  real(kind(0d0)), parameter:: rmax  = 6371.d0
+  !real(kind(0d0)), parameter:: rmax  = 6371.d0
+  real(kind(0d0)):: rmax
   real(kind(0d0)):: rho,ecKx,ecKy,ecKz
   real(kind(0d0)):: ecL,ecN
   real(kind(0d0)):: ecA,ecC,ecF
@@ -300,7 +301,8 @@ subroutine calstg_for_card(r,nzone,vrmin,vrmax,rrho,vpv,vph,vsv,vsh,eta,qmu,qkap
   complex(kind(0d0)):: coef1,coef2
   integer:: izone,j
   real(kind(0d0)):: array(1:9)
-  
+ 
+  rmax = vrmax(nzone)
   array = 0.d0
   do izone = 1, nzone
      if((r.gt.vrmin(izone)).and.(r.le.vrmax(izone))) then

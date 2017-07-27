@@ -93,8 +93,8 @@ module parameters
   !real(kind(0d0)), allocatable :: vpv(:),vph(:),vsv(:),vsh(:),eta(:) ! for the future extention
   real(kind(0d0)) :: rs,rr
   real(kind(0d0)), parameter :: rdep = 0.d0 ! surface
-  real(Kind(0d0)), parameter :: rEarth = 6371.d0 ! kilometres
-  
+  !real(Kind(0d0)), parameter :: rEarth = 6371.d0 ! kilometres
+  real(kind(0d0)) :: rEarth
 
   ! DSM 
   integer :: iPSVSH
