@@ -112,9 +112,9 @@ subroutine pinputKernel
   close(1)
 
 
-  commandline = 'mkdir '//trim(parentDir)
+  commandline = 'mkdir -p '//trim(parentDir)
   call system(commandline)
-  commandline = 'mkdir '//trim(parentDir)//'/log'
+  commandline = 'mkdir -p '//trim(parentDir)//'/log'
   call system(commandline)
 
   call pinputDSM(DSMconfFile,PoutputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,SGTinfo)
