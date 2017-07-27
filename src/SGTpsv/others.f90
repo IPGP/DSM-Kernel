@@ -39,13 +39,13 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   
   ! making directories
 
-  commandline = 'mkdir '//trim(outputDir)
+  commandline = 'mkdir -p '//trim(outputDir)
   call system(commandline)
-  commandline = 'mkdir '//trim(outputDir)//'/RSGT'
+  commandline = 'mkdir -p '//trim(outputDir)//'/RSGT'
   call system(commandline)
-  commandline = 'mkdir '//trim(outputDir)//'/TSGT'
+  commandline = 'mkdir -p '//trim(outputDir)//'/TSGT'
   call system(commandline)
-  commandline = 'mkdir '//trim(outputDir)//'/log'
+  commandline = 'mkdir -p '//trim(outputDir)//'/log'
   call system(commandline)  
 
 

@@ -112,9 +112,9 @@ subroutine pinputKernel
   close(1)
 
 
-  commandline = 'mkdir '//trim(parentDir)
+  commandline = 'mkdir -p '//trim(parentDir)
   call system(commandline)
-  commandline = 'mkdir '//trim(parentDir)//'/log'
+  commandline = 'mkdir -p '//trim(parentDir)//'/log'
   call system(commandline)
   commandline = 'mkdir '//trim(parentDir)//'/tmp'
   call system(commandline)
