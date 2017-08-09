@@ -237,7 +237,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-#AM_FCFLAGS = -O2 -ftz -fpe0 -traceback -ftrapuv -qopt-report -implicitnone -check all -assume byterecl -warn truncated_source -warn argument_checking -warn unused -warn declarations -warn alignments -warn ignore_loc -warn usage
 __top_builddir__bin_ModelDrawer_SOURCES = module.f90 others.f90 ModelDrawer-0.1.f90
 all: all-am
 
