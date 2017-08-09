@@ -22,6 +22,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   write(1,110) dummy
   goto 100
 120 continue
+  close(1)
   !close(1,status='keep')
   close(5)
 
