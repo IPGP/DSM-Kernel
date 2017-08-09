@@ -22,11 +22,11 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   write(1,110) dummy
   goto 100
 120 continue
-  close(1,status='keep')
+  !close(1,status='keep')
   close(5)
 
   
-  open(unit=1)
+  !
   !open(unit=1,file=tmpfile,status='unknown')
   read(1,110) DSMconfFile
   read(1,110) outputDir
@@ -43,7 +43,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   read(1,*) thetamin,thetamax,thetadelta
   read(1,*) imin,imax
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
-  close(1,status='keep')
+  close(1)
   
   print *, imin,imax, DSMconffile, psvmodel
   stop
