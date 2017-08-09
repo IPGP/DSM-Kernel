@@ -12,7 +12,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   call getarg(1,tmpfile0)
 
   open(unit=5,file=tmpfile0,status='old')
-  open(unit=1,status='scratch')
+  open(unit=1,status='scratch',format='formatted')
   !open(unit=1, file=tmpfile,status='unknown')
 100 continue
   read(5,110) dummy
