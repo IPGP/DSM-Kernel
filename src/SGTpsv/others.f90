@@ -1,13 +1,19 @@
 subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
   implicit none
-  character(120), parameter :: tmpfile='tmpworkingfile_for_SGTforPinv'
+  !character(120), parameter :: tmpfile='tmpworkingfile_for_SGTforPinv'
   character(120) :: dummy,outputDir,psvmodel,modelname,DSMconfFile
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
   integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
   character(120) :: commandline
+  character(120) :: tmpfile0
+  
 
-  open(unit=1, file=tmpfile,status='unknown')
+  call getarg(1,tmpfile0)
+
+  open(unit=5,file=tmpfile0,status='old')
+  open(unit=1,status='scratch')
+  !open(unit=1, file=tmpfile,status='unknown')
 100 continue
   read(5,110) dummy
 110 format(a120)
@@ -16,10 +22,12 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   write(1,110) dummy
   goto 100
 120 continue
-  close(1)
+  close(1,status='keep')
+  close(5)
 
- 
-  open(unit=1,file=tmpfile,status='unknown')
+  
+  open(unit=1,status='scratch')
+  !open(unit=1,file=tmpfile,status='unknown')
   read(1,110) DSMconfFile
   read(1,110) outputDir
   read(1,110) psvmodel
@@ -35,8 +43,11 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   read(1,*) thetamin,thetamax,thetadelta
   read(1,*) imin,imax
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
-  close(1)
+  close(1,status='delete')
   
+  print *, imin,imax, DSMconffile, psvmodel
+  stop
+
   ! making directories
 
   commandline = 'mkdir -p '//trim(outputDir)

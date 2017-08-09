@@ -49,24 +49,28 @@ subroutine calculateKernel
   !   also calculate the group-delay kernels fro phase-delay kernels.
   
   if((trim(paramWRT).eq.'beta').or.(trim(paramWRT).eq.'all').or.&
-     (trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+       (trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
      if((mtype.eq.12).or.(mtype.eq.22).or.(mtype.eq.32).or.(mtype.eq.10).or.(mtype.eq.20).or.(mtype.eq.30)) then
         tmpker(5:8,:)=0.
         !if((sym.ge.0.d0).and.(sym.le.360.d0)) tmpker(15,:)=0.
         call isovsfreq
      endif
   endif
-
+  
+  !if((trim(paramWRT).eq.'epsilon').or.(trim(paramWRT).eq.'all').or.&
+  !     (trim(paramWRT).eq.'epsilonV').or.(trim(paramWRT).eq.'allV')) then
+  !if((sym.ge.0.d0).and.(sym.le.360.d0)) tmpker(16,:)=0.
+  !call anepsilnfreq
+  ! endif
      
+
   ! for anisotropy I will complete it later
   
   !   Kernels for epsilon when s=r (rad. aniso.) and 0<=sym<=360 (azim. aniso.).
   
   ! if((mtype.eq.10).or.(mtype.eq.20).or.(mtype.eq.30)) then
   !    tmpker(9:10,:)=0.
-  !    if((sym.ge.0.d0).and.(sym.le.360.d0)) tmpker(16,:)=0.
-  !    call anepsiln
-  ! endif
+  !   
 	            	      
   !   Kernels for delta when s=r (rad. aniso.) and 0<=sym<=360 (azim. aniso.).
   
@@ -325,3 +329,29 @@ end subroutine isovsfreq
   
 
 
+subroutine anepsilnfreq
+  use parameters
+  use tmpSGTs
+  use kernels
+  implicit none
+
+  !   This subroutine calculates 3 types of kernels:
+  !
+  !      9: Phase-delay time sensitivity to epsilon in an anisotropic model 
+  !         with a vertical axis of symmetry
+  !     10: Amplitude perturbation sensitivity to epsilon in an anisotropic  
+  !         model with a vertical axis of symmetry
+  !     16: SKS-splitting intensity sensitivity to epsilon in an anisotropic
+  !         model with a horizontal axis of symmetry oriented at azimuth sym.
+  !
+  !   Note: phase-delay time is the same as traveltime perturbation obtained 
+  !   by cross-correlation.
+
+	
+  !   For Types 9 and 10.	
+  !   Convolve the two SGTs to obtained waveform partial derivative.
+
+
+
+  return
+end subroutine anepsilnfreq
