@@ -26,7 +26,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   close(5)
 
   
-  !
+  open(unit=1,action='read')
   !open(unit=1,file=tmpfile,status='unknown')
   read(1,110) DSMconfFile
   read(1,110) outputDir
@@ -45,9 +45,6 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
   close(1)
   
-  print *, imin,imax, DSMconffile, psvmodel
-  stop
-
   ! making directories
 
   commandline = 'mkdir -p '//trim(outputDir)
