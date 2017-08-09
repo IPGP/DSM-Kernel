@@ -32,6 +32,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   read(1,110) outputDir
   read(1,110) psvmodel
   read(1,110) modelname
+  print *, modelname
   outputDir=trim(outputDir)
   psvmodel=trim(psvmodel)
   modelname=trim(modelname)
