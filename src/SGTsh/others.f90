@@ -1,11 +1,19 @@
 subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
   implicit none
-  character(120), parameter :: tmpfile='tmpworkingfile_for_SGTforPinv'
+  !character(120), parameter :: tmpfile='tmpworkingfile_for_SGTforPinv'
   character(120) :: dummy,outputDir,psvmodel,modelname,DSMconfFile
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
   integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
   character(200) :: commandline
+
+  character(120) :: tmpfile
+  integer, external :: getpid
+
+
+  write(tmpfile,"(Z4)") getpid()
+  tmpfile='tmpworkingfile_for_SGTforSinv'//tmpfile
+
   open(unit=1, file=tmpfile,status='unknown')
 100 continue
   read(5,110) dummy

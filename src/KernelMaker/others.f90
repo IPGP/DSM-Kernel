@@ -7,8 +7,13 @@ subroutine pinputKernel
   character(120) :: dummy
   integer :: iitmp,maxlmax
   character(200) :: commandline
+  integer, external :: getpid
 
-  tmpfile='tmpworkingfile_for_SynViewer'
+
+  
+  write(tmpfile,"(Z4)") getpid()
+  tmpfile='tmpworkingfile_for_SynViewer'//tmpfile
+  
 
   open(unit=1, file=tmpfile,status='unknown')
 100 continue
@@ -122,7 +127,10 @@ subroutine pinputKernel
 
   call pinputDSM(DSMconfFile,PoutputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,SGTinfo)
   call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
-  tmpfile = 'tmpworkingfile_for_psvmodel'
+ 
+  write(tmpfile,"(Z4)") getpid()
+  tmpfile = 'tmpworkingfile_for_psvmodel'//tmpfile
+  
   call readpsvmodel(psvmodel,tmpfile)
   INFO_TSGT = trim(parentDir)//"/INFO_TSGT.TXT"
   INFO_RSGT = trim(parentDir)//"/INFO_RSGT.TXT"
@@ -146,13 +154,17 @@ end subroutine pinputKernel
 
 subroutine pinputDSM(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,SGTinfo)
   implicit none
-  character(120), parameter :: tmpfile='tmpworkingfile_for_SGTcalcul'
+  !character(120), parameter :: tmpfile='tmpworkingfile_for_SGTcalcul'
   character(120) :: dummy,outputDir,psvmodel,modelname,DSMconfFile,SGTinfo
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
   integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
+  integer, external :: getpid
+  character(120) :: tmpfile
 
-  
+  write(tmpfile, "(Z4)") getpid()
+  tmpfile='tmpworkingfile_for_SGTcalcul'//tmpfile
+
   open(unit=2, file=SGTinfo)
   open(unit=1, file=tmpfile,status='unknown')
 100 continue
@@ -188,10 +200,16 @@ end subroutine pinputDSM
 
 subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   implicit none
-  character(120), parameter :: tmpfile='tmpworkingfile_for_DSMconf'
+  !character(120), parameter :: tmpfile='tmpworkingfile_for_DSMconf'
   character(120) :: dummy,DSMconfFile
   real(kind(0d0)) :: re,ratc,ratl,omegai
   integer  :: maxlmax
+  integer, external :: getpid
+  character(120) :: tmpfile
+
+  write(tmpfile,"(Z4)") getpid()
+  tmpfile='tmpworkingfile_for_DSMconf'//tmpfile
+
 
   open(unit=2, file=DSMconfFile, status='old',action='read',position='rewind')
   open(unit=1, file=tmpfile,status='unknown')
