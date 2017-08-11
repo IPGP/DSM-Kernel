@@ -77,6 +77,13 @@ subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   character(120) :: dummy,DSMconfFile
   real(kind(0d0)) :: re,ratc,ratl,omegai
   integer  :: maxlmax
+  integer, external :: getpid
+  character(120) :: tmpfile
+
+
+  write(tmpfile,"(Z4)") getpid()
+  tmpfile='tmpworkingfile_for_DSMconf'//tmpfile
+
 
   open(unit=2, file=DSMconfFile, status='old',action='read',position='rewind')
   open(unit=1, file=tmpfile,status='unknown')
