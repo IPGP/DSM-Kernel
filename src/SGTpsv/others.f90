@@ -73,7 +73,7 @@ end subroutine pinput
 
 subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   implicit none
-  character(120), parameter :: tmpfile='tmpworkingfile_for_DSMconf'
+  !character(120), parameter :: tmpfile='tmpworkingfile_for_DSMconf'
   character(120) :: dummy,DSMconfFile
   real(kind(0d0)) :: re,ratc,ratl,omegai
   integer  :: maxlmax
