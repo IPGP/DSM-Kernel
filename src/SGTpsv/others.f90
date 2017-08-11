@@ -1018,6 +1018,8 @@ subroutine calupfluid(c1,omega,lambda,qkp,ylm,strain)
   ! see Fuji et al. 2010
   !freqlambda=cmplx(lambda,0.d0)*(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)))*cmplx(1,1/qkp)
   freqlambda=cmplx(lambda,0.d0)*cmplx(1,1/qkp)
+  print *, lambda,qkp,omega 
+
   freqlambda=freqlambda*cmplx(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)),0.d0)
   strain(1,1)=strain(1,1)+omega*unsurtrois/freqlambda*c1*ylm
   strain(2,2)=strain(1,1)
