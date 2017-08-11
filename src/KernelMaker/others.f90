@@ -14,7 +14,6 @@ subroutine pinputKernel
   write(tmpfile,"(Z4)") getpid()
   tmpfile='tmpworkingfile_for_SynViewer'//tmpfile
   
-
   open(unit=1, file=tmpfile,status='unknown')
 100 continue
   read(5,110) dummy
