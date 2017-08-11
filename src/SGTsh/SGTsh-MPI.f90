@@ -22,6 +22,8 @@ program  SGTsh
   use mpi
   use parameters
   implicit none
+  integer, external :: getpid
+
 
   call MPI_INIT(ierr)
   call MPI_COMM_SIZE(MPI_COMM_WORLD,nproc,ierr)
@@ -31,9 +33,10 @@ program  SGTsh
   if(my_rank.eq.0) then
      call pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
      call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
-     tmpfile = 'tmpworkingfile_for_psvmodel'
+     write(tmpfile,"(Z4)") getpid()
+     tmpfile = 'tmpworkingfile_for_psvmodel'//tmpfile
      call readpsvmodel(psvmodel,tmpfile)
-     psvmodel = 'tmpworkingfile_for_psvmodel'
+     psvmodel=tmpfile
      open(20, file = psvmodel, status = 'old', action='read', position='rewind')
      read(20,*) nzone
      close(20)
