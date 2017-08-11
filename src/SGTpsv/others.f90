@@ -16,7 +16,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
 
   write(tmpfile,"(Z4)") getpid()
   tmpfile='tmpworkingfile_for_SGTforPinv'//tmpfile
-  print *, tmpfile
+  !print *, tmpfile
 
   !istat=getpid()
   !tmpfile=trim(tmpfile)//ichar(istat)
