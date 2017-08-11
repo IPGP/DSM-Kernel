@@ -692,7 +692,7 @@ program  SGTpsv
                              
 
                                 print *, i, omega, omegai
-                                call calupfluid(g0tmp(1),cmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
+                                call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
 
 
                                 ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
