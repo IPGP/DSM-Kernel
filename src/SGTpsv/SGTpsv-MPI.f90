@@ -691,7 +691,7 @@ program  SGTpsv
                                 uder = cmplx(0.d0)
                              
 
-                                print *, i, omega, omegai
+                                !print *, i, omega, omegai
                                 call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
 
 
