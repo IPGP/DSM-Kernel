@@ -42,7 +42,6 @@ program  SGTsh
      close(20)
   endif
   
-  psvmodel = 'tmpworkingfile_for_psvmodel'
 
   ! exporting DSM parameters
   call MPI_BCAST(re,  1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
