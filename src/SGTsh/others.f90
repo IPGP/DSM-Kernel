@@ -134,7 +134,7 @@ subroutine utosynnSH(imt,u,ssynn)
   integer :: imt
   complex(kind(0d0)) :: u(1:3), ssynn(1:5),synn(1:10)
 
-  synn = cmplx(0.d0)
+  synn = dcmplx(0.d0)
   synn(6) = ssynn(1)
   synn(7) = ssynn(2)
   synn(8) = ssynn(3)
@@ -204,7 +204,7 @@ subroutine udertorsgtSH(icomp,uder,rrsgt)
   ! h9    : rsgt(4)
   ! h10   : rsgt(5)
   
-  rsgt = cmplx(0.d0)
+  rsgt = dcmplx(0.d0)
   rsgt(6) = rrsgt(1)
   rsgt(7) = rrsgt(2)
   rsgt(8) = rrsgt(3)
@@ -250,7 +250,7 @@ subroutine udertotsgtSH(imt,uder,ttsgt)
   integer :: imt
   complex(kind(0d0)) :: uder(1:3,1:3),tsgt(1:20),ttsgt(1:10)
 
-  tsgt = cmplx(0.d0)
+  tsgt = dcmplx(0.d0)
   
   tsgt(7)  = ttsgt(1)
   tsgt(12) = ttsgt(2)
@@ -342,8 +342,8 @@ subroutine locallyCartesianDerivatives (u,udr,udt,udp,uder,r,theta)
 
   if((theta.eq.0.d0).or.(theta.eq.pi)) then
      uder(1,1) = udr(1)
-     uder(2,2) = u(1)/cmplx(r)
-     uder(3,3) = u(1)/cmplx(r)     
+     uder(2,2) = u(1)/dcmplx(r)
+     uder(3,3) = u(1)/dcmplx(r)     
      return
   endif
 
@@ -354,14 +354,14 @@ subroutine locallyCartesianDerivatives (u,udr,udt,udp,uder,r,theta)
   ! 1,2,3: r,theta,phi; , denotes the partial derivatives
 
   uder(1,1) = udr(1)
-  uder(1,2) = (udt(1)-u(2))/cmplx(r)
-  uder(1,3) = (udp(1)/cmplx(thetasin)-u(3))/cmplx(r)
+  uder(1,2) = (udt(1)-u(2))/dcmplx(r)
+  uder(1,3) = (udp(1)/dcmplx(thetasin)-u(3))/dcmplx(r)
   uder(2,1) = udr(2)
-  uder(2,2) = (udt(2)+u(1))/cmplx(r)
-  uder(2,3) = (udp(2)/cmplx(thetasin)-u(3)*cmplx(thetacot))/cmplx(r)
+  uder(2,2) = (udt(2)+u(1))/dcmplx(r)
+  uder(2,3) = (udp(2)/dcmplx(thetasin)-u(3)*dcmplx(thetacot))/dcmplx(r)
   uder(3,1) = udr(3)
-  uder(3,2) = udt(3)/cmplx(r)
-  uder(3,3) = (udp(3)/cmplx(thetasin)+u(1)+u(2)*cmplx(thetacot))/cmplx(r)
+  uder(3,2) = udt(3)/dcmplx(r)
+  uder(3,3) = (udp(3)/dcmplx(thetasin)+u(1)+u(2)*dcmplx(thetacot))/dcmplx(r)
   return
 end subroutine locallyCartesianDerivatives
   
@@ -372,7 +372,7 @@ subroutine normalisetoKM(u,r)
   integer :: i
   real(kind(0d0)) :: r
   do i = 1,3
-     u(i) = u(i) / cmplx(r)
+     u(i) = u(i) / dcmplx(r)
   enddo
   return
 end subroutine normalisetoKM
