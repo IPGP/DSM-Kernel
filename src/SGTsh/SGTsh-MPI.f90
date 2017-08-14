@@ -151,7 +151,17 @@ program  SGTsh
   
   if(my_rank.eq.0) then
      r_n =  int((rmax_-rmin_)/rdelta_)+1
+     ! modifying rmin_ so that rmin_ is above the CMB (for SH case)
+     ir_=0
+     do i = 1,r_n
+        if(rmin_+dble(i-1)*rdelta_.lt.rmin) ir_=i
+     enddo          
+     r_n=r_n-ir_
+     rmin_=rmin_+dble(ir_)*rdelta_ ! here we should write ir_ instead of ir_-1
+
   endif
+
+  
 
   call MPI_BCAST(r_n,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
