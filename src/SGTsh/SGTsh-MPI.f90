@@ -9,7 +9,6 @@ program  SGTsh
   !
   !  calculation de la fonction de Green pour SH
   !       
-  !                                               2002.10.KAWAI Kenji
   !                                               2009.6. FUJI Nobuaki
   !                                               2010.9. FUJI Nobuaki
   !                                               2012.3. FUJI Nobuaki
@@ -152,7 +151,17 @@ program  SGTsh
   
   if(my_rank.eq.0) then
      r_n =  int((rmax_-rmin_)/rdelta_)+1
+     ! modifying rmin_ so that rmin_ is above the CMB (for SH case)
+     ir_=0
+     do i = 1,r_n
+        if(rmin_+dble(i-1)*rdelta_.lt.rmin) ir_=i
+     enddo          
+     r_n=r_n-ir_
+     rmin_=rmin_+dble(ir_)*rdelta_ ! here we should write ir_ instead of ir_-1
+
   endif
+
+  
 
   call MPI_BCAST(r_n,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
@@ -374,13 +383,13 @@ program  SGTsh
   
   do i = imin, imax ! each frequency        
      
-     tsgt = cmplx(0.d0)
-     rsgt = cmplx(0.d0)
-     synn = cmplx(0.d0)
+     tsgt = dcmplx(0.d0)
+     rsgt = dcmplx(0.d0)
+     synn = dcmplx(0.d0)
      
-     tsgtsngl = cmplx(0.e0)
-     rsgtsngl = cmplx(0.e0)
-     synnsngl = cmplx(0.e0)
+     tsgtsngl = dcmplx(0.e0)
+     rsgtsngl = dcmplx(0.e0)
+     synnsngl = dcmplx(0.e0)
 
      
      omega = 2.d0 * pi * dble(i)/tlen
@@ -412,7 +421,7 @@ program  SGTsh
               call calbvecphi0(l,(theta(itheta)/180.d0*pi),plm(1,0,itheta),bvec(1,-2,itheta),bvecdt(1,-2,itheta),bvecdp(1,-2,itheta))              
            enddo
            
-           rvec = cmplx(0.d0)
+           rvec = dcmplx(0.d0)
            call calbveczero(l,rvec(1,-2))
            
            if(ismall.gt.20) then
@@ -443,7 +452,7 @@ program  SGTsh
                  ir0=1
                  ig2 = 0
                  do imt = 2,6
-                    g0 = cmplx(0.d0)
+                    g0 = dcmplx(0.d0)
                     call setmt(imt,mt)  
                     call calg2( l,m,spo(ir0),r0(ir0),mt,mu0(ir0),coef(spn(ir0)),ga(1:8,ir0),aa(1:4,ir0),ga2(1:2,1:3,ir0),gdr(1:3,ir0),g0(isp(spn(ir0))),ig2)
                     
@@ -468,7 +477,7 @@ program  SGTsh
                     
                     if(synnswitch.eq.1) then
                        do itheta = 1, theta_n
-                          u = cmplx(0.d0)
+                          u = dcmplx(0.d0)
                           call calu(g0(nn),lsq,bvec(1:3,m,itheta),u(1:3))
                           call utosynnSH(imt,u(1:3),synn(1:num_synn,itheta))
                        enddo
@@ -484,11 +493,11 @@ program  SGTsh
                        
                        
                        do itheta = 1, theta_n
-                          u = cmplx(0.d0)
-                          udr = cmplx(0.d0)
-                          udt = cmplx(0.d0)
-                          udp = cmplx(0.d0)
-                          uder = cmplx(0.d0)
+                          u = dcmplx(0.d0)
+                          udr = dcmplx(0.d0)
+                          udt = dcmplx(0.d0)
+                          udp = dcmplx(0.d0)
+                          uder = dcmplx(0.d0)
                           call calu(g0tmp,lsq,bvec(1:3,m,itheta),u(1:3))
                           call calu(g0dertmp,lsq,bvec(1:3,m,itheta),udr(1:3))
                           call calu(g0tmp,lsq,bvecdt(1:3,m,itheta),udt(1:3))
@@ -503,8 +512,8 @@ program  SGTsh
                  ! back-propagated wavefield
                  if(iabs(m).eq.1) then     
                     do icomp = 2,3
-                       g0 = cmplx(0.d0)
-                       g0(nn) = -conjg(rvec(icomp,m))/cmplx(lsq)
+                       g0 = dcmplx(0.d0)
+                       g0(nn) = -conjg(rvec(icomp,m))/dcmplx(lsq)
                        call dcsbsub0(a,nn,1,lda,g0,eps,dr,z,ier)
                        !print *, g0
                        do ir_= 1,r_n      
@@ -516,11 +525,11 @@ program  SGTsh
                           call interpolate(1,1,r_(ir_),rrsta(1:3,ir_),g0(iista(1:3,ir_)),g0dertmp)
                           !print *, g0tmp
                           do itheta = 1, theta_n
-                             u = cmplx(0.d0)
-                             udr = cmplx(0.d0)
-                             udt = cmplx(0.d0)
-                             udp = cmplx(0.d0)
-                             uder = cmplx(0.d0)
+                             u = dcmplx(0.d0)
+                             udr = dcmplx(0.d0)
+                             udt = dcmplx(0.d0)
+                             udp = dcmplx(0.d0)
+                             uder = dcmplx(0.d0)
                              call calu(g0tmp,lsq,bvec(1:3,m,itheta),u(1:3))
                              call calu(g0dertmp,lsq,bvec(1:3,m,itheta),udr(1:3))
                              call calu(g0tmp,lsq,bvecdt(1:3,m,itheta),udt(1:3))

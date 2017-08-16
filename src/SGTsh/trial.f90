@@ -1,7 +1,3 @@
-
-
-
-
 subroutine calbvecphi0( l,theta,plm,bvec,bvecdt,bvecdp)
   
   implicit none
@@ -23,9 +19,9 @@ subroutine calbvecphi0( l,theta,plm,bvec,bvecdt,bvecdp)
         sign2 = dble((-1)**(l+1)) 
      endif
      
-     bvec = cmplx(0.d0)
-     bvecdt = cmplx(0.d0)
-     bvecdp = cmplx(0.d0)
+     bvec = dcmplx(0.d0)
+     bvecdt = dcmplx(0.d0)
+     bvecdp = dcmplx(0.d0)
      return
   endif
 

@@ -452,7 +452,7 @@ subroutine calg2( l,m,spo,r0,mt,mu0,coef,ga,a,ga2,dr,g2,ig2 )
      dd = dcmplx( b1 ) * ( dcmplx( sgn * mt(1,3), mt(1,2) ) )&
           &	       / ( dcmplx( r0 * r0 * mu0 ) * coef )
      itmp = 4
-     cg2 = cmplx(0.d0)
+     cg2 = dcmplx(0.d0)
      do i=2,3
         cg2(i) = - dd * ( ga(itmp+1) + ga(itmp+2) )
         itmp = itmp + 2
