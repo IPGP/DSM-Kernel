@@ -395,6 +395,8 @@ program KernelMaker
      vsm(ir)  = 5.d-1*tmparray(4)+5.d-1*tmparray(8)
      qmm(ir)  = tmparray(6)
      qkp(ir)  = tmparray(5)
+     if(qmm(ir).le.0.d0) qmm(ir)  = 1.d5
+     if(qkp(ir).le.0.d0) qkp(ir)  = 1.d5
   enddo
   
   

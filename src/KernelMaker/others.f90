@@ -909,8 +909,8 @@ subroutine coeffCalculator
 
 
            ! This is the J^lnAn *q
-
-          coeff(ift,8,ir,it)=gnorma/qmm(ir)* &
+           
+           coeff(ift,8,ir,it)=gnorma/qmm(ir)* &
                 u0(ift,it)*dtn/denomu(ift)
 
            !print *, coeff(ift,7,ir,it),coeff(ift,8,ir,it)
