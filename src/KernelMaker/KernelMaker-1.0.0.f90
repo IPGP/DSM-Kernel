@@ -629,6 +629,9 @@ program KernelMaker
   allocate(duqf(0:nfilter,iWindowStart:iWindowEnd))
   ntot=nphi*ntheta*nr
   k=0  
+
+
+  if(0.eq.1) then
   do ir=1,nr
      ! if-line for parallelisation
      if((ir.ne.0).and.((mod(nr-my_rank-ir,2*nproc).eq.0).or.(mod(nr+my_rank+1-ir,2*nproc).eq.0))) then
@@ -988,7 +991,8 @@ program KernelMaker
      write(1) real(r0D)
      write(1) real(u)
      close(1)
-
+     
+  endif
 
      gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".grid")
