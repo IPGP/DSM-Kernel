@@ -939,7 +939,7 @@ program KernelMaker
      write(1,rec=1) ker(1:nphi,1:ntheta,0:nktype,0:nfilter)
      close(1)
   enddo! ir-loop termine
-  
+endif
   call MPI_BARRIER(MPI_COMM_WORLD,ierr)
 
   ! write final reordered kernel output
@@ -992,7 +992,7 @@ program KernelMaker
      write(1) real(u)
      close(1)
      
-  endif
+
 
      gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".grid")
