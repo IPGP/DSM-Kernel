@@ -993,6 +993,11 @@ program KernelMaker
                  read(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)
                  close(1)
                  totalker(ir,1:nphi,ith,0:nkvtype,0:nfilter)=videoker(1:nphi,0:nkvtype,0:nfilter,jt)
+
+                 ! something that we can try :
+                 ! open(1,file=kerfile,status='old',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter))
+                 ! read(1,rec=jt) totalker(ir,1:nphi,ith,0:nkvtype,0:nfilter)
+                
               enddo
            enddo
            
