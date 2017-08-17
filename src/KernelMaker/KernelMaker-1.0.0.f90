@@ -693,8 +693,6 @@ program KernelMaker
               close(1)            
            enddo
 
-       
-
         else ! we ignore the value smaller than calculrapide*max
 
            ! First obtain the values on the great circle
