@@ -1001,7 +1001,7 @@ program KernelMaker
                  if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
               enddo
               kertotalfile = trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"." &
-                   //trim(freqid(ift))//"."//trim(tmpchar)//trim(".kernel")
+                   //trim(freqid(ift))//"."//trim(tmpchar)//trim(".video")
               open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
               if(compo.eq.'Z') then
                  kc=1
