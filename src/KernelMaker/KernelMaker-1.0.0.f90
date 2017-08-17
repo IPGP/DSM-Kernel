@@ -631,7 +631,7 @@ program KernelMaker
   k=0  
 
 
-  if(0.eq.1) then
+
   do ir=1,nr
      ! if-line for parallelisation
      if((ir.ne.0).and.((mod(nr-my_rank-ir,2*nproc).eq.0).or.(mod(nr+my_rank+1-ir,2*nproc).eq.0))) then
@@ -939,7 +939,7 @@ program KernelMaker
      write(1,rec=1) ker(1:nphi,1:ntheta,0:nktype,0:nfilter)
      close(1)
   enddo! ir-loop termine
-endif
+  
   call MPI_BARRIER(MPI_COMM_WORLD,ierr)
 
   ! write final reordered kernel output
