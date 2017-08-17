@@ -916,11 +916,8 @@ program KernelMaker
            enddo
 
 
-
-
         endif ! for the fast kernel calculation method
      endif ! if-line for parallelisation
-
 
      ! write kernels for each depth
 
@@ -978,11 +975,11 @@ program KernelMaker
      enddo
 
 
-
+     
      if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
         
         totalker=0.e0
-
+        
         do jt=1,number_of_snapshots
            do ir=1,nr
               do ith=1,ntheta
@@ -998,8 +995,8 @@ program KernelMaker
                  totalker(ir,1:nphi,ith,0:nkvtype,0:nfilter)=videoker(1:nphi,0:nkvtype,0:nfilter,jt)
               enddo
            enddo
-
-
+           
+           
            do ift = 0,nfilter
               write(tmpchar,'(I7)') jt
               do j=1,7
@@ -1031,7 +1028,6 @@ program KernelMaker
      endif
 
      
-
      
      ift=nfilter
 
@@ -1045,7 +1041,7 @@ program KernelMaker
      write(1) real(u)
      close(1)
      
-
+     print *, nr, nphi, ntheta,nktype
 
      gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".grid")
