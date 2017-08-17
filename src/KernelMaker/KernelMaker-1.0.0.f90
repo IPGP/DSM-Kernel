@@ -982,7 +982,7 @@ endif
      enddo
 
      
-     nfilter=0
+     ift=nfilter
 
      infofile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".info")
