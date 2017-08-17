@@ -681,18 +681,19 @@ program KernelMaker
                  videoker(ip,:,:,:)=tmpvideoker(:,:,:)
               enddo
             
-              write(tmpchar,'(I7,".",I7)') int(rx*1.d3), int(xlat*1.d3)
+              !write(tmpchar,'(I7,".",I7)') int(rx*1.d3), int(xlat*1.d3)
+              write(tmpchar,'(I7,".",I7)') ir,ith
               do j=1,15
                  if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
               enddo
               kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
-                   //"."//"video"
+                   //"."//"timemarching"
               open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter)*number_of_snapshots)
               write(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)
-              close(1)
-             
+              close(1)            
            enddo
 
+       
 
         else ! we ignore the value smaller than calculrapide*max
 
@@ -916,11 +917,6 @@ program KernelMaker
 
 
 
-           
-
-           
-
-
 
         endif ! for the fast kernel calculation method
      endif ! if-line for parallelisation
@@ -980,6 +976,60 @@ program KernelMaker
        write(1) totalker(:,:,:,:,ift)
        close(1) 
      enddo
+
+
+
+     if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+        
+        totalker=0.e0
+
+        do jt=1,number_of_snapshots
+           do ir=1,nr
+              do ith=1,ntheta
+                 write(tmpchar,'(I7,".",I7)') ir,ith
+                 do j=1,15
+                    if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+                 enddo
+                 kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                      //"."//"timemarching"
+                 open(1,file=kerfile,status='old',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter)*number_ofsnapshots)
+                 read(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)
+                 close(1)
+                 totalker(ir,1:nphi,ith,0:nkvtype,0:nfilter)=videoker(1:nphi,0:nkvtype,0:nfilter,jt)
+              enddo
+           enddo
+
+
+           do ift = 0,nfilter
+              write(tmpchar,'(I7)') jt
+              do j=1,7
+                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+              enddo
+              kertotalfile = trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))//"."//trim(tmpchar)//trim(".kernel")
+              open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
+              if(compo.eq.'Z') then
+                 kc=1
+              elseif(compo.eq.'R') then
+                 kc=2
+              elseif(compo.eq.'T') then
+                 kc=3
+              else
+                 kc=-1
+              endif
+              idum=0
+              fdum=0.e0
+              
+              write(1) totalker(:,:,:,:,ift)
+              close(1) 
+              
+           enddo
+           
+
+        enddo
+                 
+     endif
+
+     
 
      
      ift=nfilter
