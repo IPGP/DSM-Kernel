@@ -272,7 +272,7 @@ program KernelMaker
      do i = 1, nzone
         read (20, *) vrminD(i), vrmaxD(i), rrhoD(1,i), rrhoD(2,i), rrhoD(3,i), rrhoD(4,i), vpvD(1,i), vpvD(2,i), vpvD(3,i), vpvD(4,i), vphD(1,i), vphD(2,i), vphD(3,i), vphD(4,i), vsvD(1,i), vsvD(2,i), vsvD(3,i), vsvD(4,i), vshD(1,i), vshD(2,i), vshD(3,i), vshD(4,i), etaD(1,i), etaD(2,i), etaD(3,i), etaD(4,i), qmuD(i), qkappaD(i)
      enddo
-     close(20)
+     close(20,status='delete')
   endif
   call MPI_BCAST(vrminD,nzone,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
   call MPI_BCAST(vrmaxD,nzone,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)

@@ -113,7 +113,7 @@ subroutine pinputKernel
      enddo
   endif
   read(1,*) iPSVSH
-  close(1)
+  close(1,status='delete')
 
 
   commandline = 'mkdir -p '//trim(parentDir)
@@ -194,7 +194,7 @@ subroutine pinputDSM(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,r
   read(1,*) thetamin,thetamax,thetadelta
   read(1,*) imin,imax
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
-  close(1)
+  close(1,status='delete')
 
 end subroutine pinputDSM
 
@@ -231,7 +231,7 @@ subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   read(1,*) ratl
   read(1,*) omegai
   read(1,*) maxlmax
-  close(1)
+  close(1,status='delete')
 
 
 end subroutine readDSMconf
