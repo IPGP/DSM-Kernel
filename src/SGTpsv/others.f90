@@ -1029,6 +1029,32 @@ end subroutine calupfluid
   
 
 
+
+!
+
+subroutine calupfluid_debug(c1,omega,lambda,qkp,ylm,strain)
+  implicit none
+  complex(kind(0d0)) ::c1,ylm,omega,strain(3,3)
+  real(kind(0d0)) :: lambda,qkp
+  complex(kind(0d0)) :: freqlambda,u_kk
+  real(kind(0d0)), parameter :: deuxsurpi=0.63661977236d0
+  real(kind(0d0)), parameter :: unsurdeuxpi=0.15915494309d0
+  real(kind(0d0)), parameter :: unsurtrois=0.33333333333333333333d0
+
+  ! see Fuji et al. 2010
+  !freqlambda=cmplx(lambda,0.d0)*(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)))*cmplx(1,1/qkp)
+  freqlambda=cmplx(lambda,0.d0)*cmplx(1,1/qkp)
+  print *, lambda,qkp,omega 
+
+  freqlambda=freqlambda*cmplx(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)),0.d0)
+  strain(1,1)=strain(1,1)+omega*unsurtrois/freqlambda*c1*ylm
+  strain(2,2)=strain(1,1)
+  strain(3,3)=strain(1,1)
+  return
+end subroutine calupfluid_debug
+  
+
+
 !
 
 
