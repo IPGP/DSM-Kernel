@@ -765,7 +765,7 @@ program  SGTpsv
 
                                    print *, "g0"
                                    print *, g0tmp(1)
-                                   call calupfluid_debug(g0tmp(1),cmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)                                   
+                                   call calupfluid_debug(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)                                   
                                    !call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                    !call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
                                    !call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
