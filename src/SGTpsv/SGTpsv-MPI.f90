@@ -525,13 +525,13 @@ program  SGTpsv
 
      ir0 = 1
 
-     tsgt = cmplx(0.d0)
-     rsgt = cmplx(0.d0)
-     synn = cmplx(0.d0)
+     tsgt = dcmplx(0.d0)
+     rsgt = dcmplx(0.d0)
+     synn = dcmplx(0.d0)
      
-     tsgtsngl=cmplx(0.e0)
-     rsgtsngl=cmplx(0.e0)
-     synnsngl=cmplx(0.e0)
+     tsgtsngl=dcmplx(0.e0)
+     rsgtsngl=dcmplx(0.e0)
+     synnsngl=dcmplx(0.e0)
      
      omega = 2.d0 * pi * dble(i) / tlen
 
@@ -600,7 +600,7 @@ program  SGTpsv
            lsq = dsqrt( l2 )
 
         
-           rdvec = cmplx(0.d0)
+           rdvec = dcmplx(0.d0)
            call caldveczero(l,rdvec(1:3,-2:2))
         
 
@@ -640,7 +640,7 @@ program  SGTpsv
                     do imt = 1,6
                        
                        call setmt(imt,mt)
-                       g0 = cmplx(0.d0)
+                       g0 = dcmplx(0.d0)
                        call calg( l,m,coef1(spn),coef2(spn),lsq,ecC0,ecF0,ecL0,ya,yb,yc,yd,ra(mtmp),r0(ir0),mt,g0(jtmp) ) 
                        call rea2( nn,a,g0,c,d0,nzone,iphase,kkdr,spn,kkdr0,nn0,r_n,r_n,istazone,iista,jsta )
                   
@@ -663,7 +663,7 @@ program  SGTpsv
 
                           
                           do itheta = 1, theta_n
-                             u = cmplx(0.d0)
+                             u = dcmplx(0.d0)
                              call calup0(d0(nn0),dvec0(1:3,m,itheta),u(1:3))
                              call utosynn(imt,u(1:3),synn(1:num_synn,itheta))
                           enddo
@@ -671,8 +671,8 @@ program  SGTpsv
 
                        
                        do ir_=1,r_n
-                          g0tmp = cmplx(0.d0)
-                          g0dertmp = cmplx(0.d0)
+                          g0tmp = dcmplx(0.d0)
+                          g0dertmp = dcmplx(0.d0)
                           
                           call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                           call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
@@ -684,11 +684,11 @@ program  SGTpsv
                              ! NF will write like \omega*g0tmp(1)/\lambda
                              
                              do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0)
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
+                                u = dcmplx(0.d0)
+                                udr = dcmplx(0.d0)
+                                udt = dcmplx(0.d0)
+                                udp = dcmplx(0.d0)
+                                uder = dcmplx(0.d0)
                              
 
                        
@@ -708,7 +708,7 @@ program  SGTpsv
                                 !call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
 
 
-                                
+                                call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
                              enddo
 
 
@@ -717,11 +717,11 @@ program  SGTpsv
                           else
                              
                              do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0)
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
+                                u = dcmplx(0.d0)
+                                udr = dcmplx(0.d0)
+                                udt = dcmplx(0.d0)
+                                udp = dcmplx(0.d0)
+                                uder = dcmplx(0.d0)
                                 call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                 call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
                                 call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
@@ -738,7 +738,7 @@ program  SGTpsv
             
                     if((m.eq.0).and.(rsgtswitch.eq.1)) then  ! back propagated for icomp = 1
                        do icomp = 1,1
-                          g0 = cmplx(0.d0)
+                          g0 = dcmplx(0.d0)
                           g0(nn-1) = -conjg(rdvec(icomp,m))
                           call rea2_back( nn,a,g0,c,d0,nzone,iphase,kkdr,spn,kkdr0,nn0,r_n,r_n,istazone,iista,jsta )
                           itmp = 1
@@ -746,8 +746,8 @@ program  SGTpsv
                           ns = kkdr0 + ( nint(spo) - 1 )
                           call dcsbdlv0( c(1,itmp),d0(itmp),1,nn0-itmp+1,eps,z(itmp),ier )
                           do ir_=1,r_n
-                             g0tmp = cmplx(0.d0)
-                             g0dertmp = cmplx(0.d0)
+                             g0tmp = dcmplx(0.d0)
+                             g0dertmp = dcmplx(0.d0)
                              call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                              call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
 
@@ -755,11 +755,11 @@ program  SGTpsv
                              !if(0.eq.1) then
                                 ! NF for fluid
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0) 
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0) 
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
                                    
                                    print *, ir_,m,i
 
@@ -773,26 +773,19 @@ program  SGTpsv
                                    !call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
                                    
                                    
-                                
-                                   print *, "uder"
-                                   print *, uder(:,:)
-
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
 
  
-                                   print *, "hey guys"
-                                   print *, rsgt(1:num_tsgt,ir_,itheta)
-                                   
                                    
                                 enddo
                                 
                              else
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0) 
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0) 
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
                                    call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                    call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
                                    call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
@@ -807,16 +800,16 @@ program  SGTpsv
                     
                     if((abs(m).eq.1).and.(rsgtswitch.eq.1)) then  ! back propagated for icomp = 2,3
                        do icomp = 2,3
-                          g0 = cmplx(0.d0)
-                          g0(nn-1) = -conjg(rdvec(icomp,m))/cmplx(lsq)
+                          g0 = dcmplx(0.d0)
+                          g0(nn-1) = -conjg(rdvec(icomp,m))/dcmplx(lsq)
                           call rea2_back( nn,a,g0,c,d0,nzone,iphase,kkdr,spn,kkdr0,nn0,r_n,r_n,istazone,iista,jsta )
                           itmp = 1
                           if ( rmin.eq.0.d0 ) itmp=2
                           ns = kkdr0 + ( nint(spo) - 1 )
                           call dcsbdlv0( c(1,itmp),d0(itmp),1,nn0-itmp+1,eps,z(itmp),ier )
                           do ir_=1,r_n
-                             g0tmp = cmplx(0.d0)
-                             g0dertmp = cmplx(0.d0)
+                             g0tmp = dcmplx(0.d0)
+                             g0dertmp = dcmplx(0.d0)
                              call interpolate( 1,0,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0tmp(1))
                              call interpolate( 1,1,r_(ir_), rrsta(1,ir_),d0(jsta(ir_)),g0dertmp(1))
 
@@ -824,12 +817,12 @@ program  SGTpsv
                              !if(0.eq.1) then
                                 ! NF for fluid
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0) 
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
-                                   call calupfluid(g0tmp(1),cmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)   
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0) 
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
+                                   call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)   
                                    !call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                    !call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
                                    !call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
@@ -843,11 +836,11 @@ program  SGTpsv
                                 
                                 
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0) 
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0) 
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
                                    call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                    call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
                                    call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
@@ -867,7 +860,7 @@ program  SGTpsv
                  else ! for l!=0
                     do imt = 1,6
                        call setmt(imt,mt)
-                       g0 = cmplx(0.d0)
+                       g0 = dcmplx(0.d0)
                        call calg( l,m,coef1(spn),coef2(spn),lsq,ecC0,ecF0,ecL0,ya,yb,yc,yd,ra(mtmp),r0(ir0),mt,g0(jtmp) ) 
                        !print *, l,m,imt,g0(jtmp:jtmp+3)
                        ! computing forward propagating component (l!=0)                              
@@ -900,15 +893,15 @@ program  SGTpsv
                        
                        if(synnswitch.eq.1) then
                           do itheta = 1, theta_n
-                             u = cmplx(0.d0)
+                             u = dcmplx(0.d0)
                              call calu(g0(nn-1),lsq,dvec0(1:3,m,itheta),u(1:3))
                              call utosynn(imt,u(1:3),synn(1:num_synn,itheta))
                           enddo
                        endif
 
                        do ir_=1,r_n ! stack point
-                          g0tmp = cmplx(0.d0)
-                          g0dertmp = cmplx(0.d0)
+                          g0tmp = dcmplx(0.d0)
+                          g0dertmp = dcmplx(0.d0)
                           call interpolate( 2,0,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0tmp(1:2))
                           call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
                           
@@ -918,12 +911,12 @@ program  SGTpsv
                              ! NF for fluid
                              
                              do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0)
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
-                                call calupfluid(g0tmp(1),cmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
+                                u = dcmplx(0.d0)
+                                udr = dcmplx(0.d0)
+                                udt = dcmplx(0.d0)
+                                udp = dcmplx(0.d0)
+                                uder = dcmplx(0.d0)
+                                call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
                                 !call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
                                 !call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
                                 !call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
@@ -935,11 +928,11 @@ program  SGTpsv
                           else
                              
                              do itheta = 1, theta_n
-                                u = cmplx(0.d0)
-                                udr = cmplx(0.d0)
-                                udt = cmplx(0.d0)
-                                udp = cmplx(0.d0)
-                                uder = cmplx(0.d0)
+                                u = dcmplx(0.d0)
+                                udr = dcmplx(0.d0)
+                                udt = dcmplx(0.d0)
+                                udp = dcmplx(0.d0)
+                                uder = dcmplx(0.d0)
                                 call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
                                 call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
                                 call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
@@ -959,15 +952,15 @@ program  SGTpsv
                     
                     if((m.eq.0).and.(rsgtswitch.eq.1)) then ! back propagated for icomp = 1
                        do icomp = 1,1
-                          g0 = cmplx(0.d0)
+                          g0 = dcmplx(0.d0)
                           g0(nn-1) = -conjg(rdvec(icomp,m))
                           itmp=1
                           if ( rmin.eq.0.d0 ) itmp=3
                           ns = kkdr(spn) + 2 * ( nint(spo) - 1 )
                           call dcsbdlv0( a(1,itmp),g0(itmp),3,nn-itmp+1,eps,z(itmp),ier )
                           do ir_=1,r_n
-                             g0tmp = cmplx(0.d0)
-                             g0dertmp = cmplx(0.d0)
+                             g0tmp = dcmplx(0.d0)
+                             g0dertmp = dcmplx(0.d0)
                              call interpolate( 2,0,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0tmp(1:2))
                              call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
 
@@ -977,12 +970,12 @@ program  SGTpsv
                                 ! NF for fluid
                                 
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0)
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
-                                   call calupfluid(g0tmp(1),cmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0)
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
+                                   call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
                                    !call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
                                    !call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
                                    !call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
@@ -995,11 +988,11 @@ program  SGTpsv
                              else
                                 
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0)
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0)
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
                                    call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
                                    call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
                                    call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
@@ -1014,15 +1007,15 @@ program  SGTpsv
 
                     if((abs(m).eq.1).and.(rsgtswitch.eq.1)) then ! back propagated for icomp = 2,3
                        do icomp = 2,3
-                          g0 = cmplx(0.d0)
-                          g0(nn-1) = -conjg(rdvec(icomp,m))/cmplx(lsq)
+                          g0 = dcmplx(0.d0)
+                          g0(nn-1) = -conjg(rdvec(icomp,m))/dcmplx(lsq)
                           itmp=1
                           if ( rmin.eq.0.d0 ) itmp=3
                           ns = kkdr(spn) + 2 * ( nint(spo) - 1 )
                           call dcsbdlv0( a(1,itmp),g0(itmp),3,nn-itmp+1,eps,z(itmp),ier )
                           do ir_=1,r_n
-                             g0tmp = cmplx(0.d0)
-                             g0dertmp = cmplx(0.d0)
+                             g0tmp = dcmplx(0.d0)
+                             g0dertmp = dcmplx(0.d0)
                              call interpolate( 2,0,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0tmp(1:2))
                              call interpolate( 2,1,r_(ir_),rrsta(1,ir_),g0(ksta(ir_)-1),g0dertmp(1:2) )
 
@@ -1031,12 +1024,12 @@ program  SGTpsv
                              !if(0.eq.1) then
                                 ! NF for fluid
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0)
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
-                                   call calupfluid(g0tmp(1),cmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0)
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
+                                   call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
                                    !call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
                                    !call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
                                    !call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
@@ -1047,11 +1040,11 @@ program  SGTpsv
                              else
                                 
                                 do itheta = 1, theta_n
-                                   u = cmplx(0.d0)
-                                   udr = cmplx(0.d0)
-                                   udt = cmplx(0.d0)
-                                   udp = cmplx(0.d0)
-                                   uder = cmplx(0.d0)
+                                   u = dcmplx(0.d0)
+                                   udr = dcmplx(0.d0)
+                                   udt = dcmplx(0.d0)
+                                   udp = dcmplx(0.d0)
+                                   uder = dcmplx(0.d0)
                                    call calup(g0tmp(1),g0tmp(2),lsq,dvec0(1:3,m,itheta),u(1:3))
                                    call calup(g0dertmp(1),g0dertmp(2),lsq,dvec0(1:3,m,itheta),udr(1:3))
                                    call calup(g0tmp(1),g0tmp(2),lsq,dvecdt0(1:3,m,itheta),udt(1:3))
