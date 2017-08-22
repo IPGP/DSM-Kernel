@@ -761,10 +761,7 @@ program  SGTpsv
                                    udp = dcmplx(0.d0)
                                    uder = dcmplx(0.d0)
                                    
-                                   print *, ir_,m,i
-
-                                   print *, "g0"
-                                   print *, g0tmp(1)
+                                   
                                    call calupfluid_debug(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)                                   
                                    !call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                    !call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
@@ -1059,10 +1056,10 @@ program  SGTpsv
                     endif
                  endif   ! l-branch for calu
 
-                 print *, "sum up RSGT"
-                 print *, rsgt(:,ir_,itheta)
+                 print *, "sum up RSGT", i
+                 print *, rsgt(:,1,1)
                  print *, "sum up TSGT"
-                 print *, tsgt(:,ir_,itheta,ir0)
+                 print *, tsgt(:,1,1,1)
 
                  
               endif
