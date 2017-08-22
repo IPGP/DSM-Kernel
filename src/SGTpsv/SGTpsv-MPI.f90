@@ -711,9 +711,7 @@ program  SGTpsv
 
 
                                 
-                                call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
-                                print *, "hey guys"
-                                print *, tsgt(1:num_tsgt,ir_,itheta,ir0)
+                            
                                 
                              enddo
 
