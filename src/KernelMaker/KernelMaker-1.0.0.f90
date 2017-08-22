@@ -185,8 +185,6 @@ program KernelMaker
   call MPI_BCAST(rdelta,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
   if(my_rank.eq.0) then
      nr =  int((rmax-rmin)/rdelta)+1
-     print *, nr
-     stop
   endif
   call MPI_BCAST(nr,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
   allocate(r(1:nr))
