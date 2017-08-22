@@ -694,8 +694,6 @@ program  SGTpsv
                        
                                 call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
 
-                                print *, g0tmp(1)
-
                                 ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
                                 ! that said, u_{r,r}=u_{t,t}=u_{p,p}=omega/(3 lambda)*Q
                                 ! also, u_i=-1/(\rho \omega) * \partial_i Q
@@ -762,6 +760,11 @@ program  SGTpsv
                                    udt = cmplx(0.d0) 
                                    udp = cmplx(0.d0)
                                    uder = cmplx(0.d0)
+                                   
+                                   print *, ir_,m,i
+
+                                   print *, "g0"
+                                   print *, g0tmp(1)
                                    call calupfluid(g0tmp(1),cmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)                                   
                                    !call calup0(g0tmp(1),dvec0(1:3,m,itheta),u(1:3))
                                    !call calup0(g0dertmp(1),dvec0(1:3,m,itheta),udr(1:3))            
@@ -1063,10 +1066,10 @@ program  SGTpsv
                     endif
                  endif   ! l-branch for calu
 
-                 print *, "sum up RSGT"
-                 print *, rsgt(:,ir_,itheta)
-                 print *, "sum up TSGT"
-                 print *, tsgt(:,ir_,itheta,ir0)
+                ! print *, "sum up RSGT"
+                ! print *, rsgt(:,ir_,itheta)
+                ! print *, "sum up TSGT"
+                ! print *, tsgt(:,ir_,itheta,ir0)
 
                  
               endif
