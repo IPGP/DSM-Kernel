@@ -645,11 +645,13 @@ program KernelMaker
         
         ! SSGT reading
         if(iPSVSH.ne.1) call rdsgtomega(rx,0.d0,num_rsgtPSV,num_rsgtPSV,20)
-        if(iPSVSH.ne.2) call rdsgtomega(rx,0.d0,num_rsgtSH,num_rsgtPSV,10)
+        if((iPSVSH.ne.2).and.(vsm(ir).ne.0.d0)) call rdsgtomega(rx,0.d0,num_rsgtSH,num_rsgtPSV,10)
         ! TSGT reading
         if(iPSVSH.ne.1) call rdsgtomega(rs,rx,num_tsgtPSV,num_tsgtPSV,200)
-        if(iPSVSH.ne.2) call rdsgtomega(rs,rx,num_tsgtSH,num_tsgtPSV,100)
+        if((iPSVSH.ne.2).and.(vsm(ir).ne.0.d0)) call rdsgtomega(rs,rx,num_tsgtSH,num_tsgtPSV,100)
        
+        
+
         ! Video mode will calculate for every point
 
         if((trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'alphaV').or. &
