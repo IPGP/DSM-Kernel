@@ -1056,10 +1056,10 @@ program  SGTpsv
                     endif
                  endif   ! l-branch for calu
 
-                 print *, "sum up RSGT", i
-                 print *, rsgt(:,1,1)
-                 print *, "sum up TSGT"
-                 print *, tsgt(:,1,1,1)
+                 !print *, "sum up RSGT", i
+                 !print *, rsgt(:,1,1)
+                 !print *, "sum up TSGT"
+                 !print *, tsgt(:,1,1,1)
 
                  
               endif
