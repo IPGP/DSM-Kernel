@@ -711,8 +711,6 @@ program  SGTpsv
 
 
                                 
-                            
-                                
                              enddo
 
 
@@ -770,7 +768,19 @@ program  SGTpsv
                                    !call calup0(g0tmp(1),dvecdt0(1:3,m,itheta),udt(1:3))
                                    !call calup0(g0tmp(1),dvecdp0(1:3,m,itheta),udp(1:3))
                                    !call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
+                                   
+                                   
+                                
+                                   print *, "uder"
+                                   print *, uder(:,:)
+
                                    call udertorsgt(icomp,uder(1:3,1:3),rsgt(1:num_rsgt,ir_,itheta))
+
+ 
+                                   print *, "hey guys"
+                                   print *, rsgt(1:num_tsgt,ir_,itheta)
+                                   
+                                   
                                 enddo
                                 
                              else
