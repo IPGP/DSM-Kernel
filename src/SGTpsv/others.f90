@@ -55,7 +55,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   read(1,*) thetamin,thetamax,thetadelta
   read(1,*) imin,imax
   read(1,*) rsgtswitch,tsgtswitch,synnswitch
-  close(1)
+  close(1,status='delete')
  
   ! making directories
 
@@ -105,7 +105,7 @@ subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   read(1,*) ratl
   read(1,*) omegai
   read(1,*) maxlmax
-  close(1)
+  close(1,status='delete')
 
 
 end subroutine readDSMconf
