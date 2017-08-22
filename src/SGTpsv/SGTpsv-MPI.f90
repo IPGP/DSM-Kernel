@@ -691,7 +691,7 @@ program  SGTpsv
                                 uder = cmplx(0.d0)
                              
 
-                                !print *, i, omega, omegai
+                       
                                 call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
 
                                 print *, g0tmp(1)
@@ -713,7 +713,7 @@ program  SGTpsv
                                 
                                 call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
                                 print *, "hey guys"
-                                print *, tsgt(1:num_tstg,ir_,itheta,ir0)
+                                print *, tsgt(1:num_tsgt,ir_,itheta,ir0)
                                 
                              enddo
 
@@ -1058,7 +1058,7 @@ program  SGTpsv
                  print *, "sum up RSGT"
                  print *, rsgt(:,ir_,itheta)
                  print *, "sum up TSGT"
-                 print *, tsgt(:,ir_,itheta)
+                 print *, tsgt(:,ir_,itheta,ir0)
 
                  
               endif
