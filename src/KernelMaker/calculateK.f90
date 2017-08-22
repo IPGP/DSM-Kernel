@@ -34,13 +34,13 @@ subroutine calculateKernel
   !   Traveltime kernel for isotropic P-wave speed perturbation. If nfilter>=3, 
   !   also calculate the group-delay kernels fro phase-delay kernels.
  
-  print *, "database"
-  print *, rsgtomega(1,8,theta_n/2)
-  print *, tsgtomega(1,8,theta_n/2)
-  print *, "interpolated"
+  !print *, "database"
+  !print *, rsgtomega(1,8,theta_n/2)
+  !print *, tsgtomega(1,8,theta_n/2)
+  !print *, "interpolated"
 
-  print *, rsgtF(1,5:10)
-  print *, tsgtF(1,5:10)
+  !print *, rsgtF(1,5:10)
+  !print *, tsgtF(1,5:10)
  
   if((trim(paramWRT).eq.'alpha').or.(trim(paramWRT).eq.'all').or.&
       (trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
