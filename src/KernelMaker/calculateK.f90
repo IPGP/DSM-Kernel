@@ -34,8 +34,8 @@ subroutine calculateKernel
   !   Traveltime kernel for isotropic P-wave speed perturbation. If nfilter>=3, 
   !   also calculate the group-delay kernels fro phase-delay kernels.
  
-  
-  
+  print *, rsgtF(1,5:10)
+  print *, tsgtF(1,5:10)
  
   if((trim(paramWRT).eq.'alpha').or.(trim(paramWRT).eq.'all').or.&
       (trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
@@ -123,7 +123,7 @@ subroutine isovpfreq
      u_freq(jt) = u_freq(jt)*cmplx(1.d3)
   enddo
   call vectorFFT_double(fmin,fmax,np1,u_freq(fmin:fmax),du(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)
-   if(ibwfilt) then
+  if(ibwfilt) then
      do ift = 0,nfilter
         call bwfilt(du(iWindowStart:iWindowEnd),duf(ift,iWindowStart:iWindowEnd),1.d0/samplingHz,(iWindowEnd-iWindowStart+1),0,npButterworth,fclp(ift),fchp(ift))
      enddo
