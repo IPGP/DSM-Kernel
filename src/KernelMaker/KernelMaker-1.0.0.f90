@@ -665,7 +665,7 @@ program KernelMaker
                  k=k+1
                  xlat=90.d0-theta(ip,ith)
                  xlon=phi(ip,ith)
-                 call calculateKernel(k,xlat,xlon,mt,mtype)
+                 call calculateKernel
                  ker(ip,ith,:,:)=tmpker(:,:)
                  
               enddo
@@ -680,7 +680,7 @@ program KernelMaker
                  xlat=90.d0-theta(ip,ith)
                  xlon=phi(ip,ith)
                  tmpvideoker=0.e0
-                 call calculateKernel(k,xlat,xlon,mt,mtype)
+                 call calculateKernel
                  
                  videoker(ip,:,:,:)=tmpvideoker(:,:,:)
               enddo
@@ -705,7 +705,7 @@ program KernelMaker
               k=k+1
               xlat=90.d0-theta(ip,ith)
               xlon=phi(ip,ith)
-              call calculateKernel(k,xlat,xlon,mt,mtype)
+              call calculateKernel
               ker(ip,ith,:,:)=tmpker(:,:)
            enddo
            
@@ -774,7 +774,7 @@ program KernelMaker
                        k=k+1
                        xlat=90.d0-theta(ip,ith)
                        xlon=phi(ip,ith)
-                       call calculateKernel(k,xlat,xlon,mt,mtype)
+                       call calculateKernel
                        ker(ip,ith,:,:)=tmpker(:,:)
                     endif
                  enddo
@@ -856,7 +856,7 @@ program KernelMaker
                        k=k+1
                        xlat=90.d0-theta(ip,ith)
                        xlon=phi(ip,ith)
-                       call calculateKernel(k,xlat,xlon,mt,mtype)
+                       call calculateKernel
                        ker(ip,ith,:,:)=tmpker(:,:)
                     endif
                  enddo
