@@ -674,10 +674,12 @@ program KernelMaker
         elseif((trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'alphaV')) then
            
             do ith = 1,ntheta
+               videoker=0.e0
               do ip=1,nphi
                  k=k+1
                  xlat=90.d0-theta(ip,ith)
                  xlon=phi(ip,ith)
+                 tmpvideoker=0.e0
                  call calculateKernel(k,xlat,xlon,mt,mtype)
                  
                  videoker(ip,:,:,:)=tmpvideoker(:,:,:)
@@ -978,9 +980,10 @@ program KernelMaker
      
      if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
         
-        totalker=0.e0
+      
         
         do jt=1,number_of_snapshots
+           totalker=0.e0
            do ir=1,nr
               do ith=1,ntheta
                  write(tmpchar,'(I7,".",I7)') ir,ith
