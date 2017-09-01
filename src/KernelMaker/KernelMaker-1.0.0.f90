@@ -612,9 +612,10 @@ program KernelMaker
   ! for video mode, number of snapshots will be decided here
 
   number_of_snapshots = 1
-  if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+  if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV').or.&
+       (trim(paramWRT).eq.'vRSGT').or.(trim(paramWRT).eq.'vTSGT')) then
      jtstep_timeincrementV=1
-     if(timeincrementV.ne.0.d0) jtstep_timeincrementV=int(timeincrementV*samplingHz) 
+     if(timeincrementV.ne.0.d0) jtstep_timeincrementV=idint(timeincrementV*samplingHz) 
      if(timeincrementV.eq.0.d0) jtstep_timeincrementV=1
      !print *, jtstep_timeincrementV, timeincrementV, samplingHz
      number_of_snapshots = (iWindowEnd-iWindowStart+1)/jtstep_timeincrementV+1
