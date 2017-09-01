@@ -660,7 +660,8 @@ program KernelMaker
   ntot=nphi*ntheta*nr
   k=0  
 
-  print *, paramWRT
+  print *, trim(paramWRT),paramWRT
+  if((trim(paramWRT).eq.'vRSGT')) print *, 'yes'
   
   do ir=1,nr
      ! if-line for parallelisation
