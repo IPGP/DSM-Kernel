@@ -24,6 +24,11 @@ program KernelMaker
   include 'mpif.h'
   include '../../etc/config_calcul/constants.h'
 
+
+  ! tmporary integer (we have to remove this)
+
+  integer :: nktype_real
+
   ! file name
 
   character(200) :: infofile, gridfile, kerfile, kertotalfile
@@ -1230,13 +1235,13 @@ program KernelMaker
 
 
      if(trim(paramWRT).eq.'vRSGT') then
-        nktype=num_h3-1
+        nktype_real=num_h3-1
      elseif(trim(paramWRT).eq.'vTSGT') then
-        nktype=num_h4-1
+        nktype_real=num_h4-1
      elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
-        nktype=nkvtype
+        nktype_real=nkvtype
      else
-        nktype=nktype
+        nktype_real=nktype
      endif
      
      
@@ -1245,19 +1250,19 @@ program KernelMaker
      infofile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".info")
      open(1,file=infofile,status='unknown',form='unformatted',access='sequential')
-     write(1) nr,nphi,ntheta,nktype,nfilter,iWindowEnd-iWindowStart+1,number_of_snapshots
+     write(1) nr,nphi,ntheta,nktype_real,nfilter,iWindowEnd-iWindowStart+1,number_of_snapshots
      write(1) real(t(nt1(ift))),real(t(nt2(ift)))
      write(1) (real(mt(i)),i=1,6)
      write(1) real(r0D)
      write(1) real(u)
      close(1)
      
-     print *, nr, nphi, ntheta,nktype
+     print *, nr, nphi, ntheta,nktype_real
 
      gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
                 trim(phase)//"."//trim(compo)//trim(".grid")
      open(1,file=gridfile,status='unknown',form='unformatted',access='sequential')
-     write(1) nr, nphi, ntheta, nktype
+     write(1) nr, nphi, ntheta, nktype_real
      write(1) real(r)
      write(1) real(phitheta)
      write(1) real(thetaphi)
