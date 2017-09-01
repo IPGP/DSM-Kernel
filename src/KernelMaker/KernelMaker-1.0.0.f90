@@ -741,9 +741,9 @@ program KernelMaker
                  xlon=phi(ip,ith)
                  tmpvideoker=0.e0
                  call calculateRSGT
-                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)
+                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)*1.d30
               enddo
-              print *,videoker(nphi/2,1,:,:)
+              !print *,videoker(nphi/2,1,:,:)
 
               write(tmpchar,'(I7,".",I7)') ir,ith
               do j=1,15
@@ -772,7 +772,7 @@ program KernelMaker
                  xlon=phi(ip,ith)
                  tmpvideoker=0.e0
                  call calculateTSGT
-                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)
+                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)*1.d30
               enddo
 
 
