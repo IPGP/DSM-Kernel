@@ -89,7 +89,7 @@ program KernelMaker
         fmax = imax
      endif     
   endif
-
+  
 
   call MPI_BCAST(SGTinfo,    120,MPI_CHARACTER,0,MPI_COMM_WORLD,ierr)
   call MPI_BCAST(parentDir,  120,MPI_CHARACTER,0,MPI_COMM_WORLD,ierr)
@@ -610,7 +610,7 @@ program KernelMaker
   endif
 
   ! for video mode, number of snapshots will be decided here
-
+  call MPI_BCAST(timeincrementV,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
   number_of_snapshots = 1
   if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV').or.&
        (trim(paramWRT).eq.'vRSGT').or.(trim(paramWRT).eq.'vTSGT')) then
@@ -621,7 +621,7 @@ program KernelMaker
      number_of_snapshots = (iWindowEnd-iWindowStart+1)/jtstep_timeincrementV+1
   endif
 
-  print *,jtstep_timeincrementV
+  
   
   ! Now loop over all grid ponts to compute the kernels
   ! for the parallelisation, I devide nr into nproc
