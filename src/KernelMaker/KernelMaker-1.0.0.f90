@@ -621,7 +621,7 @@ program KernelMaker
      number_of_snapshots = (iWindowEnd-iWindowStart+1)/jtstep_timeincrementV+1
   endif
 
-  print *,jstep_timeincrementV
+  print *,jtstep_timeincrementV
   
   ! Now loop over all grid ponts to compute the kernels
   ! for the parallelisation, I devide nr into nproc
