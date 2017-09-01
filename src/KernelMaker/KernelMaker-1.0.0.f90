@@ -714,7 +714,7 @@ program KernelMaker
                  tmpvideoker=0.e0
                  call calculateKernel
                  
-                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)
+                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)*1.d30
               enddo
             
               !write(tmpchar,'(I7,".",I7)') int(rx*1.d3), int(xlat*1.d3)

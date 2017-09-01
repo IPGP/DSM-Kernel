@@ -32,20 +32,20 @@ def read_fortran_record(binfile, count, dtype, filetype):
 #fname_kernel = 'output/STA90.Explosion.some.Z.100s30s.kernel'
 #fname_kernel = 'output/STA.Explosion.some.Z.100s10s.kernel'
 #fname_kernel='outputvideo/STA90.Explosion.some.Z.100s30s.0000007.video'
-fname_grid = 'tmp2/STA91.Explosion.some.Z.grid'
+fname_grid = 'tmp2/STA91.Explosion.some1.Z.grid'
 
 
 #fname_grid = 'tmp2/STA89.Explosion.some.Z.grid'
 fname_plot = 'kernel.png'
 
 
-for itime in range (1,8):
+for itime in range (1,102):
     
     num_snap=str(itime).zfill(7)
 
-    fname_kernel='tmp2/STA91.Explosion.some.Z.100s30s.'+num_snap+'.video'
+    fname_kernel='tmp2/STA91.Explosion.some1.Z.100s30s.'+num_snap+'.video'
     
-    fname_vtk='kernel'+num_snap
+    fname_vtk='ker'+num_snap
 
     kernelfile = open(fname_kernel, 'rb')
     gridfile = open(fname_grid, 'rb')
