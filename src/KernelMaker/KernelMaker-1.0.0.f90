@@ -1047,7 +1047,8 @@ program KernelMaker
      endif
 
 
-     if((trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT')) then
+     if((trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT').and.(trim(paramWRT).ne.'alphaV').and.&
+          (trim(paramWRT).ne.'betaV').and.(trim(paramWRT).ne.'allV')) then
         totalker = 0.e0
         do ir=1,nr
            write(tmpchar,'(I7)') int(r(ir)*1.d3)
