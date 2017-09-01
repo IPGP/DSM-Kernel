@@ -660,9 +660,7 @@ program KernelMaker
   ntot=nphi*ntheta*nr
   k=0  
 
-  print *, trim(paramWRT),paramWRT
-  if((trim(paramWRT).eq.'vRSGT')) print *, 'yes'
-  
+
   do ir=1,nr
      ! if-line for parallelisation
      if((ir.ne.0).and.((mod(nr-my_rank-ir,2*nproc).eq.0).or.(mod(nr+my_rank+1-ir,2*nproc).eq.0))) then
@@ -683,10 +681,6 @@ program KernelMaker
        
         
 
- 
-        
-
-
         ! Video mode will calculate for every point
 
         if((trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'alphaV').or. &
@@ -694,7 +688,10 @@ program KernelMaker
            calculrapide=0.d0
         endif 
 
-        if((calculrapide.eq.0.d0).and.((trim(paramWRT).ne.'betaV').and.(trim(paramWRT).ne.'allV').and.(trim(paramWRT).ne.'alphaV'))) then ! calculate for every point
+
+
+        if((calculrapide.eq.0.d0).and.((trim(paramWRT).ne.'betaV').and.(trim(paramWRT).ne.'allV').and.(trim(paramWRT).ne.'alphaV')&
+             .and.(trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT'))) then ! calculate for every point
            do ith = 1,ntheta
               do ip=1,nphi
                  k=k+1
@@ -1050,7 +1047,7 @@ program KernelMaker
      endif
 
 
-     if((trim(paramWRT).ne.'vRSGT').or.(trim(paramWRT).ne.'vTSGT')) then
+     if((trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT')) then
         totalker = 0.e0
         do ir=1,nr
            write(tmpchar,'(I7)') int(r(ir)*1.d3)
