@@ -1002,20 +1002,23 @@ program KernelMaker
 
 
         endif ! for the fast kernel calculation method
+   
+
+        ! write kernels for each depth
+        
+        write(tmpchar,'(I7)') int(rx*1.d3)
+        do j=1,7
+           if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+        enddo
+        kerfile = trim(parentDir)//"/tmp/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
+        
+        open(1,file=kerfile,status='unknown',form='unformatted', &
+             access = 'direct', recl=kind(0e0)*nphi*ntheta*(nktype+1)*(nfilter+1))    
+        write(1,rec=1) ker(1:nphi,1:ntheta,0:nktype,0:nfilter)
+        close(1)
+        
+        
      endif ! if-line for parallelisation
-
-     ! write kernels for each depth
-
-     write(tmpchar,'(I7)') int(rx*1.d3)
-     do j=1,7
-        if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
-     enddo
-     kerfile = trim(parentDir)//"/tmp/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
-     
-     open(1,file=kerfile,status='unknown',form='unformatted', &
-          access = 'direct', recl=kind(0e0)*nphi*ntheta*(nktype+1)*(nfilter+1))    
-     write(1,rec=1) ker(1:nphi,1:ntheta,0:nktype,0:nfilter)
-     close(1)
   enddo! ir-loop termine
   
   call MPI_BARRIER(MPI_COMM_WORLD,ierr)
