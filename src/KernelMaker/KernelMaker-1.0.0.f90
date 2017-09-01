@@ -1113,7 +1113,7 @@ program KernelMaker
               idum=0
               fdum=0.e0
               
-              write(1) totalker(1:nr,1:nphi,1:nth,1:num_h3,ift)
+              write(1) totalker(1:nr,1:nphi,1:ntheta,1:num_h3,ift)
               close(1) 
               
            enddo
@@ -1165,7 +1165,7 @@ program KernelMaker
               idum=0
               fdum=0.e0
               
-              write(1) totalker(1:nr,1:nphi,1:nth,1:num_h4,ift)
+              write(1) totalker(1:nr,1:nphi,1:ntheta,1:num_h4,ift)
               close(1) 
               
            enddo
