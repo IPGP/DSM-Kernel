@@ -616,7 +616,7 @@ program KernelMaker
      jtstep_timeincrementV=1
      if(timeincrementV.ne.0.d0) jtstep_timeincrementV=int(timeincrementV*samplingHz) 
      if(timeincrementV.eq.0.d0) jtstep_timeincrementV=1
-     print *, jtstep_timeincrementV, timeincrementV, samplinHz
+     print *, jtstep_timeincrementV, timeincrementV, samplingHz
      number_of_snapshots = (iWindowEnd-iWindowStart+1)/jtstep_timeincrementV
   endif
   
