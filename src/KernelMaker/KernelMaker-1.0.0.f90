@@ -1024,7 +1024,7 @@ program KernelMaker
      elseif(trim(paramWRT).eq.'vTSGT') then
         allocate(totalker(nr,nphi,ntheta,1:num_h4,0:nfilter))
      elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
-        allocate(totalker(nr,nphi,ntheta,0:nvktype,0:nfilter))
+        allocate(totalker(nr,nphi,ntheta,0:nkvtype,0:nfilter))
      else
         allocate(totalker(nr,nphi,ntheta,0:nktype,0:nfilter))
      endif
@@ -1083,7 +1083,7 @@ program KernelMaker
                  open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
                  read(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots)
                  close(1) 
-                 totalker(ir,1:nphi,ith,1:num_h3,0:filter)=videoker(1:nphi,1:num_h3,0:nfilter,jt)
+                 totalker(ir,1:nphi,ith,1:num_h3,0:nfilter)=videoker(1:nphi,1:num_h3,0:nfilter,jt)
               enddo
            enddo
 
@@ -1135,7 +1135,7 @@ program KernelMaker
                  open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
                  read(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,1:number_of_snapshots)
                  close(1) 
-                 totalker(ir,1:nphi,ith,1:num_h4,0:filter)=videoker(1:nphi,1:num_h4,0:nfilter,jt)
+                 totalker(ir,1:nphi,ith,1:num_h4,0:nfilter)=videoker(1:nphi,1:num_h4,0:nfilter,jt)
               enddo
            enddo
 

@@ -39,12 +39,14 @@ fname_grid = 'tmp2/STA91.Explosion.some.Z.grid'
 fname_plot = 'kernel.png'
 
 
-for itime in range (1,5):
+for itime in range (1,8):
     
     num_snap=str(itime).zfill(7)
 
-    fname_kernel='tmp2/STA91.Explosion.some.Z.100s30s.0000003.video'
+    fname_kernel='tmp2/STA91.Explosion.some.Z.100s30s.'+num_snap+'.video'
     
+    fname_vtk='kernel'+num_snap
+
     kernelfile = open(fname_kernel, 'rb')
     gridfile = open(fname_grid, 'rb')
     
@@ -73,7 +75,7 @@ for itime in range (1,5):
     
     point_data = {'{:d}'.format(name): data for name, data in zip(range(nktype), kernel)}
     
-    gridToVTK('kernel', xgrid, ygrid, zgrid, pointData=point_data)
+    gridToVTK(fname_vtk, xgrid, ygrid, zgrid, pointData=point_data)
     
     phis = phis.reshape(ntheta, nphi)
     thetas = phis.reshape(ntheta, nphi)
