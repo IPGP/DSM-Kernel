@@ -1221,7 +1221,7 @@ program KernelMaker
               idum=0
               fdum=0.e0
               
-              write(1) totalker(1:nr,1:nphi,1:nth,0:nkvtype,ift)
+              write(1) totalker(1:nr,1:nphi,1:ntheta,0:nkvtype,ift)
               close(1) 
               
            enddo
