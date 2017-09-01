@@ -743,6 +743,7 @@ program KernelMaker
               enddo
               kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
                    //"."//"timemarching"
+              print *, kerfile
               open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
               write(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots)
               close(1)           
