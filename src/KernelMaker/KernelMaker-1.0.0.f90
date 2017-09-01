@@ -618,9 +618,24 @@ program KernelMaker
   ! for the parallelisation, I devide nr into nproc
 
   allocate(tmpker(0:nktype,0:nfilter))
-  allocate(tmpvideoker(0:nkvtype,0:nfilter,1:number_of_snapshots))
+
+  if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+     allocate(tmpvideoker(0:nkvtype,0:nfilter,1:number_of_snapshots))
+     allocate(videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)) ! be careful of the difference between ker and videoker (along theta)
+  endif
+     
+  if(trim(paramWRT).eq.'vTSGT') then
+     allocate(tmpvideoker(1:num_h4,0:nfilter,1:number_of_snapshots))
+     allocate(videoker(1:nphi,1:num_h4,0:nfilter,1:number_of_snapshots))
+  endif
+
+  if(trim(paramWRT).eq.'vRSGT') then
+     allocate(tmpvideoker(1:num_h3,0:nfilter,1:number_of_snapshots))
+     allocate(videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots))
+  endif
+  
   allocate(ker(1:nphi,1:ntheta,0:nktype,0:nfilter))
-  allocate(videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)) ! be careful of the difference between ker and videoker (along theta)
+
   tmpker = 0.d0
   ker = 0.e0
   allocate(du(iWindowStart:iWindowEnd))
@@ -651,6 +666,10 @@ program KernelMaker
         if((iPSVSH.ne.2).and.(vsm(ir).ne.0.d0)) call rdsgtomega(rs,rx,num_tsgtSH,num_tsgtPSV,100)
        
         
+
+ 
+        
+
 
         ! Video mode will calculate for every point
 
@@ -696,6 +715,65 @@ program KernelMaker
               write(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)
               close(1)            
            enddo
+
+
+        elseif(trim(paramWRT).eq.'vRSGT') then
+
+
+           do ith=1,ntheta
+              videoker=0.e0
+              do ip=1,nphi
+                 k=k+1
+                 xlat=90.d0-theta(ip,ith)
+                 xlon=phi(ip,ith)
+                 tmpvideoker=0.e0
+                 call calculateRSGT
+                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)
+              enddo
+
+
+               write(tmpchar,'(I7,".",I7)') ir,ith
+              do j=1,15
+                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+              enddo
+              kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                   //"."//"timemarching"
+              open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
+              write(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots)
+              close(1)           
+
+           enddo
+
+
+
+        elseif(trim(paramWRT).eq.'vTSGT') then
+
+           
+           
+           do ith=1,ntheta
+              videoker=0.e0
+              do ip=1,nphi
+                 k=k+1
+                 xlat=90.d0-theta(ip,ith)
+                 xlon=phi(ip,ith)
+                 tmpvideoker=0.e0
+                 call calculateTSGT
+                 videoker(ip,:,:,:)=tmpvideoker(:,:,:)
+              enddo
+
+
+              write(tmpchar,'(I7,".",I7)') ir,ith
+              do j=1,15
+                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+              enddo
+              kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                   //"."//"timemarching"
+              open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h4)*(1+nfilter)*number_of_snapshots)
+              write(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,1:number_of_snapshots)
+              close(1)           
+
+           enddo
+
 
         else ! we ignore the value smaller than calculrapide*max
 

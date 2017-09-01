@@ -1,3 +1,131 @@
+subroutine calculateRSGT
+  use parameters
+  use tmpSGTs
+  use angles
+  use kernels
+  
+  ! subroutine for calculate RSGT video for ip and ith
+
+  implicit none
+
+  ! number of components ! attention! these definitions are also necessary in the main code !!
+  integer, parameter :: num_tsgtPSV = 20
+  integer, parameter :: num_rsgtPSV = 10
+  integer, parameter :: num_synnPSV = 10
+  integer, parameter :: num_tsgtSH = 10
+  integer, parameter :: num_rsgtSH = 5
+  integer, parameter :: num_synnSH = 5
+  integer, parameter :: num_h3 = 6
+  integer, parameter :: num_h4 = 6
+  integer :: i_sgt
+  
+  rsgtF=dcmplx(0.d0)
+  tsgtF=dcmplx(0.d0)
+  tmpker=0.d0
+
+  !  interpolate SGTs
+  call clsgt(deltar(ip,ith),num_rsgtPSV,rsgtF(1:num_rsgtPSV,fmin:fmax),rsgtomega(1:num_rsgtPSV,fmin:fmax,1:theta_n))
+  !call clsgt(deltas(ip,ith),num_tsgtPSV,tsgtF(1:num_tsgtPSV,fmin:fmax),tsgtomega(1:num_tsgtPSV,fmin:fmax,1:theta_n))
+  ! Calculate the RSGT and TSGT: The 4th-order SSGT is reduced to 2nd-order
+  ! after double-dotted with the moment tensor
+  call rsgt2h3freq
+  !call tsgt2h4freq
+
+ 
+
+
+  do i_sgt=1,num_h3
+     du=0.d0
+     call vectorFFT_double(fmin,fmax,np1,h3(i_sgt,fmin:fmax),du(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)
+
+
+     if(ibwfilt) then
+        do ift = 0,nfilter
+           call bwfilt(du(iWindowStart:iWindowEnd),duf(ift,iWindowStart:iWindowEnd),1.d0/samplingHz,(iWindowEnd-iWindowStart+1),0,npButterworth,fclp(ift),fchp(ift))
+        enddo
+     endif
+
+     
+     
+     do ift=0,nfilter
+        
+        do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+           tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
+        enddo
+        
+     enddo
+  enddo
+
+  return
+
+end subroutine calculateRSGT
+
+
+subroutine calculateTSGT
+  use parameters
+  use tmpSGTs
+  use angles
+  use kernels
+  
+  ! subroutine for calculate RSGT video for ip and ith
+
+  implicit none
+
+  ! number of components ! attention! these definitions are also necessary in the main code !!
+  integer, parameter :: num_tsgtPSV = 20
+  integer, parameter :: num_rsgtPSV = 10
+  integer, parameter :: num_synnPSV = 10
+  integer, parameter :: num_tsgtSH = 10
+  integer, parameter :: num_rsgtSH = 5
+  integer, parameter :: num_synnSH = 5
+  integer, parameter :: num_h3 = 6
+  integer, parameter :: num_h4 = 6
+
+
+  rsgtF=dcmplx(0.d0)
+  tsgtF=dcmplx(0.d0)
+  tmpker=0.d0
+
+  !  interpolate SGTs
+  !call clsgt(deltar(ip,ith),num_rsgtPSV,rsgtF(1:num_rsgtPSV,fmin:fmax),rsgtomega(1:num_rsgtPSV,fmin:fmax,1:theta_n))
+  call clsgt(deltas(ip,ith),num_tsgtPSV,tsgtF(1:num_tsgtPSV,fmin:fmax),tsgtomega(1:num_tsgtPSV,fmin:fmax,1:theta_n))
+  ! Calculate the RSGT and TSGT: The 4th-order SSGT is reduced to 2nd-order
+  ! after double-dotted with the moment tensor
+  !call rsgt2h3freq
+  call tsgt2h4freq
+  
+
+  do i_sgt=1,num_h4
+     du=0.d0
+     call vectorFFT_double(fmin,fmax,np1,h3(i_sgt,fmin:fmax),du(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)
+
+
+     if(ibwfilt) then
+        do ift = 0,nfilter
+           call bwfilt(du(iWindowStart:iWindowEnd),duf(ift,iWindowStart:iWindowEnd),1.d0/samplingHz,(iWindowEnd-iWindowStart+1),0,npButterworth,fclp(ift),fchp(ift))
+        enddo
+     endif
+
+     
+     
+     do ift=0,nfilter
+        if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
+           do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+              tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
+           enddo
+        endif
+     enddo
+  enddo
+
+
+
+  return
+
+end subroutine calculateTSGT
+
+
+
+
 subroutine calculateKernel
   use parameters
   use tmpSGTs
@@ -19,8 +147,8 @@ subroutine calculateKernel
   integer, parameter :: num_h4 = 6
 
 
-  rsgtF=cmplx(0.d0)
-  tsgtF=cmplx(0.d0)
+  rsgtF=dcmplx(0.d0)
+  tsgtF=dcmplx(0.d0)
   tmpker=0.d0
 
   !  interpolate SGTs
@@ -121,11 +249,11 @@ subroutine isovpfreq
     
   du=0.d0
   
-  u_freq=cmplx(0.d0)
+  u_freq=dcmplx(0.d0)
   do jt = fmin,fmax
      u_freq(jt)=-(h3(1,jt)+h3(2,jt)+h3(3,jt))* &
           (h4(1,jt)+h4(2,jt)+h4(3,jt))
-     u_freq(jt) = u_freq(jt)*cmplx(1.d3)
+     u_freq(jt) = u_freq(jt)*dcmplx(1.d3)
   enddo
   call vectorFFT_double(fmin,fmax,np1,u_freq(fmin:fmax),du(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)
   if(ibwfilt) then
@@ -205,18 +333,18 @@ subroutine isovsfreq
 
   par=0.e0
   parq=0.e0
-  u_freq=cmplx(0.d0)
+  u_freq=dcmplx(0.d0)
   do jt = fmin,fmax
      u_freq(jt) = (-2.d0*(h3(4,jt)*h4(4,jt) &
           +h3(5,jt)*h4(5,jt) &
           +h3(6,jt)*h4(6,jt))+h3(1,jt)*(h4(2,jt)+h4(3,jt)) &
           +h3(2,jt)*(h4(1,jt)+h4(3,jt)) &
           +h3(3,jt)*(h4(1,jt)+h4(2,jt)))
-     u_freq(jt) = u_freq(jt)*cmplx(1.d3)
+     u_freq(jt) = u_freq(jt)*dcmplx(1.d3)
   enddo
   call vectorFFT_double(fmin,fmax,np1,u_freq(fmin:fmax),du(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)
   
-  u_freq=cmplx(0.d0)
+  u_freq=dcmplx(0.d0)
 
 
   ! old version 
@@ -228,7 +356,7 @@ subroutine isovsfreq
   !        +h3(1,jt)*(h4(2,jt)+h4(3,jt))/3.d0 &
   !        +h3(2,jt)*(h4(1,jt)+h4(3,jt))/3.d0 &
   !        +h3(3,jt)*(h4(1,jt)+h4(2,jt))/3.d0)
-  !   u_freq(jt) = u_freq(jt)*cmplx(1.d3)
+  !   u_freq(jt) = u_freq(jt)*dcmplx(1.d3)
   !enddo
   
 
@@ -243,7 +371,7 @@ subroutine isovsfreq
           - 4.d0/3.d0*(h3(1,jt)*h4(1,jt)+h3(2,jt)*h4(2,jt)+h3(3,jt)*h4(3,jt))
      ! then apply the Jacobian of Fuji et al. 2010
      u_freq(jt) = u_freq(jt)*jacobianFuji(ir,jt)
-     u_freq(jt) = u_freq(jt)*cmplx(1.d3) 
+     u_freq(jt) = u_freq(jt)*dcmplx(1.d3) 
   enddo
 
   call vectorFFT_double(fmin,fmax,np1,u_freq(fmin:fmax),duq(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)

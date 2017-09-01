@@ -55,7 +55,8 @@ subroutine pinputKernel
   paramWRT = trim(paramWRT)
   timeincrementV=0.d0
   if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.&
-     (trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'video')) then
+     (trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'video').or.&
+     (trim(paramWRT).eq.'vRSGT').or.(trim(paramWRT).eq.'vTSGT')) then
      ! alphaV, betaV, allV are for waveform partials, video for forward modelling (Green's function)
     ! 5-bis
       read(1,*) timeincrementV ! in second 
