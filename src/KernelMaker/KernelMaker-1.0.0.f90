@@ -684,7 +684,7 @@ program KernelMaker
         ! Video mode will calculate for every point
 
         if((trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'alphaV').or. &
-           (trim(paramWRT).eq.'betaV')) then
+           (trim(paramWRT).eq.'betaV').or.(trim(paramWRT).ne.'vRSGT').or.(trim(paramWRT).ne.'vTSGT')) then
            calculrapide=0.d0
         endif 
 
