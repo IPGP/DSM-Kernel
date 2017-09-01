@@ -631,16 +631,22 @@ program KernelMaker
   if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
      allocate(tmpvideoker(0:nkvtype,0:nfilter,1:number_of_snapshots))
      allocate(videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)) ! be careful of the difference between ker and videoker (along theta)
+     tmpvideoker=0.d0
+     videoker=0.e0
   endif
      
   if(trim(paramWRT).eq.'vTSGT') then
      allocate(tmpvideoker(1:num_h4,0:nfilter,1:number_of_snapshots))
      allocate(videoker(1:nphi,1:num_h4,0:nfilter,1:number_of_snapshots))
+     tmpvideoker=0.d0
+     videoker=0.e0
   endif
 
   if(trim(paramWRT).eq.'vRSGT') then
      allocate(tmpvideoker(1:num_h3,0:nfilter,1:number_of_snapshots))
      allocate(videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots))
+     tmpvideoker=0.d0
+     videoker=0.e0
   endif
   
   allocate(ker(1:nphi,1:ntheta,0:nktype,0:nfilter))
@@ -654,8 +660,8 @@ program KernelMaker
   ntot=nphi*ntheta*nr
   k=0  
 
-
-
+  print *, paramWRT
+  
   do ir=1,nr
      ! if-line for parallelisation
      if((ir.ne.0).and.((mod(nr-my_rank-ir,2*nproc).eq.0).or.(mod(nr+my_rank+1-ir,2*nproc).eq.0))) then
@@ -1041,41 +1047,44 @@ program KernelMaker
      else
         allocate(totalker(nr,nphi,ntheta,0:nktype,0:nfilter))
      endif
-     totalker = 0.e0
-     do ir=1,nr
-        write(tmpchar,'(I7)') int(r(ir)*1.d3)
-        do j=1,7
-           if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+
+
+     if((trim(paramWRT).ne.'vRSGT').or.(trim(paramWRT).ne.'vTSGT')) then
+        totalker = 0.e0
+        do ir=1,nr
+           write(tmpchar,'(I7)') int(r(ir)*1.d3)
+           do j=1,7
+              if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+           enddo
+           
+           kerfile = trim(parentDir)//"/tmp/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
+           
+           open(1,file=kerfile,status='unknown',form='unformatted', &
+                access = 'direct', recl=kind(0e0)*nphi*ntheta*(nktype+1)*(nfilter+1))    
+           read(1,rec=1) totalker(ir,1:nphi,1:ntheta,0:nktype,0:nfilter)
+           close(1) 
         enddo
+ 
 
-        kerfile = trim(parentDir)//"/tmp/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)
-        
-        open(1,file=kerfile,status='unknown',form='unformatted', &
-             access = 'direct', recl=kind(0e0)*nphi*ntheta*(nktype+1)*(nfilter+1))    
-        read(1,rec=1) totalker(ir,1:nphi,1:ntheta,0:nktype,0:nfilter)
-        close(1) 
-     enddo
-
-
-     do ift = 0,nfilter
-        kertotalfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))//trim(".kernel")
-        open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
-        if(compo.eq.'Z') then
-           kc=1
-       elseif(compo.eq.'R') then
-	  kc=2
-	elseif(compo.eq.'T') then
-	  kc=3
-       else
-          kc=-1
-       endif
-       idum=0
-       fdum=0.e0
-
-       write(1) totalker(:,:,:,:,ift)
-       close(1) 
-     enddo
-
+        do ift = 0,nfilter
+           kertotalfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(freqid(ift))//trim(".kernel")
+           open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
+           if(compo.eq.'Z') then
+              kc=1
+           elseif(compo.eq.'R') then
+              kc=2
+           elseif(compo.eq.'T') then
+              kc=3
+           else
+              kc=-1
+           endif
+           idum=0
+           fdum=0.e0
+           
+           write(1) totalker(:,:,:,:,ift)
+           close(1) 
+        enddo
+     endif
 
 
 
