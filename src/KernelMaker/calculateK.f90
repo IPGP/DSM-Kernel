@@ -17,7 +17,7 @@ subroutine calculateRSGT
   integer, parameter :: num_synnSH = 5
   integer, parameter :: num_h3 = 6
   integer, parameter :: num_h4 = 6
-  integer :: i_sgt,ift
+  integer :: i_sgt,ift,jt
   
   rsgtF=dcmplx(0.d0)
   tsgtF=dcmplx(0.d0)
@@ -80,7 +80,7 @@ subroutine calculateTSGT
   integer, parameter :: num_synnSH = 5
   integer, parameter :: num_h3 = 6
   integer, parameter :: num_h4 = 6
-  integer :: i_sgt,ift
+  integer :: i_sgt,ift,jt
 
   rsgtF=dcmplx(0.d0)
   tsgtF=dcmplx(0.d0)
