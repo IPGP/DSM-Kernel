@@ -297,7 +297,7 @@ program KernelMaker
 
   ! Record the date and time at the beginning of the job
   if(my_rank.eq.0) then
-     list = trim(parentDir)//"/calLog"//"."// &
+     list = trim(parentDir)//"/log/calLog"//"."// &
           trim(stationName)//"."//trim(eventName)//"."//trim(compo)//"."//trim(paramWRT)//".log"
      open(1,file =list, status = 'unknown', form = 'formatted')
      call date_and_time(datex,timex)

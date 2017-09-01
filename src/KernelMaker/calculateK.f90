@@ -50,7 +50,8 @@ subroutine calculateRSGT
      do ift=0,nfilter
         
         do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
-           tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
+           !tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
+           tmpvideoker(i_sgt,ift,1+(jt-iWindowStart)/jtstep_timeincrementV)=duf(ift,jt) 
         enddo
         
      enddo
@@ -111,7 +112,8 @@ subroutine calculateTSGT
      do ift=0,nfilter
         do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
         !do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
-           tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
+           !tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
+           tmpvideoker(i_sgt,ift,1+(jt-iWindowStart)/jtstep_timeincrementV)=duf(ift,jt) 
         enddo
         
      enddo
@@ -268,7 +270,8 @@ subroutine isovpfreq
      if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
         !do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
         do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
-           tmpvideoker(1,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
+           !tmpvideoker(1,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
+           tmpvideoker(1,ift,1+(jt-iWindowStart)/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
         enddo
      endif
   enddo    
@@ -425,7 +428,8 @@ subroutine isovsfreq
      if((trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
         !do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
         do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
-           tmpvideoker(2,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(2,ir)*duf(ift,jt) ! 
+           !tmpvideoker(2,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(2,ir)*duf(ift,jt) ! 
+           tmpvideoker(2,ift,1+(jt-iWindowStart)/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
         enddo
      endif
   enddo    
