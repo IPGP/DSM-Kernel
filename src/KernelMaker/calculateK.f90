@@ -49,7 +49,7 @@ subroutine calculateRSGT
      
      do ift=0,nfilter
         
-        do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+        do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
            tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
         enddo
         
@@ -109,11 +109,11 @@ subroutine calculateTSGT
      
      
      do ift=0,nfilter
-        if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
-           do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
-              tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
-           enddo
-        endif
+        do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
+        !do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+           tmpvideoker(i_sgt,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=duf(ift,jt) 
+        enddo
+        
      enddo
   enddo
 
@@ -266,7 +266,8 @@ subroutine isovpfreq
 
   do ift=0,nfilter
      if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'allV')) then
-        do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+        !do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+        do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
            tmpvideoker(1,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
         enddo
      endif
@@ -422,7 +423,8 @@ subroutine isovsfreq
   
   do ift=0,nfilter
      if((trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
-        do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+        !do jt=nt1(ift),nt2(ift),jtstep_timeincrementV
+        do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
            tmpvideoker(2,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(2,ir)*duf(ift,jt) ! 
         enddo
      endif
