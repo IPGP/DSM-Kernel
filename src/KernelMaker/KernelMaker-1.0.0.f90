@@ -732,7 +732,7 @@ program KernelMaker
               enddo
 
 
-               write(tmpchar,'(I7,".",I7)') ir,ith
+              write(tmpchar,'(I7,".",I7)') ir,ith
               do j=1,15
                  if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
               enddo
@@ -1018,7 +1018,16 @@ program KernelMaker
   ! write final reordered kernel output
   if(my_rank.eq.0) then   
      deallocate(ker)
-     allocate(totalker(nr,nphi,ntheta,0:nktype,0:nfilter))
+
+     if(trim(paramWRT).eq.'vRSGT') then
+        allocate(totalker(nr,nphi,ntheta,1:num_h3,0:nfilter))
+     elseif(trim(paramWRT).eq.'vTSGT') then
+        allocate(totalker(nr,nphi,ntheta,1:num_h4,0:nfilter))
+     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+        allocate(totalker(nr,nphi,ntheta,0:nvktype,0:nfilter))
+     else
+        allocate(totalker(nr,nphi,ntheta,0:nktype,0:nfilter))
+     endif
      totalker = 0.e0
      do ir=1,nr
         write(tmpchar,'(I7)') int(r(ir)*1.d3)
@@ -1055,6 +1064,110 @@ program KernelMaker
      enddo
 
 
+
+
+     if(trim(paramWRT).eq.'vRSGT') then
+     
+        do jt=1,number_of_snapshots
+           totalker=0.e0
+           do ir=1,nr
+              do ith=1,ntheta
+                       
+                 
+                 write(tmpchar,'(I7,".",I7)') ir,ith
+                 do j=1,15
+                    if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+                 enddo
+                 kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                      //"."//"timemarching"
+                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
+                 read(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots)
+                 close(1) 
+                 totalker(ir,1:nphi,ith,1:num_h3,0:filter)=videoker(1:nphi,1:num_h3,0:nfilter,jt)
+              enddo
+           enddo
+
+                 
+           do ift = 0,nfilter
+              write(tmpchar,'(I7)') jt
+              do j=1,7
+                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+              enddo
+              kertotalfile = trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"." &
+                   //trim(freqid(ift))//"."//trim(tmpchar)//trim(".video")
+              open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
+              if(compo.eq.'Z') then
+                 kc=1
+              elseif(compo.eq.'R') then
+                 kc=2
+              elseif(compo.eq.'T') then
+                 kc=3
+              else
+                 kc=-1
+              endif
+              idum=0
+              fdum=0.e0
+              
+              write(1) totalker(1:nr,1:nphi,1:nth,1:num_h3,ift)
+              close(1) 
+              
+           enddo
+           
+
+        enddo
+     endif
+
+
+      if(trim(paramWRT).eq.'vTSGT') then
+     
+        do jt=1,number_of_snapshots
+           totalker=0.e0
+           do ir=1,nr
+              do ith=1,ntheta
+                       
+                 
+                 write(tmpchar,'(I7,".",I7)') ir,ith
+                 do j=1,15
+                    if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+                 enddo
+                 kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                      //"."//"timemarching"
+                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
+                 read(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,1:number_of_snapshots)
+                 close(1) 
+                 totalker(ir,1:nphi,ith,1:num_h4,0:filter)=videoker(1:nphi,1:num_h4,0:nfilter,jt)
+              enddo
+           enddo
+
+                 
+           do ift = 0,nfilter
+              write(tmpchar,'(I7)') jt
+              do j=1,7
+                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+              enddo
+              kertotalfile = trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"." &
+                   //trim(freqid(ift))//"."//trim(tmpchar)//trim(".video")
+              open(1,file=kertotalfile,status='unknown',form='unformatted',access='sequential')
+              if(compo.eq.'Z') then
+                 kc=1
+              elseif(compo.eq.'R') then
+                 kc=2
+              elseif(compo.eq.'T') then
+                 kc=3
+              else
+                 kc=-1
+              endif
+              idum=0
+              fdum=0.e0
+              
+              write(1) totalker(1:nr,1:nphi,1:nth,1:num_h4,ift)
+              close(1) 
+              
+           enddo
+           
+
+        enddo
+     endif
      
      if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
         
@@ -1103,7 +1216,7 @@ program KernelMaker
               idum=0
               fdum=0.e0
               
-              write(1) totalker(:,:,:,:,ift)
+              write(1) totalker(1:nr,1:nphi,1:nth,0:nkvtype,ift)
               close(1) 
               
            enddo
