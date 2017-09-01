@@ -1226,6 +1226,18 @@ program KernelMaker
                  
      endif
 
+     deallocate(totalker)
+
+
+     if(trim(paramWRT).eq.'vRSGT') then
+        nktype=num_h3-1
+     elseif(trim(paramWRT).eq.'vTSGT') then
+        nktype=num_h4-1
+     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+        nktype=nkvtype
+     else
+        nktype=nktype
+     endif
      
      
      ift=nfilter
