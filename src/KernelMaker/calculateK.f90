@@ -272,7 +272,7 @@ subroutine isovpfreq
         do jt=iWindowStart,iWindowEnd,jtstep_timeincrementV
            !tmpvideoker(1,ift,1+(jt-nt1(ift))/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
            tmpvideoker(1,ift,1+(jt-iWindowStart)/jtstep_timeincrementV)=coeffV(1,ir)*duf(ift,jt) 
-           print *, duf(ift,jt)
+           print *, duf(ift,jt),coeffV(1,ir),tmpvideoker(1,ift,1+(jt-iWindowStart)/jtstep_timeincrementV)
         enddo
      endif
   enddo    
