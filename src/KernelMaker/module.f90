@@ -50,7 +50,7 @@ module parameters
   
   integer, parameter :: nfilter=0 ! it is ready for the extention nfilter > 0
   integer, parameter :: nktype = 8 ! isotropic kernels 
-  integer, parameter :: nkvtype = 2 ! isotropic video kernels
+  integer, parameter :: nkvtype = 3 ! isotropic video kernels
   real(kind(0d0)), parameter ::  pi=3.1415926535897932d0 
   character(120) :: SGTinfo,parentDir,eventName,stationName,phase,compo,paramWRT
   character(120) :: synnfile
