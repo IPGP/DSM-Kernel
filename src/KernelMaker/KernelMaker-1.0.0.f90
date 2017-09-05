@@ -463,6 +463,8 @@ program KernelMaker
      write(1,'(a,2(1x,f8.4))') '    azimuth and back-azimuth:     ', &
      	  azim,bazim
      close(1)
+
+
   endif
   
   ! Of course MinLengthFor0 can be chosen but nMinLengthFor0=2 works well so I fixed this value
@@ -488,6 +490,39 @@ program KernelMaker
   allocate(sqs(0:nphi,0:ntheta),sqs2(0:nphi,0:ntheta))
   allocate(deltar(nphi,ntheta),deltas(nphi,ntheta))
   call calculateSineCosine(azim)
+
+
+
+
+  if(my_rank.eq.0) then
+
+     if(trim(paramWRT).eq.'vRSGT') then
+        nktype_real=num_h3-1
+     elseif(trim(paramWRT).eq.'vTSGT') then
+        nktype_real=num_h4-1
+     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+        nktype_real=nkvtype
+     else
+        nktype_real=nktype
+     endif
+     
+     
+     ift=nfilter
+
+     
+     !print *, nr, nphi, ntheta,nktype_real
+
+     gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
+                trim(phase)//"."//trim(compo)//"."//trim(paramWRT)//"."//trim(".grid")
+     open(1,file=gridfile,status='unknown',form='unformatted',access='sequential')
+     write(1) nr, nphi, ntheta, nktype_real
+     write(1) real(r)
+     write(1) real(phitheta)
+     write(1) real(thetaphi)
+     close(1)
+
+
+  endif
 
 
   ! allocation for catalogues
@@ -1273,17 +1308,7 @@ program KernelMaker
      write(1) real(u)
      close(1)
      
-     print *, nr, nphi, ntheta,nktype_real
-
-     gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
-                trim(phase)//"."//trim(compo)//trim(".grid")
-     open(1,file=gridfile,status='unknown',form='unformatted',access='sequential')
-     write(1) nr, nphi, ntheta, nktype_real
-     write(1) real(r)
-     write(1) real(phitheta)
-     write(1) real(thetaphi)
-     close(1)
-
+    
 
      list = trim(parentDir)//"/log/calLog"//"."// &
           trim(stationName)//"."//trim(eventName)//"."//trim(compo)//"."//trim(paramWRT)//".log"   
