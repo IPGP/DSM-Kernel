@@ -23,7 +23,7 @@ optional requirements:
 * Now you just have to generate executables by `./configure; make'
 * If you want to change the compile options you should write `./configure FCFLAGS="-O3 ...";make'
 ## Examples
- * [global station and event](examples/global_kernel/README.md)
+ * [global station and event](examples/global_kernels/README.md)
 
 ## Kernel Gallery
 <img src="etc/images/kernel1.png" width="300">
