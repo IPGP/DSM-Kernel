@@ -5,11 +5,11 @@
 # 1a. event name
 Explosion
 # 1b. event latitude, longitude, depth (however, interpolation for depths won't be performed)
-0.d0 0.d0 660.d0
+0.d0 0.d0 600.d0
 # 1c. Mrr, Mtt, Mpp, Mrt, Mrp, Mtp (needs to be large enough for video kernel to avoid underflows)
 1e35 1e35 1e35 0.d0 0.d0 0.d0
 # 2a. station name
-eq
+myStation
 # 2b. station latitude, longitude
 0.d0 180.d0
 # 3. phase name

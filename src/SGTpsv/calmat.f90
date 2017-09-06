@@ -1205,7 +1205,7 @@ subroutine rea2( nn,a,g,c,d, nzone,iphase,kkdr,spn,kkdr0,nn0, maxnstack,nsta,ist
            jsta(ista) = itmp + iista(1,ista)
         endif
      enddo
-     if ( iphase(izone).eq.1 ) then
+     if ( iphase(izone).eq.1 ) then ! if izone is solid
         if ( izone.eq.spn ) kkdr0 = itmp + 1
         i1 = itmp + 1
         if ( izone.ne.nzone ) then
@@ -1229,7 +1229,7 @@ subroutine rea2( nn,a,g,c,d, nzone,iphase,kkdr,spn,kkdr0,nn0, maxnstack,nsta,ist
            c(2,i) = a(4,mtmp)
         enddo
         itmp = i2
-     else
+     else ! if izone is liquid
         i1 = itmp + 1
         i2 = i1 + ( kkdr(izone+1) - kkdr(izone) ) - 1
         d(i1) = g(kkdr(izone))
