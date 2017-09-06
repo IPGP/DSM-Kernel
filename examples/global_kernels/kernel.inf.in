@@ -1,7 +1,8 @@
 # 0a. Green function database information file (for a certain depth only for the instance)
 @abs_top_builddir@/examples/global_kernels/database.inf
 # 0b. output directory (parentdir)
-@abs_top_builddir@/examples/global_kernels/output/
+#@abs_top_builddir@/examples/global_kernels/output/
+./output/
 # 1a. event name
 Explosion
 # 1b. event latitude, longitude, depth (however, interpolation for depths won't be performed)
@@ -13,7 +14,7 @@ myStation
 # 2b. station latitude, longitude
 0.d0 180.d0
 # 3. phase name
-Z
+firstP
 # 4. component (Z,R,T)
 Z
 # 5. seismic parameter (alpha, beta, or all for this version)

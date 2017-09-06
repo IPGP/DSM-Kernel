@@ -2,7 +2,7 @@
 # 0. DSM configuration file
 @abs_top_builddir@/etc/DSMconfiguration/DSM.config 
 # 1. outputDir
-@abs_top_builddir@/database_example/
+#@abs_top_builddir@/database_example/
 # 2. psvmodel
 @abs_top_builddir@/etc/models/PREM.psv.model
 #3. modelname

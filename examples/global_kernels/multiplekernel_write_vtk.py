@@ -18,6 +18,7 @@ tail=("tail","<i")
 def read_kernel_inffile(inffile):
     """reads kernel.inf files and generate all the variables needed"""
     iline=0
+    kernelType=''
     for line in open(inffile):
         li=line.strip()
         if not li.startswith("#"):
@@ -25,14 +26,18 @@ def read_kernel_inffile(inffile):
             tmpstring=line.rstrip()
             #print(line.rstrip())
             if(iline==1): outputDir=tmpstring
-            if(iline==2): eventName=line.rstrip()
-            if(iline==5): stationName=line.rstrip()
-            if(iline==7): phaseName=line.rstrip()
-            if(iline==8): component=line.rstrip()
-            if(iline==9): kernelType=line.rstrip()
+            if(iline==2): eventName=tmpstring
+            if(iline==5): stationName=tmpstring
+            if(iline==7): phaseName=tmpstring
+            if(iline==8): component=tmpstring
+            if(iline==9): kernelType=tmpstring
+            if(any (x not in kernelType for x in ('V', 'v'))):
+                if(iline==11): filterName=line.rstrip()
+            else:
+                if(iline==12): filterName=line.rstrip()
             iline=iline+1
             #print("oh")
-    return {'outputDir':outputDir,'eventName':eventName,'stationName':stationName,'phaseName':phaseName,'component':component,'kernelType':kernelType}
+    return {'outputDir':outputDir,'eventName':eventName,'stationName':stationName,'phaseName':phaseName,'component':component,'kernelType':kernelType,'filterName':filterName}
 
 def read_fortran_record(binfile, count, dtype, filetype):
     """reads a sequential fortran binary file record"""
@@ -47,61 +52,102 @@ def read_fortran_record(binfile, count, dtype, filetype):
     return content
 
 
-kernel_inf_file=sys.argv[1]
-
-fname_grid=read_kernel_inffile(kernel_inf_file)['outputDir'] \
-    +'/'+read_kernel_inffile(kernel_inf_file)['stationName']+'.' \
-    +read_kernel_inffile(kernel_inf_file)['eventName']+'.'\
-    +read_kernel_inffile(kernel_inf_file)['phaseName']+'.'\
-    +read_kernel_inffile(kernel_inf_file)['component']+'.'\
-    +read_kernel_inffile(kernel_inf_file)['kernelType']+'.grid'
-print(fname_grid)
-exit()
+kernel_inf=read_kernel_inffile(sys.argv[1])
+fname_grid=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
+    +kernel_inf['eventName']+'.'+kernel_inf['phaseName']+'.'\
+    +kernel_inf['component']+'.'+kernel_inf['kernelType']+'.grid'
 
 
-for itime in range (1,102):
-    
-    num_snap=str(itime).zfill(7)
-    
-    fname_kernel='tmp2/STA91.Explosion.some1.Z.100s30s.'+num_snap+'.video'
-    
-    fname_vtk='ker'+num_snap
 
-    kernelfile = open(fname_kernel, 'rb')
-    gridfile = open(fname_grid, 'rb')
-    
-    # read grid info:
-    nr, nphi, ntheta, nktype = read_fortran_record(gridfile, count=4, dtype=np.int32,filetype='sequential')
-    nktype += 1 # starts counting from zero (should be changed in the code?)
-    radii = read_fortran_record(gridfile, count=nr, dtype=np.float32,filetype='sequential')
-    phis = read_fortran_record(gridfile, count=nphi * ntheta, dtype=np.float32,filetype='sequential')
-    thetas = read_fortran_record(gridfile, count=nphi * ntheta, dtype=np.float32,filetype='sequential')
-    gridfile.close()
-    
+if any (x not in kernel_inf['kernelType'] for x in ('V', 'v')):
+    print("this is not a video")
+    fname_kernel=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
+    +kernel_inf['eventName']+'.'+kernel_inf['phaseName']+'.'\
+    +kernel_inf['component']+'.'+kernel_inf['filterName']+'.kernel'
+    print(fname_kernel)
+
+     kernelfile = open(fname_kernel, 'rb')
+     gridfile = open(fname_grid, 'rb')
+        
+     # read grid info:
+     nr, nphi, ntheta, nktype = read_fortran_record(gridfile, count=4, dtype=np.int32,filetype='sequential')
+     nktype += 1 # starts counting from zero (should be changed in the code?)
+     radii = read_fortran_record(gridfile, count=nr, dtype=np.float32,filetype='sequential')
+     phis = read_fortran_record(gridfile, count=nphi * ntheta, dtype=np.float32,filetype='sequential')
+     thetas = read_fortran_record(gridfile, count=nphi * ntheta, dtype=np.float32,filetype='sequential')
+     gridfile.close()
+     
+     # read kernel
+     npoints = nr * nphi * ntheta
+     kernel = read_fortran_record(kernelfile, count=npoints * nktype, dtype=np.float32,filetype='direct')
+     kernel = kernel.reshape(nktype, ntheta, nphi, nr)
+     kernelfile.close()
+     
+     # write vtk file
+     xgrid = np.outer(np.sin(np.radians(thetas)) * np.cos(np.radians(phis)), radii)
+     ygrid = np.outer(np.sin(np.radians(thetas)) * np.sin(np.radians(phis)), radii)
+     zgrid = np.outer(np.cos(np.radians(thetas)), radii)
+     
+     xgrid = xgrid.reshape(ntheta, nphi, nr)
+     ygrid = ygrid.reshape(ntheta, nphi, nr)
+     zgrid = zgrid.reshape(ntheta, nphi, nr)
+     
+     point_data = {'{:d}'.format(name): data for name, data in zip(range(nktype), kernel)}
+     
+     gridToVTK(fname_vtk, xgrid, ygrid, zgrid, pointData=point_data)
+     
+     phis = phis.reshape(ntheta, nphi)
+     thetas = phis.reshape(ntheta, nphi)
+        
+    exit()
+
+
+else:
+
+    # il me faut calculer le nombre de snapshots pour video mode
+    for itime in range (1,102):
+        
+        num_snap=str(itime).zfill(7)
+        
+        fname_kernel='tmp2/STA91.Explosion.some1.Z.100s30s.'+num_snap+'.video'
+
+        fname_vtk='ker'+num_snap
+        
+        kernelfile = open(fname_kernel, 'rb')
+        gridfile = open(fname_grid, 'rb')
+        
+        # read grid info:
+        nr, nphi, ntheta, nktype = read_fortran_record(gridfile, count=4, dtype=np.int32,filetype='sequential')
+        nktype += 1 # starts counting from zero (should be changed in the code?)
+        radii = read_fortran_record(gridfile, count=nr, dtype=np.float32,filetype='sequential')
+        phis = read_fortran_record(gridfile, count=nphi * ntheta, dtype=np.float32,filetype='sequential')
+        thetas = read_fortran_record(gridfile, count=nphi * ntheta, dtype=np.float32,filetype='sequential')
+        gridfile.close()
+        
     # read kernel
-    npoints = nr * nphi * ntheta
-    kernel = read_fortran_record(kernelfile, count=npoints * nktype, dtype=np.float32,filetype='direct')
-    kernel = kernel.reshape(nktype, ntheta, nphi, nr)
-    kernelfile.close()
-    
+        npoints = nr * nphi * ntheta
+        kernel = read_fortran_record(kernelfile, count=npoints * nktype, dtype=np.float32,filetype='direct')
+        kernel = kernel.reshape(nktype, ntheta, nphi, nr)
+        kernelfile.close()
+        
     # write vtk file
-    xgrid = np.outer(np.sin(np.radians(thetas)) * np.cos(np.radians(phis)), radii)
-    ygrid = np.outer(np.sin(np.radians(thetas)) * np.sin(np.radians(phis)), radii)
-    zgrid = np.outer(np.cos(np.radians(thetas)), radii)
-    
-    xgrid = xgrid.reshape(ntheta, nphi, nr)
-    ygrid = ygrid.reshape(ntheta, nphi, nr)
-    zgrid = zgrid.reshape(ntheta, nphi, nr)
-    
-    point_data = {'{:d}'.format(name): data for name, data in zip(range(nktype), kernel)}
-    
-    gridToVTK(fname_vtk, xgrid, ygrid, zgrid, pointData=point_data)
-    
-    phis = phis.reshape(ntheta, nphi)
-    thetas = phis.reshape(ntheta, nphi)
-    
+        xgrid = np.outer(np.sin(np.radians(thetas)) * np.cos(np.radians(phis)), radii)
+        ygrid = np.outer(np.sin(np.radians(thetas)) * np.sin(np.radians(phis)), radii)
+        zgrid = np.outer(np.cos(np.radians(thetas)), radii)
+        
+        xgrid = xgrid.reshape(ntheta, nphi, nr)
+        ygrid = ygrid.reshape(ntheta, nphi, nr)
+        zgrid = zgrid.reshape(ntheta, nphi, nr)
+        
+        point_data = {'{:d}'.format(name): data for name, data in zip(range(nktype), kernel)}
+        
+        gridToVTK(fname_vtk, xgrid, ygrid, zgrid, pointData=point_data)
+        
+        phis = phis.reshape(ntheta, nphi)
+        thetas = phis.reshape(ntheta, nphi)
+        
     # read kernel data:
-    
+        
 # write some output information
 r_min, r_max = radii[0], radii[-1]
 phi_min, phi_max = phis[0, 0], phis[0, -1]
