@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-#!/Users/fujinobuaki/anaconda/bin/python
+##!/Users/fujinobuaki/anaconda/bin/python
+#!/tools/python
 """
 This is a very simple plot script that reads a 3D DSM-Kernel sensitivity kernel
 file and make a plot of it.
@@ -7,15 +7,32 @@ file and make a plot of it.
 
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 from pyevtk.hl import gridToVTK
-#from scipy.io import FortranFile
 
 
 head=("head","<i")
 tail=("tail","<i")
 
 
-
+def read_kernel_inffile(inffile):
+    """reads kernel.inf files and generate all the variables needed"""
+    iline=0
+    for line in open(inffile):
+        li=line.strip()
+        if not li.startswith("#"):
+            #print(iline)
+            tmpstring=line.rstrip()
+            #print(line.rstrip())
+            if(iline==1): outputDir=tmpstring
+            if(iline==2): eventName=line.rstrip()
+            if(iline==5): stationName=line.rstrip()
+            if(iline==7): phaseName=line.rstrip()
+            if(iline==8): component=line.rstrip()
+            if(iline==9): kernelType=line.rstrip()
+            iline=iline+1
+            #print("oh")
+    return {'outputDir':outputDir,'eventName':eventName,'stationName':stationName,'phaseName':phaseName,'component':component,'kernelType':kernelType}
 
 def read_fortran_record(binfile, count, dtype, filetype):
     """reads a sequential fortran binary file record"""
@@ -29,20 +46,23 @@ def read_fortran_record(binfile, count, dtype, filetype):
    
     return content
 
-#fname_kernel = 'output/STA90.Explosion.some.Z.100s30s.kernel'
-#fname_kernel = 'output/STA.Explosion.some.Z.100s10s.kernel'
-#fname_kernel='outputvideo/STA90.Explosion.some.Z.100s30s.0000007.video'
-fname_grid = 'tmp2/STA91.Explosion.some1.Z.grid'
 
+kernel_inf_file=sys.argv[1]
 
-#fname_grid = 'tmp2/STA89.Explosion.some.Z.grid'
-fname_plot = 'kernel.png'
+fname_grid=read_kernel_inffile(kernel_inf_file)['outputDir'] \
+    +'/'+read_kernel_inffile(kernel_inf_file)['stationName']+'.' \
+    +read_kernel_inffile(kernel_inf_file)['eventName']+'.'\
+    +read_kernel_inffile(kernel_inf_file)['phaseName']+'.'\
+    +read_kernel_inffile(kernel_inf_file)['component']+'.'\
+    +read_kernel_inffile(kernel_inf_file)['kernelType']+'.grid'
+print(fname_grid)
+exit()
 
 
 for itime in range (1,102):
     
     num_snap=str(itime).zfill(7)
-
+    
     fname_kernel='tmp2/STA91.Explosion.some1.Z.100s30s.'+num_snap+'.video'
     
     fname_vtk='ker'+num_snap
