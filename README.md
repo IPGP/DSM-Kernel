@@ -23,6 +23,7 @@ optional requirements:
 * Now you just have to generate executables by `./configure; make'
 * If you want to change the compile options you should write `./configure FCFLAGS="-O3 ...";make'
 ## Examples
+ * [global station and event](examples/global_kernel/README.md)
  * [single station and event](examples/single_kernel/README.md)
  * [multiple stations and events](examples/multiple_kernels/README.md)
 
