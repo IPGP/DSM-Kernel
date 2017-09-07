@@ -73,7 +73,10 @@ for ir in range (0,nr):
             #vbulk[ipoint]=tmp[5]
             #rho[ipoint]=tmp[6]
             for iktype in range(0,nktype):
-                kernel[iktype,itheta,iphi,ir]=tmp[2+iktype]
+                # for Vs anomaly (in %) only
+                #kernel[iktype,itheta,iphi,ir]=(np.exp(tmp[3+iktype])-1)*100
+                # otherwise
+                kernel[iktype,itheta,iphi,ir]=tmp[2+iktype] 
             ipoint=ipoint+1
 
 
