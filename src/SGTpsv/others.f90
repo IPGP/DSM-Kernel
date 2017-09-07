@@ -1354,7 +1354,7 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
   
   chikasa = 0.d0
 
-  ra = 0
+  ra = 0.d0
   ra(1) = rmin
   ciista = 0
   ctmp = 6371.d0
@@ -1365,7 +1365,7 @@ subroutine calra2_psv(nlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nnl,ra,re
      do i=1,nnl(izone)
         itmp = itmp + 1
         ra(itmp) = vrmin(izone) &
-             &	+ rh * dble(i) / dble( nnl(izone) )
+             &+ rh * dble(i) / dble( nnl(izone) )
      enddo
   enddo
 

@@ -16,6 +16,8 @@ program  SGTpsv
   !                                               2010.10. FUJI Nobuaki (MPI, rewriting)
   !                                               2016.07. FUJI Nobuaki (outer core)
   !                                               2017.08. FUJI Nobuaki (outer core fixed)
+  !                                               2017.09.07 FUJI Nobuaki (started 3D: 
+  !       if ever since something changed in main SGTpsv, we have to include it: look for "!!!3D") 
   !                                               
   !
   !      0.2.0 plm calculating with one frequency by one frequency
@@ -223,6 +225,8 @@ program  SGTpsv
   allocate(ra(1:nnlayer+nzone+1))
   call calra2_psv(nnlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nlayer,ra,re,r_n,r_,rrsta,iista,log_solid_liquid,r0(ir0),cista,iphase,istazone,ciista)
   
+  ! calra2_psv is making X(r) 
+  ! ra(:) is the grid points in r for DSM calculation
      
 
 
@@ -374,6 +378,10 @@ program  SGTpsv
   
 
   call calstg(nlay,nzone,nzone,iphase,rrho,vpv,vph,vsv,vsh,eta,nlayer,ra,rmax,vnp,vra,rho,kappa,ecKx,ecKy,ecKz,mu,ecL,ecN,r0(ir0),spn,ecC0,ecF0,ecL0 )
+
+  !!!3D should be include here or somewhere else ... maybe a bit later
+
+
   call calinv( vnp,rho,kappa,rhoinv,kappainv )
   isl = 0
   ill = 0
@@ -470,7 +478,6 @@ program  SGTpsv
   enddo
 
 
-  !******************** plm reading                 *********************
 
   ! Record the date and time at the beginning of the job
   if(my_rank.eq.0) then
@@ -543,7 +550,6 @@ program  SGTpsv
      if((i.ne.0).and.((mod(imax-my_rank-i,2*nproc).eq.0).or.(mod(imax+my_rank+1-i,2*nproc).eq.0))) then
 
 
-     
         call callsuf(omega,nzone,vrmax,vsv,lsuf)
         call calcoef( nzone,omega,qmu,qkappa,coef1,coef2,coef )
         plm = 0.d0
@@ -588,7 +594,9 @@ program  SGTpsv
         llog = maxlmax
         do l=0,maxlmax    ! l-loop start
 
-
+           
+           !!!3D here we have to think about putting 3D (A1) to A0
+           
            do itheta = 1,theta_n
      
               call caldvecphi0_withplm(l,(theta(itheta)/180.d0*pi),plm(1:3,0:3,itheta),dvec0(1:3,-2:2,itheta),dvecdt0(1:3,-2:2,itheta),dvecdp0(1:3,-2:2,itheta))
