@@ -22,9 +22,11 @@ def read_fortran_record(binfile, count, dtype, filetype):
     return content
 
 
-#fname_kernel=sys.argv[1]
-fname_kernel='perplex_binary_3d1e8_R104_0.15_seismic_z_selfie00052.dat'
-kernelfile = open(fname_kernel, 'rb')
+fname_kernel=sys.argv[1]
+nktype=int(sys.argv[2])
+radius_depth_type=sys.argv[3]
+#fname_kernel='perplex_binary_3d1e8_R104_0.15_seismic_z_selfie00052.dat'
+
 
 fname_vtk='convection'
 
@@ -32,13 +34,13 @@ fname_vtk='convection'
 nr=96
 nphi=382
 ntheta=192
-nktype=4
+print(nktype)
 #radii=np.linspace(3479.5,6371.0,nr+1)
 #local_phis=np.linspace(-180.0, 180.0, nphi+1)
 #local_thetas=np.linspace(-90.0, 90.0, ntheta+1)
 #phis=np.zeros(nphi*ntheta)
-#thetas=np.zeros(nphi*ntheta)
-
+#thetas=np.zeros(nphi*ntheta
+kernelfile = open(fname_kernel, 'rb')
 xgrid=np.zeros((ntheta,nphi,nr))
 ygrid=np.zeros((ntheta,nphi,nr))
 zgrid=np.zeros((ntheta,nphi,nr))
@@ -54,9 +56,14 @@ for ir in range (0,nr):
             #tmp=np.loadtxt(kernelfile, delimiter=' ')
             #print(tmp)
             #exit()
-            zgrid[itheta,iphi,ir]=tmp[2]*np.sin(np.radians(tmp[1]))
-            xgrid[itheta,iphi,ir]=tmp[2]*np.cos(np.radians(tmp[1]))*np.cos(np.radians(tmp[0]))
-            ygrid[itheta,iphi,ir]=tmp[2]*np.cos(np.radians(tmp[1]))*np.sin(np.radians(tmp[0]))
+            rEarth=6371.0
+            # if radius is input
+            if(radius_depth_type=='radius'): radiusTmp=tmp[2]
+            # if depth is input
+            if(radius_depth_type=='depth'): radiusTmp=rEarth-tmp[2]
+            zgrid[itheta,iphi,ir]=radiusTmp*np.sin(np.radians(tmp[1]))
+            xgrid[itheta,iphi,ir]=radiusTmp*np.cos(np.radians(tmp[1]))*np.cos(np.radians(tmp[0]))
+            ygrid[itheta,iphi,ir]=radiusTmp*np.cos(np.radians(tmp[1]))*np.sin(np.radians(tmp[0]))
             #vs[ipoint]=tmp[3]
             #vp[ipoint]=tmp[4]
             #vbulk[ipoint]=tmp[5]
