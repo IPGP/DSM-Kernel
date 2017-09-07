@@ -42,12 +42,6 @@ program  DSMpsv3D
   
   ! initialization
   eps = -1.d0
-  
-
-  
-  
-
-  
 
   call MPI_INIT(ierr)
   call MPI_COMM_SIZE(MPI_COMM_WORLD,nproc,ierr)
@@ -162,7 +156,6 @@ program  DSMpsv3D
 
 
   ! 
-
   ! NF will still use this r_ vector to see seismograms in the deep Earth,
   ! and also for the purpose of partials calculation
   

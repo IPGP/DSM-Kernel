@@ -9,10 +9,13 @@ program  SGTpsv
   !
   !    calculation de la fonction de Green pour l'inversion des ondes PSV
   !       
-  !                                               2004.10.KAWAI Kenji
+  !                                               1994-2005 TAKEUCHI Nozomu, Phil Cummins
+  !                                               2004.10.KAWAI Kenji 
+  !
   !                                               2009.6. FUJI Nobuaki (f90)
   !                                               2010.10. FUJI Nobuaki (MPI, rewriting)
   !                                               2016.07. FUJI Nobuaki (outer core)
+  !                                               2017.08. FUJI Nobuaki
   !
   !      0.2.0 plm calculating with one frequency by one frequency
   !                 
