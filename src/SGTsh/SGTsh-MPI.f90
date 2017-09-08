@@ -154,7 +154,7 @@ program  SGTsh
      ! modifying rmin_ so that rmin_ is above the CMB (for SH case)
      ir_=0
      do i = 1,r_n
-        if(rmin_+dble(i-1)*rdelta_.lt.rmin) ir_=i
+        if(rmin_+dble(i-1)*rdelta_.le.rmin) ir_=i
      enddo          
      r_n=r_n-ir_
      rmin_=rmin_+dble(ir_)*rdelta_ ! here we should write ir_ instead of ir_-1
