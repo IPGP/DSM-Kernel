@@ -20,6 +20,14 @@ program  SGTpsv
   !       if ever since something changed in main SGTpsv, we have to include it: look for "!!!3D") 
   !                                               
   !
+  !                                                well, we cannot stay with 2D disks for 3D so
+  !                                                after l-do-loops, we have to reintroduce exp(imp) terms
+  !                                                and stations should have theta and phi components
+  !                                                we have to think seriously about how to do 
+  !                                                video mode...
+  !          
+  !
+  !
   !      0.2.0 plm calculating with one frequency by one frequency
   !                 
   !-----------------------------------------------------------------------
