@@ -22,7 +22,8 @@ of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/
 
 -->
 
-##### Configuration and Execution
+#### Configuration and Execution
+0. Go to the folder `examples/global_kernels`
 1. copy the file `database.inf` to `my_database.inf`. In this file:
  * adjust the paths (first path in the file with the path of your DSM-Kernel installation)
  * adjust the output directory path (second), where the database is stored.
