@@ -7,12 +7,6 @@ module parameters
   
   
   
-  ! DSM configuration parameters
-  integer :: imin,imax ! min and max freq. indices
-  double precision :: tlen,r0 ! time window, source depth
-
-  ! DSM output switches
-  integer :: rsgtswitch,tsgtswitch,synnswitch
 
 
   ! Inner points in the planet
@@ -21,6 +15,21 @@ module parameters
 
 
 end module parameters
+
+module DSMparameters
+
+  ! DSM configuration parameters
+  integer :: imin,imax ! min and max freq. indices
+  integer :: maxlmax
+  double precision :: tlen,r0 ! time window, source depth
+  double precision :: re,ratc, ratl,omegai
+  
+  
+  ! DSM output switches
+  integer :: rsgtswitch,tsgtswitch,synnswitch
+  
+end module DSMparameters
+
 
 
 

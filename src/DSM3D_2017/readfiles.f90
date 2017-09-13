@@ -1,4 +1,5 @@
 subroutine parameterInput
+  use DSMparamters
   use parameters
   use inputFiles
   implicit none
@@ -6,6 +7,8 @@ subroutine parameterInput
   character(200) :: firstinf
   character(120) :: dummy
   character(120) :: commandline
+  character(200) :: model1d
+
 
   call getarg(1,firstinf)
   firstinf=trim(firstinf)
@@ -31,7 +34,6 @@ subroutine parameterInput
   read(1,110) outputDir
   read(1,110) psvmodel
   read(1,110) modelname
-  print *, modelname
   outputDir=trim(outputDir)
   psvmodel=trim(psvmodel)
   modelname=trim(modelname)
@@ -58,25 +60,27 @@ subroutine parameterInput
 
 
   call readDSMconf
+  if(index(psvmodel,".card")) then ! "psvmodel" should be interpreted as a normal mode cardif ".card" is in its string
+     model1d=trim(psvmodel)
+
+
+  endif
+
+
 
 end subroutine parameterInput
 
 
 
 
-subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
+subroutine readDSMconf
+  use inputFiles
+  use DSMparameters
   implicit none
-  !character(120), parameter :: tmpfile='tmpworkingfile_for_DSMconf'
-  character(120) :: dummy,DSMconfFile
-  real(kind(0d0)) :: re,ratc,ratl,omegai
-  integer  :: maxlmax
-  integer, external :: getpid
+  character(120) :: dummy
   character(120) :: tmpfile
 
-
-  write(tmpfile,"(Z5.5)") getpid()
-  tmpfile='tmpworkingfile_for_DSMconf'//tmpfile
-
+  tmpfile='tmpworkingfile_for_DSMconf'//jobid
 
   open(unit=2, file=DSMconfFile, status='old',action='read',position='rewind')
   open(unit=1, file=tmpfile,status='unknown')

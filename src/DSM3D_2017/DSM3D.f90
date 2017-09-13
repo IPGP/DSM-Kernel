@@ -11,6 +11,7 @@ program DSM3D
 
 
   use mpi
+  use DSMparemters
   use parameters
   use inputFiles
   implicit none
