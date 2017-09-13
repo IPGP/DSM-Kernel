@@ -37,7 +37,7 @@ program  SGTpsv
 
      call pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
      call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
-     write(tmpfile,"(Z4.4)") getpid()
+     write(tmpfile,"(Z5.5)") getpid()
      tmpfile='tmpworkingfile_for_psvmodel'//tmpfile
      call readpsvmodel(psvmodel,tmpfile)
      psvmodel=tmpfile

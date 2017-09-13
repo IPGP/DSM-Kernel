@@ -14,7 +14,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
 
   !call getarg(1,tmpfile0)
 
-  write(tmpfile,"(Z4.4)") getpid()
+  write(tmpfile,"(Z5.5)") getpid()
   tmpfile='tmpworkingfile_for_SGTforPinv'//tmpfile
   !print *, tmpfile
 
@@ -81,7 +81,7 @@ subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   character(120) :: tmpfile
 
 
-  write(tmpfile,"(Z4.4)") getpid()
+  write(tmpfile,"(Z5.5)") getpid()
   tmpfile='tmpworkingfile_for_DSMconf'//tmpfile
 
 
