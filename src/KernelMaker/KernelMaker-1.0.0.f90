@@ -252,7 +252,7 @@ program KernelMaker
   !-----------------------------------------------------------------------
   ! model parameters
   if(my_rank.eq.0) then
-     write(psvmodel,"(Z4)") getpid()
+     write(psvmodel,"(Z4.4)") getpid()
      psvmodel = 'tmpworkingfile_for_psvmodel'//psvmodel
      open(20, file = psvmodel, status = 'old', action='read', position='rewind')
      read(20,*) nzone
@@ -270,7 +270,7 @@ program KernelMaker
   allocate(qmuD(1:nzone))
   allocate(qkappaD(1:nzone))
   if(my_rank.eq.0) then
-     write(psvmodel,"(Z4)") getpid()
+     write(psvmodel,"(Z4.4)") getpid()
      psvmodel = 'tmpworkingfile_for_psvmodel'//psvmodel  
      open(20, file = psvmodel, status = 'old', action='read', position='rewind')
      read(20,*) nzone

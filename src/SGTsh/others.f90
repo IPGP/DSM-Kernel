@@ -11,7 +11,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   integer, external :: getpid
 
 
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z4.4)") getpid()
   tmpfile='tmpworkingfile_for_SGTforSinv'//tmpfile
 
   open(unit=1, file=tmpfile,status='unknown')

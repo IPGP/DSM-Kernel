@@ -11,7 +11,7 @@ subroutine pinputKernel
 
 
   
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z4.4)") getpid()
   tmpfile='tmpworkingfile_for_SynViewer'//tmpfile
   
   open(unit=1, file=tmpfile,status='unknown')
@@ -129,7 +129,7 @@ subroutine pinputKernel
   call pinputDSM(DSMconfFile,PoutputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,SGTinfo)
   call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
  
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z4.4)") getpid()
   tmpfile = 'tmpworkingfile_for_psvmodel'//tmpfile
   
   call readpsvmodel(psvmodel,tmpfile)
@@ -163,7 +163,7 @@ subroutine pinputDSM(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,r
   integer, external :: getpid
   character(120) :: tmpfile
 
-  write(tmpfile, "(Z4)") getpid()
+  write(tmpfile, "(Z4.4)") getpid()
   tmpfile='tmpworkingfile_for_SGTcalcul'//tmpfile
 
   open(unit=2, file=SGTinfo)
@@ -208,7 +208,7 @@ subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   integer, external :: getpid
   character(120) :: tmpfile
 
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z4.4)") getpid()
   tmpfile='tmpworkingfile_for_DSMconf'//tmpfile
 
 
