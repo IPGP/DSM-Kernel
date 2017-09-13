@@ -20,5 +20,11 @@ program DSM3D
   call MPI_COMM_RANK(MPI_COMM_WORLD,my_rank,ierr)
   
   if(my_rank.eq.0) then
-     call pinput
-  
+     call parameterInput
+     
+  endif
+
+
+  stop
+end program DSM3D
+     

@@ -6,6 +6,18 @@ module parameters
   integer :: ierr, my_rank ! error marks
   
   
+  
+  ! DSM configuration parameters
+  integer :: imin,imax ! min and max freq. indices
+  double precision :: tlen,r0 ! time window, source depth
+
+  ! DSM output switches
+  integer :: rsgtswitch,tsgtswitch,synnswitch
+
+
+  ! Inner points in the planet
+  double precision :: rmin_,rmax_,rdelta_
+  double precision :: thetamin,thetamax,thetadelta
 
 
 end module parameters
@@ -13,12 +25,9 @@ end module parameters
 
 
 module inputFiles
-  character(120) :: dummy,outputDir,psvmodel,modelname,DSMconfFile
-  real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
-  real(kind(0d0)) :: thetamin,thetamax,thetadelta
-  integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
-  character(120) :: commandline
-  character(120) :: tmpfile,tmpfile0
+  character(120) :: outputDir,psvmodel,modelname,DSMconfFile
+
+
   character(5) :: jobid
   integer(4) :: istat  
 end module inputFiles
