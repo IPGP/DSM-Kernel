@@ -240,8 +240,8 @@ program  SGTsh
 
 
   if(my_rank.eq.0) then
-     do i = 1, r0_n
-        r0(i) = r0min + dble(i-1)*r0delta
+     do ir0 = 1, r0_n
+        r0(ir0) = r0min + dble(ir0-1)*r0delta
      enddo
      
   endif
@@ -249,6 +249,9 @@ program  SGTsh
   call MPI_BCAST(r0,r0_n,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
 
   ir0 = r0_n
+
+  intir0=int(r0(ir0)*1.d3)
+  
   
   call MPI_BARRIER(MPI_COMM_WORLD,ierr)
 
@@ -563,7 +566,7 @@ program  SGTsh
         do ir_ = 1,r_n
            
            ir0=1
-           write(coutfile, '(I7,".",I7,".",I7,".TSGT_SH")') int(r0(ir0)*1.d3),int(r_(ir_)*1.d3),i
+           write(coutfile, '(I7,".",I7,".",I7,".TSGT_SH")') intir0,int(r_(ir_)*1.d3),i
            do j = 1,29
               if (coutfile(j:j).eq.' ')coutfile(j:j) = '0'
            enddo
@@ -594,7 +597,7 @@ program  SGTsh
         
         ir0 = 1
         if(synnswitch) then
-           write(coutfile, '(I7,".",I7,".SYNN_SH") ') int(r0(ir0)*1.d3),i
+           write(coutfile, '(I7,".",I7,".SYNN_SH") ') intir0,i
            do j = 1,21
               if (coutfile(j:j).eq.' ')coutfile(j:j) = '0'
            enddo

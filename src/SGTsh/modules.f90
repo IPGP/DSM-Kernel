@@ -20,7 +20,7 @@ module parameters
   real(kind(0d0)), allocatable :: rrsta(:,:)
   integer, allocatable :: iista(:,:)
   integer :: r_n,r0_n,ciista, ir_,ir0,imt,icomp,idepth,itheta, theta_n
-  
+  integer :: intir0
   character(120) :: coutfile
   integer :: imin, imax
   integer :: rsgtswitch, tsgtswitch, synnswitch
