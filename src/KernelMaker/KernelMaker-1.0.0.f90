@@ -402,8 +402,10 @@ program KernelMaker
      qkp(ir)  = tmparray(5)
      if(qmm(ir).le.0.d0) qmm(ir)  = 1.d5
      if(qkp(ir).le.0.d0) qkp(ir)  = 1.d5
+
+     print *, ir, vsm(ir)
   enddo
-  
+  stop
   
   ! source check
   
@@ -706,7 +708,7 @@ program KernelMaker
         rsgtomega=cmplx(0.d0)
         h3=cmplx(0.d0)
         h4=cmplx(0.d0)
-        print *, "vsm=", vsm(ir)
+    
         ! SSGT reading
         if(iPSVSH.ne.1) call rdsgtomega(rx,0.d0,num_rsgtPSV,num_rsgtPSV,20)
         if((iPSVSH.ne.2).and.(vsm(ir).ne.0.d0)) call rdsgtomega(rx,0.d0,num_rsgtSH,num_rsgtPSV,10)
