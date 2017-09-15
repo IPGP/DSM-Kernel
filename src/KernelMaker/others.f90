@@ -303,6 +303,24 @@ subroutine lsmoothfinder (tlen, np0, freq, lsmooth)
 
 end subroutine lsmoothfinder
 
+subroutine find_cmb(rcmb,nzone,vrmin,vrmax,vsv,vsh)
+  implicit none
+  double precision :: rcmb
+  integer :: nzone
+  double precision :: vrmin(nzone), vrmax(nzone)
+  double precision :: vsv(4,nzone),vsh(4,nzone)
+  integer :: izone
+ 
+  do izone=1,nzone
+     if((vsv(1,izone).eq.0.d0).and.(vsv(2,izone).eq.0.d0).and. &
+       &   vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0).and. &
+       &   vsv(1,izone).eq.0.d0).and.(vsv(2,izone).eq.0.d0).and. &
+       &   vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0)) then
+     rcmb=vrmax(izone)
+  enddo
+
+end subroutine find_cmb
+     
 
 subroutine calstg_for_card(r,nzone,vrmin,vrmax,rrho,vpv,vph,vsv,vsh,eta,qmu,qkappa,array)
 

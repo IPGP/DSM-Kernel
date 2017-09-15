@@ -86,7 +86,7 @@ module parameters
 
   ! Kernel
   integer :: nr,ntot
-  real(kind(0d0)) :: rmin,rmax,rdelta
+  real(kind(0d0)) :: rcmb,rmin,rmax,rdelta
   real(kind(0d0)), allocatable :: r(:)
   real(kind(0d0)), allocatable :: rhom(:),vpm(:),vsm(:),qmm(:),qkp(:)
   complex(kind(0d0)), allocatable :: jacobianFuji(:,:) 
