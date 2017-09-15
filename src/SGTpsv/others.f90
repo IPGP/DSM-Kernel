@@ -1022,7 +1022,6 @@ subroutine calupfluid(c1,omega,lambda,qkp,ylm,strain)
   print *, "c1, ylm, c1*ylm", c1,ylm,c1*ylm
   freqlambda=freqlambda*cmplx(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)),0.d0)
   strain(1,1)=omega*unsurtrois/freqlambda*c1*ylm
-  print *,strain(1,1)
   strain(2,2)=strain(1,1)
   strain(3,3)=strain(1,1)
   return
