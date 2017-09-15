@@ -200,7 +200,10 @@ program  SGTpsv
   
   call MPI_BCAST(r0,r0_n,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
    
-  ir0 = 1
+  ir0 = r0_n
+
+  intir0=int(r0(ir0)*1.d3)
+
   
 
 
@@ -1079,7 +1082,7 @@ program  SGTpsv
         do ir_ = 1,r_n
            ! do ir0 = 1,r0_n
            ir0 = 1
-           write(coutfile, '(I7,".",I7,".",I7,".TSGT_PSV")') int(r0(ir0)*1.d3),int(r_(ir_)*1.d3),i
+           write(coutfile, '(I7,".",I7,".",I7,".TSGT_PSV")') intir0,int(r_(ir_)*1.d3),i
            do j = 1,29
               if (coutfile(j:j).eq.' ')coutfile(j:j) = '0'
            enddo
@@ -1112,7 +1115,7 @@ program  SGTpsv
         ir0 =1
         
         if(synnswitch) then
-           write(coutfile, '(I7,".",I7,".SYNN_PSV") ') int(r0(ir0)*1.d3),i
+           write(coutfile, '(I7,".",I7,".SYNN_PSV") ') intir0,i
            do j = 1,21
               if (coutfile(j:j).eq.' ')coutfile(j:j) = '0'
            enddo

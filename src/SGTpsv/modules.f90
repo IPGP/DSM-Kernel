@@ -22,7 +22,7 @@ module parameters
    
   integer, allocatable :: iista(:,:)
   integer :: r_n,r0_n,ciista, ir_,ir0,imt,icomp,itheta, theta_n
-  
+  integer :: intir0  
   character(120) :: coutfile
   integer :: imin, imax
   integer :: rsgtswitch, tsgtswitch, synnswitch
