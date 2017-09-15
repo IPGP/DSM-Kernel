@@ -404,7 +404,7 @@ program KernelMaker
      if(qkp(ir).le.0.d0) qkp(ir)  = 1.d5
   enddo
 
-  call find_cmb(rcmb,nzone,vrmin,vrmax,vsvD,vshD)
+  call find_cmb(rcmb,nzone,vrminD,vrmaxD,vsvD,vshD)
   
   ! source check
   
