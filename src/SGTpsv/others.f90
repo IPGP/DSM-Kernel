@@ -1019,8 +1019,8 @@ subroutine calupfluid(c1,omega,lambda,qkp,ylm,strain)
   !freqlambda=cmplx(lambda,0.d0)*(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)))*cmplx(1,1/qkp)
   freqlambda=dcmplx(lambda,0.d0)*dcmplx(1.d0,1.d0/qkp)
 
-  print *,  freqlambda
-  print *, "without", cmplx(lambda,0.d0)*cmplx(1,1/qkp)
+  !print *,  freqlambda
+  !print *, "without", cmplx(lambda,0.d0)*cmplx(1,1/qkp)
   !print *, lambda,qkp,omega 
   
   freqlambda=freqlambda*dcmplx(1+deuxsurpi/qkp*dlog(unsurdeuxpi*dble(omega)),0.d0)

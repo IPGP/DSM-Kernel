@@ -702,7 +702,7 @@ program  SGTpsv
                                 ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
                                 ! that said, u_{r,r}=u_{t,t}=u_{p,p}=omega/(3 lambda)*Q
                                 ! also, u_i=-1/(\rho \omega) * \partial_i Q
-                                print *, "fluid strain", uder(1,1)
+                                !if(my_rank.eq.0) print *, "fluid strain", uder(1,1)
                                 
                                 
                                 
@@ -735,7 +735,7 @@ program  SGTpsv
                                 call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
                                 
 
-                                print *, "solid strain", uder(1,1)
+                                ! if(my_rank.eq.0) print *, "solid strain", uder(1,1)
                              enddo
                              
                              
