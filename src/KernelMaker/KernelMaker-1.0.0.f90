@@ -706,7 +706,7 @@ program KernelMaker
         rsgtomega=cmplx(0.d0)
         h3=cmplx(0.d0)
         h4=cmplx(0.d0)
-        print *, "vsm=" vsm(ir)
+        print *, "vsm=", vsm(ir)
         ! SSGT reading
         if(iPSVSH.ne.1) call rdsgtomega(rx,0.d0,num_rsgtPSV,num_rsgtPSV,20)
         if((iPSVSH.ne.2).and.(vsm(ir).ne.0.d0)) call rdsgtomega(rx,0.d0,num_rsgtSH,num_rsgtPSV,10)
