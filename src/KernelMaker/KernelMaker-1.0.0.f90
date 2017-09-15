@@ -403,7 +403,7 @@ program KernelMaker
      if(qmm(ir).le.0.d0) qmm(ir)  = 1.d5
      if(qkp(ir).le.0.d0) qkp(ir)  = 1.d5
 
-     print *, ir, vsm(ir)
+     print *, r(ir), ir, vsm(ir)
   enddo
   stop
   
