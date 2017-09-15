@@ -313,12 +313,13 @@ subroutine find_cmb(rcmb,nzone,vrmin,vrmax,vsv,vsh)
  
   do izone=1,nzone
      if((vsv(1,izone).eq.0.d0).and.(vsv(2,izone).eq.0.d0).and. &
-       &   vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0).and. &
-       &   vsv(1,izone).eq.0.d0).and.(vsv(2,izone).eq.0.d0).and. &
-       &   vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0)) then
-     rcmb=vrmax(izone)
+          (vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0).and. &
+          (vsv(1,izone).eq.0.d0).and.(vsv(2,izone).eq.0.d0).and. &
+          (vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0)) then
+        rcmb=vrmax(izone)
+     endif
   enddo
-
+  
 end subroutine find_cmb
      
 
