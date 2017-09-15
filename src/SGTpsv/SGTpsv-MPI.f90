@@ -696,9 +696,7 @@ program  SGTpsv
                                 udt = dcmplx(0.d0)
                                 udp = dcmplx(0.d0)
                                 uder = dcmplx(0.d0)
-                             
-
-                       
+                            
                                 call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
 
                                 ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
