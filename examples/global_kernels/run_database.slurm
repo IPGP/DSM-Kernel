@@ -18,5 +18,5 @@ module load intel/compiler intel/mpi intel/mkl slurm
 ulimit -s unlimited
 ulimit -a
 
-srun    ../../bin/mpiSGTpsv < ./my_database.inf 
-srun    ../../bin/mpiSGTsh < ./my_database.inf
+srun    ../../bin/mpiSGTpsv < ./database.inf 
+srun    ../../bin/mpiSGTsh < ./database.inf
