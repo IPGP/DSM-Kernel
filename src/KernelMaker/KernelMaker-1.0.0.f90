@@ -1163,7 +1163,7 @@ program KernelMaker
                  do j=1,23
                     if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
                  enddo
-                 kerfile=trim(parentDir)//"/tmpvideopar/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                 kerfile=trim(parentDir)//"/tmpvideoparts/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
                       //"."//"timemarching"
                  open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter))
                  read(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1)
@@ -1216,7 +1216,7 @@ program KernelMaker
                     if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
                  enddo
                  
-                 kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                 kerfile=trim(parentDir)//"/tmpvideoparts/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
                       //"."//"timemarching"
                  open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter))
                  read(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,1)
@@ -1268,7 +1268,7 @@ program KernelMaker
                     if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
                  enddo
                  
-                 kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                 kerfile=trim(parentDir)//"/tmpvideoparts/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
                       //"."//"timemarching"
                  open(1,file=kerfile,status='old',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter))
                  read(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1)
