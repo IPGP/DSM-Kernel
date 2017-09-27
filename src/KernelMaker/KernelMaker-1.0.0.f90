@@ -753,16 +753,21 @@ program KernelMaker
                  videoker(ip,:,:,:)=tmpvideoker(:,:,:)
               enddo
             
-              !write(tmpchar,'(I7,".",I7)') int(rx*1.d3), int(xlat*1.d3)
-              write(tmpchar,'(I7,".",I7)') ir,ith
-              do j=1,15
-                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+             
+              do jt=1,number_of_snapshots
+                 write(tmpchar,'(I7,".",I7,".",I7)') ir,ith,jt
+                 do j=1,23
+                    if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+                 enddo
+                 
+                 kerfile=trim(parentDir)//"/tmpvideoparts/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                      //"."//"timemarching"
+                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter))
+                 write(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,jt)
+                 close(1)            
+
               enddo
-              kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
-                   //"."//"timemarching"
-              open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter)*number_of_snapshots)
-              write(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)
-              close(1)            
+              
            enddo
 
 
@@ -781,16 +786,26 @@ program KernelMaker
               enddo
               !print *,videoker(nphi/2,1,:,:)
 
-              write(tmpchar,'(I7,".",I7)') ir,ith
-              do j=1,15
-                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+
+
+               do jt=1,number_of_snapshots
+                 write(tmpchar,'(I7,".",I7,".",I7)') ir,ith,jt
+                 do j=1,23
+                    if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+                 enddo
+                 
+                 kerfile=trim(parentDir)//"/tmpvideoparts/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                      //"."//"timemarching"
+                 
+                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter))
+                 write(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,jt)
+                 close(1)           
+   
+
               enddo
-              kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
-                   //"."//"timemarching"
-              !print *, kerfile
-              open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
-              write(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots)
-              close(1)           
+
+
+    
 
            enddo
 
@@ -812,15 +827,24 @@ program KernelMaker
               enddo
 
 
-              write(tmpchar,'(I7,".",I7)') ir,ith
-              do j=1,15
-                 if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+
+
+              
+              do jt=1,number_of_snapshots
+                 write(tmpchar,'(I7,".",I7,".",I7)') ir,ith,jt
+                 do j=1,23
+                    if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+                 enddo
+                 
+                 kerfile=trim(parentDir)//"/tmpvideoparts/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                      //"."//"timemarching"
+                 
+                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h4)*(1+nfilter))
+                 write(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,jt)
+                 close(1)           
+                 
+                 
               enddo
-              kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
-                   //"."//"timemarching"
-              open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h4)*(1+nfilter)*number_of_snapshots)
-              write(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,1:number_of_snapshots)
-              close(1)           
 
            enddo
 
@@ -1121,26 +1145,30 @@ program KernelMaker
         enddo
      endif
 
+  endif
 
 
-     if(trim(paramWRT).eq.'vRSGT') then
+  if(trim(paramWRT).eq.'vRSGT') then
      
-        do jt=1,number_of_snapshots
+     do jt=1,number_of_snapshots
+
+        if(((mod(jt-my_rank-ir,2*nproc).eq.0).or.(mod(jt+my_rank+1-ir,2*nproc).eq.0))) then
+           
            totalker=0.e0
            do ir=1,nr
               do ith=1,ntheta
                        
-                 
-                 write(tmpchar,'(I7,".",I7)') ir,ith
-                 do j=1,15
+
+                 write(tmpchar,'(I7,".",I7,".",I7)') ir,ith,jt
+                 do j=1,23
                     if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
                  enddo
-                 kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
+                 kerfile=trim(parentDir)//"/tmpvideopar/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
                       //"."//"timemarching"
-                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
-                 read(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1:number_of_snapshots)
+                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter))
+                 read(1,rec=1) videoker(1:nphi,1:num_h3,0:nfilter,1)
                  close(1) 
-                 totalker(ir,1:nphi,ith,1:num_h3,0:nfilter)=videoker(1:nphi,1:num_h3,0:nfilter,jt)
+                 totalker(ir,1:nphi,ith,1:num_h3,0:nfilter)=videoker(1:nphi,1:num_h3,0:nfilter,1)
               enddo
            enddo
 
@@ -1169,30 +1197,31 @@ program KernelMaker
               close(1) 
               
            enddo
-           
+         
+        endif
 
-        enddo
-     endif
+     enddo
+  endif
 
 
-      if(trim(paramWRT).eq.'vTSGT') then
+  if(trim(paramWRT).eq.'vTSGT') then
      
-        do jt=1,number_of_snapshots
+     do jt=1,number_of_snapshots
+        if(((mod(jt-my_rank-ir,2*nproc).eq.0).or.(mod(jt+my_rank+1-ir,2*nproc).eq.0))) then
            totalker=0.e0
            do ir=1,nr
               do ith=1,ntheta
-                       
-                 
-                 write(tmpchar,'(I7,".",I7)') ir,ith
-                 do j=1,15
+                 write(tmpchar,'(I7,".",I7,".",I7)') ir,ith,jt
+                 do j=1,23
                     if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
                  enddo
+                 
                  kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
                       //"."//"timemarching"
-                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter)*number_of_snapshots)
-                 read(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,1:number_of_snapshots)
+                 open(1,file=kerfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*nphi*(num_h3)*(1+nfilter))
+                 read(1,rec=1) videoker(1:nphi,1:num_h4,0:nfilter,1)
                  close(1) 
-                 totalker(ir,1:nphi,ith,1:num_h4,0:nfilter)=videoker(1:nphi,1:num_h4,0:nfilter,jt)
+                 totalker(ir,1:nphi,ith,1:num_h4,0:nfilter)=videoker(1:nphi,1:num_h4,0:nfilter,1)
               enddo
            enddo
 
@@ -1222,28 +1251,29 @@ program KernelMaker
               
            enddo
            
-
-        enddo
-     endif
+        endif
+     enddo
+  endif
      
-     if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
-        
-      
-        
-        do jt=1,number_of_snapshots
+  if((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+           
+     do jt=1,number_of_snapshots
+        if(((mod(jt-my_rank-ir,2*nproc).eq.0).or.(mod(jt+my_rank+1-ir,2*nproc).eq.0))) then
            totalker=0.e0
            do ir=1,nr
               do ith=1,ntheta
-                 write(tmpchar,'(I7,".",I7)') ir,ith
-                 do j=1,15
+                 
+                 write(tmpchar,'(I7,".",I7,".",I7)') ir,ith,jt
+                 do j=1,23
                     if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
                  enddo
+                 
                  kerfile=trim(parentDir)//"/tmpvideo/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)&
                       //"."//"timemarching"
-                 open(1,file=kerfile,status='old',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter)*number_of_snapshots)
-                 read(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1:number_of_snapshots)
+                 open(1,file=kerfile,status='old',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter))
+                 read(1,rec=1) videoker(1:nphi,0:nkvtype,0:nfilter,1)
                  close(1)
-                 totalker(ir,1:nphi,ith,0:nkvtype,0:nfilter)=videoker(1:nphi,0:nkvtype,0:nfilter,jt)
+                 totalker(ir,1:nphi,ith,0:nkvtype,0:nfilter)=videoker(1:nphi,0:nkvtype,0:nfilter,1)
 
                  ! something that we can try :
                  ! open(1,file=kerfile,status='old',form='unformatted',access='direct',recl=kind(0e0)*nphi*(1+nkvtype)*(1+nfilter))
@@ -1277,15 +1307,17 @@ program KernelMaker
               close(1) 
               
            enddo
-           
+        endif
 
-        enddo
+     enddo
                  
-     endif
+  endif
 
-     deallocate(totalker)
-
-
+  deallocate(totalker)
+  
+  
+  if(my_rank.eq.0) then
+     
      if(trim(paramWRT).eq.'vRSGT') then
         nktype_real=num_h3-1
      elseif(trim(paramWRT).eq.'vTSGT') then

@@ -125,6 +125,8 @@ subroutine pinputKernel
   call system(commandline)
   commandline = 'mkdir -p '//trim(parentDir)//'/tmpvideo'
   call system(commandline)
+  commandline = 'mkdir -p '//trim(parentDir)//'/tmpvideoparts'
+  call system(commandline)      
 
   call pinputDSM(DSMconfFile,PoutputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,SGTinfo)
   call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
