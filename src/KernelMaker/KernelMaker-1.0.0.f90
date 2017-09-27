@@ -1093,18 +1093,23 @@ program KernelMaker
   call MPI_BARRIER(MPI_COMM_WORLD,ierr)
 
   ! write final reordered kernel output
-  if(my_rank.eq.0) then   
-     deallocate(ker)
 
-     if(trim(paramWRT).eq.'vRSGT') then
-        allocate(totalker(nr,nphi,ntheta,1:num_h3,0:nfilter))
-     elseif(trim(paramWRT).eq.'vTSGT') then
-        allocate(totalker(nr,nphi,ntheta,1:num_h4,0:nfilter))
-     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
-        allocate(totalker(nr,nphi,ntheta,0:nkvtype,0:nfilter))
-     else
-        allocate(totalker(nr,nphi,ntheta,0:nktype,0:nfilter))
-     endif
+
+
+  deallocate(ker)
+  
+  if(trim(paramWRT).eq.'vRSGT') then
+     allocate(totalker(nr,nphi,ntheta,1:num_h3,0:nfilter))
+  elseif(trim(paramWRT).eq.'vTSGT') then
+     allocate(totalker(nr,nphi,ntheta,1:num_h4,0:nfilter))
+  elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+     allocate(totalker(nr,nphi,ntheta,0:nkvtype,0:nfilter))
+  else
+     allocate(totalker(nr,nphi,ntheta,0:nktype,0:nfilter))
+  endif
+
+  if(my_rank.eq.0) then   
+  
 
 
      if((trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT').and.(trim(paramWRT).ne.'alphaV').and.&
