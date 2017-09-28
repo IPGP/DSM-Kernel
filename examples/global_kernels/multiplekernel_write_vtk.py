@@ -105,7 +105,7 @@ fname_grid=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
     +kernel_inf['component']+'.'+kernel_inf['kernelType']+'.grid'
 
 mylist=['V','v']
-if not (any(x in kernelType for x in mylist)):
+if not (any(x in kernel_inf['kernelType'] for x in mylist)):
 #if any (x not in kernel_inf['kernelType'] for x in ('V' and 'v')):
     print("this is not a video")
     fname_kernel=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
