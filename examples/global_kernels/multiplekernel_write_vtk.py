@@ -29,10 +29,10 @@ def read_kernel_inffile(inffile):
     for line in open(inffile):
         li=line.strip()
         if not li.startswith("#"):
-            print(iline)
+            #print(iline)
             tmpstring=line.rstrip()
             #print(line.rstrip())
-            print(tmpstring)
+            #print(tmpstring)
             if(iline==1): outputDir=tmpstring
             if(iline==2): eventName=tmpstring
             if(iline==5): stationName=tmpstring
@@ -77,8 +77,8 @@ def read_kernel_inffile(inffile):
                        
                                   
             iline=iline+1 
-    print(timeWindow) 
-    print (kernelType)
+    #print(timeWindow) 
+    #print (kernelType)
     timeStart=timeWindow.split(" ")[0]
     timeEnd=timeWindow.split(" ")[1]
     return {'outputDir':outputDir,'eventName':eventName,'stationName':stationName,'phaseName':phaseName,'component':component,'kernelType':kernelType,'filterName':filterName,'timeStart':timeStart,'timeEnd':timeEnd,'timeIncrementSec':timeIncrementSec}
