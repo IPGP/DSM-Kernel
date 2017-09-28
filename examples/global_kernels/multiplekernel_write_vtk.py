@@ -39,7 +39,9 @@ def read_kernel_inffile(inffile):
             if(iline==7): phaseName=tmpstring
             if(iline==8): component=tmpstring
             if(iline==9): kernelType=tmpstring
-            if(any (x not in kernelType for x in ('V' and 'v'))):
+            #if(any (x not in kernelType for x in ('V' and 'v'))):
+            mylist=['V','v']
+            if not (any(x in kernelType for x in mylist)):
                 if(iline==11): filterName=tmpstring
                 if(iline==9): timeIncrementSec=tmpstring
                 if(iline==10): Butterworth=tmpstring
@@ -102,8 +104,9 @@ fname_grid=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
     +kernel_inf['eventName']+'.'+kernel_inf['phaseName']+'.'\
     +kernel_inf['component']+'.'+kernel_inf['kernelType']+'.grid'
 
-
-if any (x not in kernel_inf['kernelType'] for x in ('V' and 'v')):
+mylist=['V','v']
+if not (any(x in kernelType for x in mylist)):
+#if any (x not in kernel_inf['kernelType'] for x in ('V' and 'v')):
     print("this is not a video")
     fname_kernel=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
     +kernel_inf['eventName']+'.'+kernel_inf['phaseName']+'.'\
