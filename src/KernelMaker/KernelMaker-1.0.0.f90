@@ -514,7 +514,7 @@ program KernelMaker
      !print *, nr, nphi, ntheta,nktype_real
 
      gridfile = trim(parentDir)//trim(stationName)//"."//trim(eventName)//"."//&
-                trim(phase)//"."//trim(compo)//"."//trim(paramWRT)//"."//trim(".grid")
+                trim(phase)//"."//trim(compo)//"."//trim(paramWRT)//trim(".grid")
      open(1,file=gridfile,status='unknown',form='unformatted',access='sequential')
      write(1) nr, nphi, ntheta, nktype_real
      write(1) real(r)
