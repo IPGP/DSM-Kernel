@@ -19,4 +19,3 @@ ulimit -s unlimited
 ulimit -a
 
 srun    ../../bin/mpiSGTpsv < ./database.inf 
-srun    ../../bin/mpiSGTsh < ./database.inf

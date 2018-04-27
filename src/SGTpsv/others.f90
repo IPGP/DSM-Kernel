@@ -14,7 +14,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
 
   !call getarg(1,tmpfile0)
 
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z5.5)") getpid()
   tmpfile='tmpworkingfile_for_SGTforPinv'//tmpfile
   !print *, tmpfile
 
@@ -81,7 +81,7 @@ subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   character(120) :: tmpfile
 
 
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z5.5)") getpid()
   tmpfile='tmpworkingfile_for_DSMconf'//tmpfile
 
 
@@ -1017,11 +1017,14 @@ subroutine calupfluid(c1,omega,lambda,qkp,ylm,strain)
 
   ! see Fuji et al. 2010
   !freqlambda=cmplx(lambda,0.d0)*(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)))*cmplx(1,1/qkp)
-  freqlambda=cmplx(lambda,0.d0)*cmplx(1,1/qkp)
-  !print *, lambda,qkp,omega 
+  freqlambda=dcmplx(lambda,0.d0)*dcmplx(1.d0,1.d0/qkp)
 
-  freqlambda=freqlambda*cmplx(1+deuxsurpi/qkp*log(unsurdeuxpi*real(omega)),0.d0)
-  strain(1,1)=strain(1,1)+omega*unsurtrois/freqlambda*c1*ylm
+  !print *,  freqlambda
+  !print *, "without", cmplx(lambda,0.d0)*cmplx(1,1/qkp)
+  !print *, lambda,qkp,omega 
+  
+  freqlambda=freqlambda*dcmplx(1+deuxsurpi/qkp*dlog(unsurdeuxpi*dble(omega)),0.d0)
+  strain(1,1)=omega*unsurtrois/freqlambda*c1*ylm
   strain(2,2)=strain(1,1)
   strain(3,3)=strain(1,1)
   return

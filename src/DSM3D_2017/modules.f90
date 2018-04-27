@@ -1,7 +1,53 @@
-module parameters  
+module parameters
 
 
-!-------------------------<< input matrix >>----------------------------------
+  ! MPI
+  
+  integer :: ierr, my_rank ! error marks
+  
+  
+  
+
+
+  ! Inner points in the planet
+  double precision :: rmin_,rmax_,rdelta_
+  double precision :: thetamin,thetamax,thetadelta
+
+
+end module parameters
+
+module DSMparameters
+
+  ! DSM configuration parameters
+  integer :: imin,imax ! min and max freq. indices
+  integer :: maxlmax
+  double precision :: tlen,r0 ! time window, source depth
+  double precision :: re,ratc, ratl,omegai
+  
+  
+  ! DSM output switches
+  integer :: rsgtswitch,tsgtswitch,synnswitch
+  
+end module DSMparameters
+
+
+
+
+module inputFiles
+  character(120) :: outputDir,psvmodel,modelname,DSMconfFile
+
+
+  character(5) :: jobid
+  integer(4) :: istat  
+end module inputFiles
+
+
+
+
+module parameters_old  
+
+
+  !-------------------------<< input matrix >>----------------------------------
   !include 'mpif.h'  
   character(120) :: outputDir, psvmodel, modelname,DSMconfFile 
   character(120) :: list,list1
@@ -22,10 +68,19 @@ module parameters
    
   integer, allocatable :: iista(:,:)
   integer :: r_n,r0_n,ciista, ir_,ir0,imt,icomp,itheta, theta_n
-  integer :: intir0  
+  
   character(120) :: coutfile
   integer :: imin, imax
   integer :: rsgtswitch, tsgtswitch, synnswitch
+
+
+  !---------------- normal mode card -----------------------------------
+  character(120) :: modelid, model1d
+  integer ::ifanis, ifdeck
+  double precision :: tref
+  integer :: nrmod, nicb, ncmb, nmspl
+  double precision, allocatable, dimension(:) :: rmod,dnm,vpv,vsv
+  double precision, allocatable, dimension(:) :: qk,qm,vph,vsh,eta
 
 
   
@@ -125,4 +180,4 @@ module parameters
   
 
   
-end module parameters
+end module parameters_old

@@ -10,7 +10,7 @@ PREM
 # 4. tlen (preferred to be set as 2^n*0.1 seconds
 3276.8d0
 # 5. minQ radius (km), maxQ radius, delta radius
-0.d0 6350.d0 20.d0
+20.d0 6350.d0 20.d0
 # 6. source radius (km)
 5771.d0
 # 7. minQ theta (degrees), maxQ theta, delta theta

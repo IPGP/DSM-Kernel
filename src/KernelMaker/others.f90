@@ -11,7 +11,7 @@ subroutine pinputKernel
 
 
   
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z5.5)") getpid()
   tmpfile='tmpworkingfile_for_SynViewer'//tmpfile
   
   open(unit=1, file=tmpfile,status='unknown')
@@ -125,11 +125,13 @@ subroutine pinputKernel
   call system(commandline)
   commandline = 'mkdir -p '//trim(parentDir)//'/tmpvideo'
   call system(commandline)
+  commandline = 'mkdir -p '//trim(parentDir)//'/tmpvideoparts'
+  call system(commandline)      
 
   call pinputDSM(DSMconfFile,PoutputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,SGTinfo)
   call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
  
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z5.5)") getpid()
   tmpfile = 'tmpworkingfile_for_psvmodel'//tmpfile
   
   call readpsvmodel(psvmodel,tmpfile)
@@ -163,7 +165,7 @@ subroutine pinputDSM(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,r
   integer, external :: getpid
   character(120) :: tmpfile
 
-  write(tmpfile, "(Z4)") getpid()
+  write(tmpfile, "(Z5.5)") getpid()
   tmpfile='tmpworkingfile_for_SGTcalcul'//tmpfile
 
   open(unit=2, file=SGTinfo)
@@ -208,7 +210,7 @@ subroutine readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
   integer, external :: getpid
   character(120) :: tmpfile
 
-  write(tmpfile,"(Z4)") getpid()
+  write(tmpfile,"(Z5.5)") getpid()
   tmpfile='tmpworkingfile_for_DSMconf'//tmpfile
 
 
@@ -303,6 +305,25 @@ subroutine lsmoothfinder (tlen, np0, freq, lsmooth)
 
 end subroutine lsmoothfinder
 
+subroutine find_cmb(rcmb,nzone,vrmin,vrmax,vsv,vsh)
+  implicit none
+  double precision :: rcmb
+  integer :: nzone
+  double precision :: vrmin(nzone), vrmax(nzone)
+  double precision :: vsv(4,nzone),vsh(4,nzone)
+  integer :: izone
+ 
+  do izone=1,nzone
+     if((vsv(1,izone).eq.0.d0).and.(vsv(2,izone).eq.0.d0).and. &
+          (vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0).and. &
+          (vsv(1,izone).eq.0.d0).and.(vsv(2,izone).eq.0.d0).and. &
+          (vsv(3,izone).eq.0.d0).and.(vsv(4,izone).eq.0.d0)) then
+        rcmb=vrmax(izone)
+     endif
+  enddo
+  
+end subroutine find_cmb
+     
 
 subroutine calstg_for_card(r,nzone,vrmin,vrmax,rrho,vpv,vph,vsv,vsh,eta,qmu,qkappa,array)
 

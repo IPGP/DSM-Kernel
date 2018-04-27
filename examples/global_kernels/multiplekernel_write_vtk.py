@@ -1,4 +1,5 @@
-#!/Users/fujinobuaki/anaconda/bin/python
+#!/cm/shared/apps/intelpython/intelpython3/bin/python
+##!/Users/fujinobuaki/anaconda/bin/python
 ##!/tools/python
 """
 This is a very simple plot script that reads a 3D DSM-Kernel sensitivity kernel
@@ -21,6 +22,7 @@ def read_kernel_inffile(inffile):
     kernelType=''
     Butterworth=''
     fastFFT=''
+    timeWindow=''
     timeStart=''
     timeEnd=''
     timeIncrementSec=''
@@ -30,14 +32,34 @@ def read_kernel_inffile(inffile):
             #print(iline)
             tmpstring=line.rstrip()
             #print(line.rstrip())
+            #print(tmpstring)
             if(iline==1): outputDir=tmpstring
             if(iline==2): eventName=tmpstring
             if(iline==5): stationName=tmpstring
             if(iline==7): phaseName=tmpstring
             if(iline==8): component=tmpstring
             if(iline==9): kernelType=tmpstring
-            if(any (x not in kernelType for x in ('V' or 'v'))):
+            #if(any (x not in kernelType for x in ('V' and 'v'))):
+            mylist=['V','v']
+            if not (any(x in kernelType for x in mylist)):
                 if(iline==11): filterName=tmpstring
+                if(iline==9): timeIncrementSec=tmpstring
+                if(iline==10): Butterworth=tmpstring
+                if(iline==11): filterName=tmpstring
+                if(Butterworth=='1'):
+                    if(iline==17): fastFFT=tmpstring
+                    if(fastFFT=='1'):
+                        if(iline==22): timeWindow=tmpstring
+                    else:
+                        if(iline==21): timeWindow=tmpstring
+                else:
+                    if(iline==16): fastFFT=tmpstring
+                    if(fastFFT=='1'):
+                        if(iline==21): timeWindow=tmpstring
+                    else:
+                        if(iline==20): timeWindow=tmpstring
+
+
             else:
                 if(iline==10): timeIncrementSec=tmpstring
                 if(iline==11): Butterworth=tmpstring
@@ -55,8 +77,10 @@ def read_kernel_inffile(inffile):
                     else:
                         if(iline==21): timeWindow=tmpstring
                        
-                
-            iline=iline+1      
+                                  
+            iline=iline+1 
+    #print(timeWindow) 
+    #print (kernelType)
     timeStart=timeWindow.split(" ")[0]
     timeEnd=timeWindow.split(" ")[1]
     return {'outputDir':outputDir,'eventName':eventName,'stationName':stationName,'phaseName':phaseName,'component':component,'kernelType':kernelType,'filterName':filterName,'timeStart':timeStart,'timeEnd':timeEnd,'timeIncrementSec':timeIncrementSec}
@@ -80,8 +104,9 @@ fname_grid=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
     +kernel_inf['eventName']+'.'+kernel_inf['phaseName']+'.'\
     +kernel_inf['component']+'.'+kernel_inf['kernelType']+'.grid'
 
-
-if any (x not in kernel_inf['kernelType'] for x in ('V' or 'v')):
+mylist=['V','v']
+if not (any(x in kernel_inf['kernelType'] for x in mylist)):
+#if any (x not in kernel_inf['kernelType'] for x in ('V' and 'v')):
     print("this is not a video")
     fname_kernel=kernel_inf['outputDir']+'/'+kernel_inf['stationName']+'.' \
     +kernel_inf['eventName']+'.'+kernel_inf['phaseName']+'.'\

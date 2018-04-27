@@ -37,7 +37,7 @@ program  SGTpsv
 
      call pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
      call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
-     write(tmpfile,"(Z4)") getpid()
+     write(tmpfile,"(Z5.5)") getpid()
      tmpfile='tmpworkingfile_for_psvmodel'//tmpfile
      call readpsvmodel(psvmodel,tmpfile)
      psvmodel=tmpfile
@@ -200,7 +200,10 @@ program  SGTpsv
   
   call MPI_BCAST(r0,r0_n,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
    
-  ir0 = 1
+  ir0 = r0_n
+
+  intir0=int(r0(ir0)*1.d3)
+
   
 
 
@@ -693,15 +696,13 @@ program  SGTpsv
                                 udt = dcmplx(0.d0)
                                 udp = dcmplx(0.d0)
                                 uder = dcmplx(0.d0)
-                             
-
-                       
+                            
                                 call calupfluid(g0tmp(1),dcmplx(omega,-omegai),lambda(ir_),qkp(ir_),dvec0(1,m,itheta),uder)
 
                                 ! Here in the liquid, u(1) is Q = lambda u_{k,k}/omega
                                 ! that said, u_{r,r}=u_{t,t}=u_{p,p}=omega/(3 lambda)*Q
                                 ! also, u_i=-1/(\rho \omega) * \partial_i Q
-                                
+                                !if(my_rank.eq.0) print *, "fluid strain", uder(1,1)
                                 
                                 
                                 
@@ -733,6 +734,8 @@ program  SGTpsv
                                 call locallyCartesianDerivatives(u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3),r_(ir_),theta(itheta)/180.d0*pi)
                                 call udertotsgt(imt,uder(1:3,1:3),tsgt(1:num_tsgt,ir_,itheta,ir0))
                                 
+
+                                ! if(my_rank.eq.0) print *, "solid strain", uder(1,1)
                              enddo
                              
                              
@@ -1079,7 +1082,7 @@ program  SGTpsv
         do ir_ = 1,r_n
            ! do ir0 = 1,r0_n
            ir0 = 1
-           write(coutfile, '(I7,".",I7,".",I7,".TSGT_PSV")') int(r0(ir0)*1.d3),int(r_(ir_)*1.d3),i
+           write(coutfile, '(I7,".",I7,".",I7,".TSGT_PSV")') intir0,int(r_(ir_)*1.d3),i
            do j = 1,29
               if (coutfile(j:j).eq.' ')coutfile(j:j) = '0'
            enddo
@@ -1112,7 +1115,7 @@ program  SGTpsv
         ir0 =1
         
         if(synnswitch) then
-           write(coutfile, '(I7,".",I7,".SYNN_PSV") ') int(r0(ir0)*1.d3),i
+           write(coutfile, '(I7,".",I7,".SYNN_PSV") ') intir0,i
            do j = 1,21
               if (coutfile(j:j).eq.' ')coutfile(j:j) = '0'
            enddo

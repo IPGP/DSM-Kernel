@@ -62,8 +62,8 @@ alpha
 5.d-1 10.d0
 # Cd. gridding in radius (rmin, rmax, deltar : should correspond to grids in catalogue)
 # if you put 0.d0 0.d0 0.d0 then the program will take the grids in catalogue
-#0.d0 0.d0 0.d0
-5471.d0 6371.d0 20.d0
+0.d0 0.d0 0.d0
+#5471.d0 6371.d0 20.d0
 # Da. time window (start, end in sec)  
 450.d0 610.d0
 # Db. sampling Hz 

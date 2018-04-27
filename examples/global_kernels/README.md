@@ -6,12 +6,14 @@ This example demonstrates the two central steps of this code:
 1. the computation of a database of Green functions for a specified region of the Earth.
 2. the computation of a kernel using the previously computed database
 
+
+<!---
 ### Instructions
 #### The Green function database
 To compute the database you need the two programs SGTpsv and SGTsh that
 compute the databases necessary for PSV and SH waves, respectively. The sources
 of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/`.
-
+--->
 <!---
 ##### Compilation
 
@@ -20,7 +22,8 @@ of these codes are stored in `DSM-Kernel/src/SGTpsv/` and `DSM-Kernel/src/SGTsh/
 
 -->
 
-##### Configuration and Execution
+#### Configuration and Execution
+0. Go to the folder `examples/global_kernels`
 1. copy the file `database.inf` to `my_database.inf`. In this file:
  * adjust the paths (first path in the file with the path of your DSM-Kernel installation)
  * adjust the output directory path (second), where the database is stored.

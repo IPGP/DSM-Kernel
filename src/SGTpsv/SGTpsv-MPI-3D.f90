@@ -47,7 +47,7 @@ program  SGTpsv
 
      call pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
      call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
-     write(tmpfile,"(Z4)") getpid()
+     write(tmpfile,"(Z5.5)") getpid()
      tmpfile='tmpworkingfile_for_psvmodel'//tmpfile
      call readpsvmodel(psvmodel,tmpfile)
      psvmodel=tmpfile
@@ -233,6 +233,7 @@ program  SGTpsv
   allocate(ra(1:nnlayer+nzone+1))
   call calra2_psv(nnlayer,gridpar,dzpar,nzone,vrmin,vrmax,rmin,rmax,nlayer,ra,re,r_n,r_,rrsta,iista,log_solid_liquid,r0(ir0),cista,iphase,istazone,ciista)
   
+  !!!3D just for information
   ! calra2_psv is making X(r) 
   ! ra(:) is the grid points in r for DSM calculation
      
