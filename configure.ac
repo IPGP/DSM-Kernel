@@ -15,13 +15,15 @@ AC_CONFIG_HEADERS([config.h])
 if [ [  -z "${FCFLAGS+set}" ] ]
  then
  FCFLAGS='-O4 -check nobounds -xAVX -qopt-report -ftz -assume buffered_io -assume byterecl -implicitnone -warn truncated_source -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel' 
+ FCFLAGS='-O4 -check nobounds -xAVX -qopt-report -ftz -assume buffered_io -assume byterecl -implicitnone -warn truncated_source -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel'
+ FCFLAGS='-std=gnu -fimplicit-none -frange-check -O2 -pedantic -pedantic-errors -Waliasing -Wampersand -Wline-truncation -Wsurprising -Wunderflow -fbounds-check -assume byterecl'
 fi 
 #AC_SUBST([ac_test_FCFLAGS],[set])
 #AC_SUBST([ac_save_FCFLAGS],['-O4 -check nobounds -xAVX -qopt-report -ftz -assume buffered_io -assume byterecl -implicitnone -warn truncated_source -warn declarations -warn alignments -warn ignore_loc -warn usage -mcmodel=medium -shared-intel'])
 
 
-AC_PROG_FC([mpiifort mpif90])
-
+#AC_PROG_FC([mpiifort mpif90])
+AC_PROG_FC([mpif90 mpiifort])
 
 # Checks for libraries.
 
