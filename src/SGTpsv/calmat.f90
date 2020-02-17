@@ -1405,3 +1405,68 @@ subroutine calparderiv(omegar,omegai,l,c,dcdr,z,dzdr,ra, par0,par1,par2)
   return
 end subroutine calparderiv
 
+subroutine calg_force(l,m,lsq,icomp,rsurface,g)
+!subroutine calg_force(l,m,coef1,coef2,lsq,ecC0,ecF0,ecL0,ya,yb,yc,yd,ra,r0,f,g)
+implicit none
+integer :: l,m,ier,i,icomp
+integer, dimension(4) :: ip
+real(kind(0d0)), parameter :: pi = 3.1415926535897932d0
+!real(kind(0d0)) :: r0,ecC0,ecF0,ecL0,eps,sgn,b1,b2,lsq,r02,r03,xtmp,b0
+!real(kind(0d0)), dimension(2) :: ra
+real(kind(0d0)), dimension(3) :: f
+real(kind(0d0)), dimension(4) :: dtmp
+!complex(kind(0d0)) :: coef1,coef2,dd,ee,s1,s2
+!complex(kind(0d0)), dimension(4) :: s,ya,yb,yc,yd,g,b,wk
+real(kind(0d0)) :: eps,sgn,lsq
+complex(kind(0d0)) :: g
+real(kind(0d0)) :: b0,b1,rsurface,rsurface2
+complex(kind(0d0)), dimension(4,4) :: a
+
+f=0.d0
+if(icomp.eq.2) f(2)=1.d0
+if(icomp.eq.3) f(3)=1.d0
+
+sgn = 1.d0
+if (m<0) sgn = -1.d0
+
+b1 = dsqrt(dble(2*l+1)/(16.d0*pi))
+b0 = 2/lsq*b1
+
+rsurface2 = rsurface*rsurface
+!s1 = dcmplx(0.d0)
+!s2 = dcmplx(0.d0)
+
+if (iabs(m)==0) g = dcmplx(2.d0*b1*f(1)/rsurface2)
+if (iabs(m)==1) g = dcmplx(-sgn*b1*f(2)/rsurface2,b1*f(3)/rsurface2)
+
+
+
+!s(1) = dcmplx(0.d0)
+!s(2) = s1
+!s(3) = dcmplx(0.d0)
+!s(4) = s2
+
+!eps = -1.d0
+!if (l/=0) then
+!  call sab1(ya,yb,yc,yd,s,a,b)
+!  call glu(a,4,4,b,eps,wk,ip,ier)
+!else
+!  call sab2(ya,yc,s,a,b)
+!  call glu(a,2,4,b,eps,wk,ip,ier)
+!  b(3) = b(2)
+!  b(2) = dcmplx(0.d0)
+!  b(4) = dcmplx(0.d0)
+!endif
+
+!dtmp(1) = -ra(1)*ra(1)
+!dtmp(2) = -ra(1)*ra(1)
+!dtmp(3) = ra(2)*ra(2)
+!dtmp(4) = ra(2)*ra(2)
+
+!do i = 1,4
+!  g(i) = dcmplx(dble(b(i))*dtmp(i),dimag(b(i))*dtmp(i))
+!enddo
+
+return
+
+end subroutine calg_force

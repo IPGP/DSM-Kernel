@@ -609,7 +609,7 @@ program  SGTpsv
         
            rdvec = dcmplx(0.d0)
            call caldveczero(l,rdvec(1:3,-2:2))
-        
+           !rdvec=dconjg(rdvec) 
 
 
            ! computing the coefficient matrix elements
@@ -751,6 +751,8 @@ program  SGTpsv
                           itmp = 1
                           if ( rmin.eq.0.d0 ) itmp=2
                           ns = kkdr0 + ( nint(spo) - 1 )
+                          !NF touches 
+                          !call mydcsbdlv1(c(1,itmp),d0(itmp),nn0-itmp+1,z(itmp))
                           call dcsbdlv0( c(1,itmp),d0(itmp),1,nn0-itmp+1,eps,z(itmp),ier )
                           do ir_=1,r_n
                              g0tmp = dcmplx(0.d0)
@@ -805,12 +807,17 @@ program  SGTpsv
                     if((abs(m).eq.1).and.(rsgtswitch.eq.1)) then  ! back propagated for icomp = 2,3
                        do icomp = 2,3
                           g0 = dcmplx(0.d0)
-                          g0(nn-1) = -conjg(rdvec(icomp,m))/dcmplx(lsq)
+                          ! NF touches g0(nn-1) -> g0(nn) 
+                          g0(nn) = conjg(rdvec(icomp,m))/dcmplx(lsq)
+                          ! NF touches
+                          !call calg_force(l,m,lsq,icomp,rmax,g0(nn-1))
                           call rea2_back( nn,a,g0,c,d0,nzone,iphase,kkdr,spn,kkdr0,nn0,r_n,r_n,istazone,iista,jsta )
                           itmp = 1
                           if ( rmin.eq.0.d0 ) itmp=2
                           ns = kkdr0 + ( nint(spo) - 1 )
-                          call dcsbdlv0( c(1,itmp),d0(itmp),1,nn0-itmp+1,eps,z(itmp),ier )
+                          ! NF touches
+                          call mydcsbdlv1(c(1,itmp),d0(itmp),nn0-itmp+1,z(itmp))
+                          !call dcsbdlv0( c(1,itmp),d0(itmp),1,nn0-itmp+1,eps,z(itmp),ier )
                           do ir_=1,r_n
                              g0tmp = dcmplx(0.d0)
                              g0dertmp = dcmplx(0.d0)
@@ -961,6 +968,7 @@ program  SGTpsv
                           itmp=1
                           if ( rmin.eq.0.d0 ) itmp=3
                           ns = kkdr(spn) + 2 * ( nint(spo) - 1 )
+                          
                           call dcsbdlv0( a(1,itmp),g0(itmp),3,nn-itmp+1,eps,z(itmp),ier )
                           do ir_=1,r_n
                              g0tmp = dcmplx(0.d0)
@@ -1012,11 +1020,20 @@ program  SGTpsv
                     if((abs(m).eq.1).and.(rsgtswitch.eq.1)) then ! back propagated for icomp = 2,3
                        do icomp = 2,3
                           g0 = dcmplx(0.d0)
-                          g0(nn-1) = -conjg(rdvec(icomp,m))/dcmplx(lsq)
+                          ! NF touches g0(nn-1) ->g0(nn)
+                          g0(nn) = conjg(rdvec(icomp,m))/dcmplx(lsq)
                           itmp=1
                           if ( rmin.eq.0.d0 ) itmp=3
                           ns = kkdr(spn) + 2 * ( nint(spo) - 1 )
-                          call dcsbdlv0( a(1,itmp),g0(itmp),3,nn-itmp+1,eps,z(itmp),ier )
+
+                          !if((ig2.eq.0).and.(m==-1)) then
+                          !      call dcsymbdl0(a(1,itmp),3,nn-itmp+1,6,eps,z(itmp),w(itmp),ll,lli,llj,ier )
+                          !      ig2 = 1
+                          !!else
+                          !NF touches
+                          call mydcsbdlv3(a(1,itmp),g0(itmp),nn-itmp+1,z(itmp))
+                            !call dcsbdlv0( a(1,itmp),g0(itmp),3,nn-itmp+1,eps,z(itmp),ier )
+                          !endif
                           do ir_=1,r_n
                              g0tmp = dcmplx(0.d0)
                              g0dertmp = dcmplx(0.d0)

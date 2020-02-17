@@ -426,7 +426,6 @@ program  SGTsh
            
            rvec = dcmplx(0.d0)
            call calbveczero(l,rvec(1,-2))
-           
            if(ismall.gt.20) then
               if(llog.gt.l) then
                  llog =l

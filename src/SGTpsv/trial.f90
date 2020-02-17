@@ -350,7 +350,7 @@ subroutine caldveczero( l,bvec )
         bvec(1,m) = cmplx(coef) 
      endif
      if(m.eq.1) then
-        bvec(2,m) = dcmplx(dble(m),0.d0) * xl2 * coef / 2.d0
+        bvec(2,m) = dcmplx(-1.d0,0.d0) * xl2 * coef / 2.d0
         bvec(2,-m) = conjg(bvec(2,m))
         bvec(3,m) = dcmplx( 0.d0, dble(m)) *  xl2 *coef / 2.d0
         bvec(3,-m) = conjg(bvec(3,m))
