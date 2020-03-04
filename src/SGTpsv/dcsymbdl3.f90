@@ -146,3 +146,71 @@ subroutine dcsbdlv(a,b,m,n,np,eps,z,ier)
  endif
  return
 end subroutine dcsbdlv
+
+
+subroutine mydcsbdlv3(a,b,n,z)
+  implicit none
+  integer, intent(in) :: n
+  complex(kind(0d0)), dimension(4,n), intent(in) :: a
+  complex(kind(0d0)), dimension(n), intent(inout) :: b
+  complex(kind(0d0)), dimension(n), intent(out) :: z
+  integer :: j,k,i1,j1
+  complex(kind(0d0)):: sum
+
+  z(1) = b(1)
+  z(2) = b(2)-a(2,2)*z(1)
+  do j = 3,n
+    if (j>4) then
+      i1 = 1
+    else
+      i1 = 4-j+1
+    endif
+    sum = dcmplx(0.0d0)
+    do k = i1,3
+      sum = sum+a(k,j)*z(j-4+k)
+    enddo
+    z(j) = b(j)-sum
+  enddo
+  do j = 1,n
+    z(j) = z(j)/a(4,j)
+  enddo
+  b(n) = z(n)
+  b(n-1) = z(n-1)-a(3,n)*z(n)
+  do j = 3,n
+    j1 = n-j+1
+    i1 = 1
+    if (j<4) i1 = 4-j+1
+    sum = dcmplx(0.0d0)
+    do k = i1,3
+      sum = sum+a(k,4-k+j1)*b(4-k+j1)
+    enddo
+    b(j1) = z(j1)-sum
+  enddo
+
+  return
+end subroutine mydcsbdlv3
+
+subroutine mydcsbdlv1(a,b,n,z)
+  implicit none
+  integer, intent(in) :: n
+  complex(kind(0d0)), dimension(2,n), intent(in) :: a
+  complex(kind(0d0)), dimension(n), intent(inout) :: b
+  complex(kind(0d0)), dimension(n), intent(out) :: z
+  integer :: j
+
+  z(1) = b(1)
+  do j = 2,n
+    z(j) = b(j)-a(1,j)*z(j-1)
+  enddo
+  do j = 1,n
+    z(j) = z(j)/a(2,j)
+  enddo
+  b(n) = z(n)
+  do j = 1,n-1
+    b(n-j) = z(n-j)-a(1,n-j+1)*b(n-j+1)
+  enddo
+
+  return
+end subroutine mydcsbdlv1
+
+

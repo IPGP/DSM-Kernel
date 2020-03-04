@@ -217,7 +217,7 @@ subroutine udertorsgt(icomp,uder,rsgt)
      rsgt(5) = rsgt(5) + uder(1,1)
      rsgt(6) = rsgt(6) - 5.d-1*uder(2,2) - 5.d-1*uder(3,3)
      rsgt(7) = rsgt(7) - 5.d-1*uder(2,2) + 5.d-1*uder(3,3)
-     rsgt(9) = rsgt(9) + 5.d-1*uder(1,2) + 5.d-1*uder(2,1) 
+     rsgt(9) = rsgt(9) - 5.d-1*uder(1,2) - 5.d-1*uder(2,1) 
   endif
 
   if(icomp.eq.3) then ! transverse component
