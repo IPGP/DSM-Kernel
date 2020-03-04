@@ -610,7 +610,7 @@ program  SGTpsv
            rdvec = dcmplx(0.d0)
            call caldveczero(l,rdvec(1:3,-2:2))
         
-
+           rdvec=dconjg(rdvec)
 
            ! computing the coefficient matrix elements
            ! --- renewing  mdr
