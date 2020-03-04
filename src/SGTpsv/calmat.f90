@@ -1012,6 +1012,65 @@ end subroutine calya
 !
 
 
+!subroutine calg_force(l,m,coef1,coef2,lsq,ecC0,ecF0,ecL0,ya,yb,yc,yd,ra,r0,f,g)
+subroutine calg_force(l,m,lsq,ec,ya,yb,yc,yd,ra,r0,f,g)
+implicit none
+integer :: l,m,ier,i
+integer, dimension(4) :: ip
+real(kind(0d0)), parameter :: pi = 3.1415926535897932d0
+!real(kind(0d0)) :: r0,ecC0,ecF0,ecL0,eps,sgn,b1,b2,lsq,r02,r03,xtmp,b0
+real(kind(0d0)) :: r0,eps,sgn,b1,b2,lsq,r02,r03,xtmp,b0
+real(kind(0d0)), dimension(2) :: ra
+real(kind(0d0)), dimension(3) :: f
+real(kind(0d0)), dimension(4) :: dtmp
+!complex(kind(0d0)) :: coef1,coef2,dd,ee,s1,s2
+complex(kind(0d0)) :: dd,ee,s1,s2
+complex(kind(0d0)), dimension(4) :: s,ya,yb,yc,yd,g,b,wk
+complex(kind(0d0)), dimension(4,4) :: a
+
+sgn = 1.d0
+if (m<0) sgn = -1.d0
+
+b1 = dsqrt(dble(2*l+1)/(16.d0*pi))
+b0 = 2/lsq*b1
+
+r02 = r0*r0
+s1 = dcmplx(0.d0)
+s2 = dcmplx(0.d0)
+
+if (iabs(m)==0) s1 = dcmplx(2.d0*b1*f(1)/r02)
+if (iabs(m)==1) s2 = dcmplx(-sgn*b1*f(2)/r02,b1*f(3)/r02)
+
+s(1) = dcmplx(0.d0)
+s(2) = s1
+s(3) = dcmplx(0.d0)
+s(4) = s2
+
+eps = -1.d0
+if (l/=0) then
+  call sab1(ya,yb,yc,yd,s,a,b)
+  call glu(a,4,4,b,eps,wk,ip,ier)
+else
+  call sab2(ya,yc,s,a,b)
+  call glu(a,2,4,b,eps,wk,ip,ier)
+  b(3) = b(2)
+  b(2) = dcmplx(0.d0)
+  b(4) = dcmplx(0.d0)
+endif
+
+dtmp(1) = -ra(1)*ra(1)
+dtmp(2) = -ra(1)*ra(1)
+dtmp(3) = ra(2)*ra(2)
+dtmp(4) = ra(2)*ra(2)
+
+do i = 1,4
+  g(i) = dcmplx(dble(b(i))*dtmp(i),dimag(b(i))*dtmp(i))
+enddo
+
+return
+
+end subroutine calg_force
+
 
 subroutine calg( l,m,coef1,coef2,lsq,ecC0,ecF0,ecL0,ya,yb,yc,yd,ra,r0,mt,g )
 
