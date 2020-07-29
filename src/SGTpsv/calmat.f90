@@ -1013,13 +1013,13 @@ end subroutine calya
 
 
 !subroutine calg_force(l,m,coef1,coef2,lsq,ecC0,ecF0,ecL0,ya,yb,yc,yd,ra,r0,f,g)
-subroutine calg_force(l,m,lsq,ec,ya,yb,yc,yd,ra,r0,f,g)
+subroutine calg_force_notused(l,m,lsq,ec,ya,yb,yc,yd,ra,r0,f,g)
 implicit none
 integer :: l,m,ier,i
 integer, dimension(4) :: ip
 real(kind(0d0)), parameter :: pi = 3.1415926535897932d0
 !real(kind(0d0)) :: r0,ecC0,ecF0,ecL0,eps,sgn,b1,b2,lsq,r02,r03,xtmp,b0
-real(kind(0d0)) :: r0,eps,sgn,b1,b2,lsq,r02,r03,xtmp,b0
+real(kind(0d0)) :: ec,r0,eps,sgn,b1,b2,lsq,r02,r03,xtmp,b0
 real(kind(0d0)), dimension(2) :: ra
 real(kind(0d0)), dimension(3) :: f
 real(kind(0d0)), dimension(4) :: dtmp
@@ -1069,7 +1069,7 @@ enddo
 
 return
 
-end subroutine calg_force
+end subroutine calg_force_notused
 
 
 subroutine calg( l,m,coef1,coef2,lsq,ecC0,ecF0,ecL0,ya,yb,yc,yd,ra,r0,mt,g )
