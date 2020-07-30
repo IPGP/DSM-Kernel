@@ -285,33 +285,33 @@ subroutine rsgt2h3freq
   !   cosines of the azimuths.
 
 
-  
+  ! July 2020 NF modified this subroutine based on rsgt2h3time_adhoc in MarsMTInversion 
   if(trim(compo).eq."Z") then
      !   Vertical component. Order: 1-rr, 2-tt, 3-pp, 4-rt, 5-rp, 6-tp.
      h3(1,fmin:fmax)=rsgtF(1,fmin:fmax)
      h3(2,fmin:fmax)=rsgtF(3,fmin:fmax)*crq2(ip,ith)-rsgtF(4,fmin:fmax)
      h3(3,fmin:fmax)=-rsgtF(3,fmin:fmax)*crq2(ip,ith)-rsgtF(4,fmin:fmax)
-     h3(4,fmin:fmax)=-rsgtF(2,fmin:fmax)*crq(ip,ith)
-     h3(5,fmin:fmax)=-rsgtF(2,fmin:fmax)*srq(ip,ith)
-     h3(6,fmin:fmax)=rsgtF(3,fmin:fmax)*srq2(ip,ith)
+     h3(4,fmin:fmax)=2.d0*rsgtF(2,fmin:fmax)*crq(ip,ith) ! modified
+     h3(5,fmin:fmax)=2.d0*rsgtF(2,fmin:fmax)*srq(ip,ith) ! modified
+     h3(6,fmin:fmax)=2.d0*rsgtF(3,fmin:fmax)*srq2(ip,ith) ! modified
      
      !   Radial component. Order: 1-rr, 2-tt, 3-pp, 4-rt, 5-rp, 6-tp.
   elseif(trim(compo).eq."R") then
      h3(1,fmin:fmax)=rsgtF(5,fmin:fmax)
      h3(2,fmin:fmax)=-(rsgtF(7,fmin:fmax))*crq2(ip,ith)-rsgtF(6,fmin:fmax)
      h3(3,fmin:fmax)=(rsgtF(7,fmin:fmax))*crq2(ip,ith)-rsgtF(6,fmin:fmax)
-     h3(4,fmin:fmax)=(rsgtF(9,fmin:fmax))*crq(ip,ith)
-     h3(5,fmin:fmax)=(rsgtF(9,fmin:fmax))*srq(ip,ith)
-     h3(6,fmin:fmax)=-(rsgtF(7,fmin:fmax))*srq2(ip,ith)
+     h3(4,fmin:fmax)=4.d0*(rsgtF(9,fmin:fmax))*crq(ip,ith) ! modified
+     h3(5,fmin:fmax)=4.d0*(rsgtF(9,fmin:fmax))*srq(ip,ith) ! modified
+     h3(6,fmin:fmax)=-2.d0*(rsgtF(7,fmin:fmax))*srq2(ip,ith) ! modified
 
      !   Transverse component. Order: 1-rr, 2-tt, 3-pp, 4-rt, 5-rp, 6-tp.
   elseif(trim(compo).eq."T") then
      h3(1,fmin:fmax)=0.d0
      h3(2,fmin:fmax)=(rsgtF(8,fmin:fmax))*srq2(ip,ith)
      h3(3,fmin:fmax)=-h3(3,fmin:fmax)
-     h3(4,fmin:fmax)=-(rsgtF(10,fmin:fmax))*srq(ip,ith)
-     h3(5,fmin:fmax)=(rsgtF(10,fmin:fmax))*crq(ip,ith)
-     h3(6,fmin:fmax)=-(rsgtF(8,fmin:fmax))*crq2(ip,ith)
+     h3(4,fmin:fmax)=2.d0*(rsgtF(10,fmin:fmax))*srq(ip,ith) ! modified
+     h3(5,fmin:fmax)=-2.d0*(rsgtF(10,fmin:fmax))*crq(ip,ith) ! modified
+     h3(6,fmin:fmax)=-2.d0*(rsgtF(8,fmin:fmax))*crq2(ip,ith) ! modified
   endif
   return
 end subroutine rsgt2h3freq
