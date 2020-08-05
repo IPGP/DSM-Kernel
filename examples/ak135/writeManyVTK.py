@@ -22,6 +22,7 @@ def read_fortran_record(binfile, count, dtype):
 def test(fA,fB):
     print(fA,fB)
 def write_vts2(kernel,fname_grid,fname_vts):
+    gridfile = open(fname_grid, 'rb')
     # read grid info:
     nr, nphi, ntheta, nktype = read_fortran_record(gridfile, count=4, dtype=np.int32)
     nktype += 1 # starts counting from zero (should be changed in the code?)
