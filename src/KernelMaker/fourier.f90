@@ -152,7 +152,7 @@ subroutine clsgt(distance,num_sgt,sgtF,sgtomega)
         normalisefactorInt = normalisefactorInt+dsin(tmpnakami)/tmpnakami
      endif
   enddo
-  !  print *, sgtF(1:num_sgt,0:50) 
+    !print *, sgtF(1:num_sgt,0:50) 
 
   do j=fmin,fmax
      sgtF(1:num_sgt,j)=sgtF(1:num_sgt,j)/normalisefactorInt*exp(cmplx(0.d0,-2.d0*pi*dble(j)/tlen*distance*c_red_reci))
