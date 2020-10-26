@@ -138,23 +138,26 @@ subroutine clsgt(distance,num_sgt,sgtF,sgtomega)
   call findIdeltaRegion(idelta,nhregion,theta_n,idstart,idend)
   
   normalisefactorInt = 0.d0
+
+  
   
   do kk = idstart, idend
      tmpnakami = pi*((distance-thetaD(idstart))/thetadelta-dble(kk-idstart))
      if(tmpnakami.eq.0.d0) then
         sgtF(1:num_sgt,fmin:fmax) = sgtF(1:num_sgt,fmin:fmax) + sgtomega(1:num_sgt,fmin:fmax,kk)
         normalisefactorInt = normalisefactorInt+1.d0
-     else
+    else
         sgtF(1:num_sgt,fmin:fmax) = sgtF(1:num_sgt,fmin:fmax)  &
              + dsin(tmpnakami)/tmpnakami*sgtomega(1:num_sgt,fmin:fmax,kk)
         normalisefactorInt = normalisefactorInt+dsin(tmpnakami)/tmpnakami
      endif
   enddo
-  
+    !print *, sgtF(1:num_sgt,0:50) 
+
   do j=fmin,fmax
      sgtF(1:num_sgt,j)=sgtF(1:num_sgt,j)/normalisefactorInt*exp(cmplx(0.d0,-2.d0*pi*dble(j)/tlen*distance*c_red_reci))
   enddo  
-  
+  !print *, sgtF(1:num_sgt,0:50) 
   return
 end subroutine clsgt
 

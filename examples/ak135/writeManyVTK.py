@@ -22,6 +22,7 @@ def read_fortran_record(binfile, count, dtype):
 def test(fA,fB):
     print(fA,fB)
 def write_vts2(kernel,fname_grid,fname_vts):
+    gridfile = open(fname_grid, 'rb')
     # read grid info:
     nr, nphi, ntheta, nktype = read_fortran_record(gridfile, count=4, dtype=np.int32)
     nktype += 1 # starts counting from zero (should be changed in the code?)
@@ -98,27 +99,37 @@ def write_vts(fname_kernel,fname_grid,fname_vts):
     # write some output information
     r_min, r_max = radii[0], radii[-1]
     phi_min, phi_max = phis[0, 0], phis[0, -1]
-    theta_min, theta_max = thetas[0, 0], thetas[-1, 0]
+    theta_min, theta_max = thetas[0, 0], thetas[0, -1]
+    kernel4max=np.max(kernel[4,:,:,:])
+    kernel5max=np.max(kernel[5,:,:,:])
+    kernel6max=np.max(kernel[6,:,:,:])
     print ('kernel dimensions (nr={}, nphi={}, ntheta={})'.format(nr, nphi, ntheta))
     print ('kernel types: {}'.format(nktype))
     print ('radius range = {} -> {}'.format(r_min, r_max))
     print ('phis range = {} -> {}'.format(phi_min, phi_max))
     print ('thetas range = {} -> {}'.format(theta_min, theta_max))
-    return kernel
+    print ('kernel4max={:e}'.format(kernel4max))
+    print ('kernel5max={:e}'.format(kernel5max))
+    print ('kernel6max={:e}'.format(kernel6max))
+    #return kernel
 
 f0='/home/nobuaki/scratch/Earth/ak135/kernel/'
+f0='/home/nobuaki/git/DSM-Kernel/examples/ak135/output/'
 distance=np.arange(50,100,10).tolist()
 #print(distance)
 for idistance in distance:
     Skernel=f0+'test'+'{:d}'.format(idistance)+'.TP.S.T.100s20s.kernel'
     Sgrid=f0+'test'+'{:d}'.format(idistance)+'.TP.S.T.beta.grid'
-    Svtk=f0+'{:d}'.format(idistance)+'.S.vts'
+    Svtk=f0+'{:d}'.format(idistance)+'.S'
     SSkernel=f0+'test'+'{:d}'.format(idistance)+'.TP.SS.T.100s20s.kernel' 
     SSgrid=f0+'test'+'{:d}'.format(idistance)+'.TP.SS.T.beta.grid'   
-    SSvtk=f0+'{:d}'.format(idistance)+'.SS.vts'
-    diffvtk=f0+'{:d}'.format(idistance)+'.diff.vts'
+    SSvtk=f0+'{:d}'.format(idistance)+'.SS'
+    diffvtk=f0+'{:d}'.format(idistance)+'.diff'
     #print(diffvtk)
-    kernelS=write_vts(Skernel,Sgrid,Svtk)
-    kernelSS=write_vts(SSkernel,SSgrid,SSvtk)
-    kernelD=kernelSS-kernelS
-    write_vts2(kernelD,Sgrid,diffvtk) 
+
+    write_vts(Skernel,Sgrid,Svtk)
+    write_vts(SSkernel,SSgrid,SSvtk)
+    #kernelS=write_vts(Skernel,Sgrid,Svtk)
+    #kernelSS=write_vts(SSkernel,SSgrid,SSvtk)
+    #kernelD=kernelSS-kernelS
+    #write_vts2(kernelD,Sgrid,diffvtk) 

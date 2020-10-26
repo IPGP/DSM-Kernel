@@ -540,6 +540,9 @@ program KernelMaker
   allocate(u_freq(fmin:fmax))
   
   ! Now computing reference synthetic (in my_rank = 0)
+  tsgtF=cmplx(0.d0)
+  rsgtF=cmplx(0.d0)
+  synnF=cmplx(0.d0)
 
   synnomega=cmplx(0.d0)
   tsgtomega=cmplx(0.d0)
@@ -553,7 +556,9 @@ program KernelMaker
      if(iPSVSH.ne.1) call rdsgtomega(rs,0.d0,num_synnPSV,num_synnPSV,2)
      if(iPSVSH.ne.2) call rdsgtomega(rs,0.d0,num_synnSH,num_synnPSV,1)
      call clsgt(distan,num_synnPSV,synnF(1:num_synnPSV,fmin:fmax),synnomega(1:num_synnPSV,fmin:fmax,1:theta_n))
-     
+     !print *, synnomega(1:10,0:50,180)
+
+     !print *, distan
      call synn2h3freq(0,0)
 
      u_freq(fmin:fmax)=h3(1,fmin:fmax)*cmplx(mt(1))+ h3(2,fmin:fmax)*cmplx(mt(2)) &
