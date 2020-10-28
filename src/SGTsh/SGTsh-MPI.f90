@@ -30,7 +30,7 @@ program  SGTsh
 
   
   if(my_rank.eq.0) then
-     call pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
+     call pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,psgtswitch)
      call readDSMconf(DSMconfFile,re,ratc,ratl,omegai,maxlmax)
      write(tmpfile,"(Z5.5)") getpid()
      tmpfile = 'tmpworkingfile_for_psvmodel'//tmpfile
@@ -58,7 +58,7 @@ program  SGTsh
   call MPI_BCAST(rsgtswitch,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
   call MPI_BCAST(tsgtswitch,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
   call MPI_BCAST(synnswitch,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
-
+  call MPI_BCAST(psgtswitch,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
   
 
 
@@ -262,11 +262,13 @@ program  SGTsh
   allocate(tsgt(1:num_tsgt,1:r_n,1:theta_n,1:r0_n))
   allocate(rsgt(1:num_rsgt,1:r_n,1:theta_n))
   allocate(synn(1:num_synn,1:theta_n))
+  if(psgtswitch.eq.1) allocate(psgt(1:num_rsgt,1:r_n,1:r_n,1:theta_n))
+
 
   allocate(tsgtsngl(1:num_tsgt,1:theta_n))
   allocate(rsgtsngl(1:num_rsgt,1:theta_n))
   allocate(synnsngl(1:num_synn,1:theta_n))
-
+  if(psgtswitch.eq.1) allocate(psgtsngl(1:num_rsgt,1:r_n,1:r_n,1:theta_n))
 
 
   ! computation de nombre et la location des points de grid

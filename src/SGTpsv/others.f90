@@ -1,4 +1,4 @@
-subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch)
+subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta,thetamin,thetamax,thetadelta,imin,imax,rsgtswitch,tsgtswitch,synnswitch,psgtswitch)
   implicit none
   !character(120), parameter :: tmpfile='tmpworkingfile_for_SGTforPinv'
   character(120) :: dummy,outputDir,psvmodel,modelname,DSMconfFile
@@ -54,7 +54,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   r0delta=20.d0
   read(1,*) thetamin,thetamax,thetadelta
   read(1,*) imin,imax
-  read(1,*) rsgtswitch,tsgtswitch,synnswitch
+  read(1,*) rsgtswitch,tsgtswitch,synnswitch,psgtswitch
   close(1,status='delete')
  
   ! making directories

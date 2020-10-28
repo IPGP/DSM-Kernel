@@ -25,7 +25,7 @@ module parameters
   integer :: intir0  
   character(120) :: coutfile
   integer :: imin, imax
-  integer :: rsgtswitch, tsgtswitch, synnswitch
+  integer :: rsgtswitch, tsgtswitch, synnswitch, psgtswitch
 
 
   
@@ -95,8 +95,8 @@ module parameters
   !-----------------------------------------------------------------------
   !complex(kind(0d0)), allocatable :: dvec(:,:,:,:),dvecdt(:,:,:,:),dvecdp(:,:,:,:)
   complex(kind(0d0)), allocatable :: dvec0(:,:,:),dvecdt0(:,:,:),dvecdp0(:,:,:)
-  complex(kind(0d0)), allocatable :: tsgt(:,:,:,:),rsgt(:,:,:),synn(:,:) 
-  complex(kind(0e0)), allocatable :: tsgtsngl(:,:), rsgtsngl(:,:),synnsngl(:,:)
+  complex(kind(0d0)), allocatable :: tsgt(:,:,:,:),rsgt(:,:,:),synn(:,:) ,psgt(:,:,:,:)
+  complex(kind(0e0)), allocatable :: tsgtsngl(:,:), rsgtsngl(:,:),synnsngl(:,:),psgtsngl(:,:)
   real(kind(0d0)), allocatable :: plm(:,:,:)
   complex(kind(0d0)) :: rdvec(1:3,-2:2)
   complex(kind(0d0))::u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3)
