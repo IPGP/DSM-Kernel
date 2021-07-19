@@ -77,7 +77,7 @@ module parameters
   !-----------------------------------------------------------------------
   complex(kind(0d0)), allocatable :: bvec(:,:,:),bvecdt(:,:,:),bvecdp(:,:,:)
   complex(kind(0d0)), allocatable :: tsgt(:,:,:,:),rsgt(:,:,:),synn(:,:),psgt(:,:,:,:)
-  complex(kind(0e0)), allocatable :: tsgtsngl(:,:), rsgtsngl(:,:),synnsngl(:,:),psgt(:,:)
+  complex(kind(0e0)), allocatable :: tsgtsngl(:,:), rsgtsngl(:,:),synnsngl(:,:),psgtsngl(:,:)
   real(kind(0d0)), allocatable :: plm(:,:,:)
   complex(kind(0d0)) :: rvec(1:3,-2:2)
   complex(kind(0d0))::u(1:3),udr(1:3),udt(1:3),udp(1:3),uder(1:3,1:3)

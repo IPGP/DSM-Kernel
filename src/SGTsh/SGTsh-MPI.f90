@@ -268,7 +268,7 @@ program  SGTsh
   allocate(tsgtsngl(1:num_tsgt,1:theta_n))
   allocate(rsgtsngl(1:num_rsgt,1:theta_n))
   allocate(synnsngl(1:num_synn,1:theta_n))
-  if(psgtswitch.eq.1) allocate(psgtsngl(1:num_rsgt,1:r_n,1:r_n,1:theta_n))
+  !if(psgtswitch.eq.1) allocate(psgtsngl(1:num_rsgt,1:r_n,1:r_n,1:theta_n))
 
 
   ! computation de nombre et la location des points de grid
