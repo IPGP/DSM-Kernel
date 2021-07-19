@@ -242,7 +242,8 @@ program  SGTpsv
   allocate(tsgtsngl(1:num_tsgt,1:theta_n))
   allocate(rsgtsngl(1:num_rsgt,1:theta_n))
   allocate(synnsngl(1:num_synn,1:theta_n)) 
-  if(psgtswitch.eq.1) allocate(psgtsngl(1:num_rsgt,1:r_n,1:r_n,1:theta_n))
+  !if(psgtswitch.eq.1) allocate(psgtsngl(1:num_rsgt,1:r_n,1:r_n,1:theta_n))
+  ! psgt option is not yet ready
 
   nlay = nnlayer
   allocate(vra(1:nlay+2*nzone+1))

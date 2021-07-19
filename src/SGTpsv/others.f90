@@ -4,7 +4,7 @@ subroutine pinput(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,rdel
   character(120) :: dummy,outputDir,psvmodel,modelname,DSMconfFile
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
-  integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
+  integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch,psgtswitch
   character(120) :: commandline
   character(120) :: tmpfile,tmpfile0
   integer(4) :: istat
