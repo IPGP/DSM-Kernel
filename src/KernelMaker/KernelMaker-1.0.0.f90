@@ -452,6 +452,8 @@ program KernelMaker
   call rotmat(thetasgcs,phisgcs,thetargcs,phirgcs,azim)
 
   
+  
+
   if(my_rank.eq.0) then
      list = trim(parentDir)//"/log/calLog"//"."// &
           trim(stationName)//"."//trim(eventName)//"."//trim(compo)//"."//trim(paramWRT)//".log"
@@ -661,6 +663,9 @@ program KernelMaker
      !print *, jtstep_timeincrementV, timeincrementV, samplingHz
      number_of_snapshots = (iWindowEnd-iWindowStart+1)/jtstep_timeincrementV+1
   endif
+
+  ! for the real partials we do it differently
+  
 
   
   

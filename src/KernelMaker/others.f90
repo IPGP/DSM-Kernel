@@ -903,9 +903,7 @@ subroutine coeffCalculator
 
   do ir=1,nr
      coeffV(1,ir) = -2.d0*gnormt*rhom(ir)*vpm(ir)**2
-     coeffV(2,ir) = 4.d0*gnormt*rhom(ir)*vsm(ir)**2     
-
-   
+     coeffV(2,ir) = -4.d0*gnormt*rhom(ir)*vsm(ir)**2        
   enddo
 
   do ir=1,nr

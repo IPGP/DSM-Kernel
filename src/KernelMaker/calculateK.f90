@@ -192,6 +192,11 @@ subroutine calculateKernel
      endif
   endif
 
+
+  if(trim(paramWRT).eq.'serious') then
+     call isovsfreq
+     call isovpfreq
+  endif
      
   ! for anisotropy I will complete it later
   
@@ -262,6 +267,11 @@ subroutine isovpfreq
      do ift = 0,nfilter
         call bwfilt(du(iWindowStart:iWindowEnd),duf(ift,iWindowStart:iWindowEnd),1.d0/samplingHz,(iWindowEnd-iWindowStart+1),0,npButterworth,fclp(ift),fchp(ift))
      enddo
+  endif
+
+  if(trim(paramWRT).eq.'serious') then
+     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
+     write(111) coeffV(1,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
   endif
 
 
@@ -423,6 +433,11 @@ subroutine isovsfreq
 !!$
 !!$    endif
 !!$  enddo
+  
+  if(trim(paramWRT).eq.'serious') then
+     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
+     write(111) coeffV(2,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
+  endif
 
   
   do ift=0,nfilter
