@@ -405,7 +405,7 @@ program KernelMaker
   enddo
 
   call find_cmb(rcmb,nzone,vrminD,vrmaxD,vsvD,vshD)
-  
+  print *, "finded cmb" 
   ! source check
   
   icheck=0
