@@ -307,7 +307,7 @@ program KernelMaker
           timex(1:2),':',timex(3:4),':',timex(5:8)   
      close (1)
   endif
-  
+  print *, "coucou" 
   !-----------------------------------------------------------------------   
   ! lsmoothfinder for FFT
   np0=fmax
@@ -405,7 +405,6 @@ program KernelMaker
   enddo
 
   call find_cmb(rcmb,nzone,vrminD,vrmaxD,vsvD,vshD)
-  print *, "finded cmb" 
   ! source check
   
   icheck=0
