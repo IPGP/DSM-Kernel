@@ -5,7 +5,7 @@ subroutine pinputKernel
   implicit none
   character(120) :: tmpfile
   character(120) :: dummy
-  integer :: iitmp,maxlmax,dummyint
+  integer :: iitmp,maxlmax
   character(200) :: commandline
   integer, external :: getpid
 
@@ -163,7 +163,7 @@ subroutine pinputDSM(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,r
   character(120) :: dummy,outputDir,psvmodel,modelname,DSMconfFile,SGTinfo
   real(kind(0d0)) :: tlen,rmin_,rmax_,rdelta_,r0min,r0max,r0delta
   real(kind(0d0)) :: thetamin,thetamax,thetadelta
-  integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch
+  integer :: imin,imax,rsgtswitch,tsgtswitch,synnswitch,dummyint
   integer, external :: getpid
   character(120) :: tmpfile
 
