@@ -240,6 +240,7 @@ subroutine isovpfreq
   implicit none
   character(120) :: tmpchar
   integer :: jt,ift,jtstep,j
+  character(200) :: seriousfrechetfile
 
   !   This subroutine calculates 3 types of kernels:
   !
