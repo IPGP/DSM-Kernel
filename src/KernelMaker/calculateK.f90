@@ -238,7 +238,7 @@ subroutine isovpfreq
   use tmpSGTs
   use kernels
   implicit none
-  
+  character(120) :: tmpchar
   integer :: jt,ift,jtstep
 
   !   This subroutine calculates 3 types of kernels:
@@ -277,7 +277,7 @@ subroutine isovpfreq
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetP"
 
-     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
+     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
      write(111) coeffV(1,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
      close(111)
   endif
@@ -324,6 +324,7 @@ subroutine isovsfreq
   use tmpSGTs
   use kernels
   implicit none
+  character(120) :: tmpchar
   real(kind(0.e0)) :: par(0:nfilter,1:nt2(0)-nt1(0)+1)
   real(kind(0.e0)) :: parq(0:nfilter,1:nt2(0)-nt1(0)+1) 
   integer :: jt,ift,jtstep
@@ -448,7 +449,7 @@ subroutine isovsfreq
         if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetS"
-     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
+     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
      write(111) coeffV(2,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
      close(111)
 
@@ -457,7 +458,7 @@ subroutine isovsfreq
         if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetQ"
-     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
+     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
      write(111) coeffV(2,ir)*duqf(0,iWindowStart:iWindowEnd)*1.d3
 
      close(111)
