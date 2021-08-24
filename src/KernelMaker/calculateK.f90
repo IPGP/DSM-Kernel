@@ -239,7 +239,7 @@ subroutine isovpfreq
   use kernels
   implicit none
   character(120) :: tmpchar
-  integer :: jt,ift,jtstep
+  integer :: jt,ift,jtstep,j
 
   !   This subroutine calculates 3 types of kernels:
   !
@@ -327,7 +327,7 @@ subroutine isovsfreq
   character(120) :: tmpchar
   real(kind(0.e0)) :: par(0:nfilter,1:nt2(0)-nt1(0)+1)
   real(kind(0.e0)) :: parq(0:nfilter,1:nt2(0)-nt1(0)+1) 
-  integer :: jt,ift,jtstep
+  integer :: jt,ift,jtstep,j
   character(250) :: kerfile, seriousfrechetfile
   !   This subroutine calculates 4 types of kernels:
   !
