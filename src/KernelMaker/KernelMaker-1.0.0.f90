@@ -307,7 +307,6 @@ program KernelMaker
           timex(1:2),':',timex(3:4),':',timex(5:8)   
      close (1)
   endif
-  print *, "coucou" 
   !-----------------------------------------------------------------------   
   ! lsmoothfinder for FFT
   np0=fmax
@@ -386,7 +385,7 @@ program KernelMaker
      t(i) = dble(i)*dtn
   enddo
 
-
+  print *, "coucou"
   ! extract the reference model parameters on the radial grid points
   allocate(rhom(1:nr))
   allocate(vpm(1:nr))
