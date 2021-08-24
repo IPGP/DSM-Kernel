@@ -279,6 +279,7 @@ subroutine isovpfreq
 
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
      write(111) coeffV(1,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
+     close(111)
   endif
 
 
@@ -449,6 +450,19 @@ subroutine isovsfreq
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetS"
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
      write(111) coeffV(2,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
+     close(111)
+
+     write(tmpchar,'(I7,".",I7,".",I7)') ir,ip,ith
+     do j=1,23
+        if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
+     enddo
+     seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetQ"
+     open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1)
+     write(111) coeffV(2,ir)*duqf(0,iWindowStart:iWindowEnd)*1.d3
+
+     close(111)
+
+
   endif
 
   
