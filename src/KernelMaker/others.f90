@@ -5,7 +5,7 @@ subroutine pinputKernel
   implicit none
   character(120) :: tmpfile
   character(120) :: dummy
-  integer :: iitmp,maxlmax
+  integer :: iitmp,maxlmax,dummyint
   character(200) :: commandline
   integer, external :: getpid
 
@@ -198,7 +198,7 @@ subroutine pinputDSM(DSMconfFile,outputDir,psvmodel,modelname,tlen,rmin_,rmax_,r
   r0delta=20.d0
   read(1,*) thetamin,thetamax,thetadelta
   read(1,*) imin,imax
-  read(1,*) rsgtswitch,tsgtswitch,synnswitch
+  read(1,*) rsgtswitch,tsgtswitch,synnswitch,dummyint
   close(1,status='delete')
 
 end subroutine pinputDSM
