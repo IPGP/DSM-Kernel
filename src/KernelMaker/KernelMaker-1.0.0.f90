@@ -385,7 +385,6 @@ program KernelMaker
      t(i) = dble(i)*dtn
   enddo
 
-  print *, "coucou"
   ! extract the reference model parameters on the radial grid points
   allocate(rhom(1:nr))
   allocate(vpm(1:nr))
@@ -403,6 +402,8 @@ program KernelMaker
      if(qkp(ir).le.0.d0) qkp(ir)  = 1.d5
   enddo
 
+
+  
   call find_cmb(rcmb,nzone,vrminD,vrmaxD,vsvD,vshD)
   ! source check
   
