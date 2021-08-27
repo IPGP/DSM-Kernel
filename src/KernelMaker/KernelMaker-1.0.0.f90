@@ -503,7 +503,7 @@ program KernelMaker
         nktype_real=num_h3-1
      elseif(trim(paramWRT).eq.'vTSGT') then
         nktype_real=num_h4-1
-     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'serious') then
+     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'serious')) then
         nktype_real=nkvtype
      else
         nktype_real=nktype
