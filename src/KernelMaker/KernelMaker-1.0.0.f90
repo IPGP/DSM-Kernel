@@ -403,8 +403,9 @@ program KernelMaker
   enddo
 
 
-  print *, "coucou from cmb"
+
   call find_cmb(rcmb,nzone,vrminD,vrmaxD,vsvD,vshD)
+  print *, "coucou after find_cmb"
   ! source check
   
   icheck=0
