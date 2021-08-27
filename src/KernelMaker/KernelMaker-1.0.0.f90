@@ -405,7 +405,7 @@ program KernelMaker
 
 
   call find_cmb(rcmb,nzone,vrminD,vrmaxD,vsvD,vshD)
-  print *, "coucou after find_cmb"
+
   ! source check
   
   icheck=0
@@ -503,7 +503,7 @@ program KernelMaker
         nktype_real=num_h3-1
      elseif(trim(paramWRT).eq.'vTSGT') then
         nktype_real=num_h4-1
-     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV')) then
+     elseif((trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'serious') then
         nktype_real=nkvtype
      else
         nktype_real=nktype
@@ -729,7 +729,7 @@ program KernelMaker
 
         ! Video mode will calculate for every point
 
-        if((trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'alphaV').or. &
+        if((trim(paramWRT).eq.'allV').or.(trim(paramWRT).eq.'alphaV').or.(trim(paramWRT).eq.'serious').or. &
            (trim(paramWRT).eq.'betaV').or.(trim(paramWRT).eq.'vRSGT').or.(trim(paramWRT).eq.'vTSGT')) then
            calculrapide=0.d0
         endif 
