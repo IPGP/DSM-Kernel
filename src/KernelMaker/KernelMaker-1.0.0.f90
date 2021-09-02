@@ -495,7 +495,7 @@ program KernelMaker
   call calculateSineCosine(azim)
 
 
-
+  print *, "coucou before nktype"
 
   if(my_rank.eq.0) then
 
