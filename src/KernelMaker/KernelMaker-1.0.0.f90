@@ -495,8 +495,6 @@ program KernelMaker
   call calculateSineCosine(azim)
 
 
-  print *, "coucou before nktype"
-
   if(my_rank.eq.0) then
 
      if(trim(paramWRT).eq.'vRSGT') then
@@ -540,7 +538,7 @@ program KernelMaker
   allocate(h3(1:num_h3,fmin:fmax))
   allocate(h4(1:num_h4,fmin:fmax))
   allocate(u_freq(fmin:fmax))
-  
+  print *, "coucou cmplx 0.d0"
   ! Now computing reference synthetic (in my_rank = 0)
   tsgtF=cmplx(0.d0)
   rsgtF=cmplx(0.d0)
