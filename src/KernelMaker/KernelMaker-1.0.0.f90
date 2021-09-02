@@ -538,7 +538,7 @@ program KernelMaker
   allocate(h3(1:num_h3,fmin:fmax))
   allocate(h4(1:num_h4,fmin:fmax))
   allocate(u_freq(fmin:fmax))
-  print *, "coucou cmplx 0.d0"
+
   ! Now computing reference synthetic (in my_rank = 0)
   tsgtF=cmplx(0.d0)
   rsgtF=cmplx(0.d0)
@@ -551,6 +551,7 @@ program KernelMaker
   h4=cmplx(0.d0)
   u=0.d0
   u0=0.d0
+  print *, "my_rank coucou is", my_rank
   if(my_rank.eq.0) then
      print *, "coucou avant synn2h3freq"
      if(iPSVSH.ne.1) call rdsgtomega(rs,0.d0,num_synnPSV,num_synnPSV,2)
