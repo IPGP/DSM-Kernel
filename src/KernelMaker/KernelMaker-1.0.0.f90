@@ -547,9 +547,9 @@ program KernelMaker
   synnomega=cmplx(0.d0)
 
   tsgtomega=cmplx(0.d0)
-  print *, "coucou  avantrsgt=0"
+  print *, "coucou  avant rsgt=0"
   rsgtomega=cmplx(0.d0)
-    print *, "coucou avant u0=0"
+  print *, "coucou avant u0=0"
   h3=cmplx(0.d0)
   h4=cmplx(0.d0)
   u=0.d0
@@ -560,10 +560,13 @@ program KernelMaker
      print *, "coucou avant synn2h3freq"
      if(iPSVSH.ne.1) call rdsgtomega(rs,0.d0,num_synnPSV,num_synnPSV,2)
      if(iPSVSH.ne.2) call rdsgtomega(rs,0.d0,num_synnSH,num_synnPSV,1)
-     call clsgt(distan,num_synnPSV,synnF(1:num_synnPSV,fmin:fmax),synnomega(1:num_synnPSV,fmin:fmax,1:theta_n))
-     !print *, synnomega(1:10,0:50,180)
 
-     !print *, distan
+     print *, distan
+     print *, synnF(1:num_synnPSV,100:101)
+     call clsgt(distan,num_synnPSV,synnF(1:num_synnPSV,fmin:fmax),synnomega(1:num_synnPSV,fmin:fmax,1:theta_n))
+     print *, synnomega(1:10,0:50,180)
+
+     
      call rsgt2h3freq(0,0)
 
      print *, "coucou after synn2h3freq"
