@@ -547,9 +547,9 @@ program KernelMaker
   synnomega=cmplx(0.d0)
 
   tsgtomega=cmplx(0.d0)
-  print *, "coucou  rsgt=0"
+  print *, "coucou  avantrsgt=0"
   rsgtomega=cmplx(0.d0)
-    print *, "coucou apres u0=0"
+    print *, "coucou avant u0=0"
   h3=cmplx(0.d0)
   h4=cmplx(0.d0)
   u=0.d0
