@@ -541,9 +541,7 @@ program KernelMaker
 
   ! Now computing reference synthetic (in my_rank = 0)
   tsgtF=0.d0
-  print *, "0.0 ok"
   rsgtF=cmplx(0.d0)
-  print *, "cmplx no"
   synnF=cmplx(0.d0)
 
   synnomega=cmplx(0.d0)
@@ -553,6 +551,8 @@ program KernelMaker
   h4=cmplx(0.d0)
   u=0.d0
   u0=0.d0
+  print *, "coucou apres u0=0"
+  
   if(my_rank.eq.0) then
      print *, "coucou avant synn2h3freq"
      if(iPSVSH.ne.1) call rdsgtomega(rs,0.d0,num_synnPSV,num_synnPSV,2)
