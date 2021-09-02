@@ -563,6 +563,8 @@ program KernelMaker
      !print *, distan
      call synn2h3freq(0,0)
 
+     print *, "coucou after synn2h3freq"
+
      u_freq(fmin:fmax)=h3(1,fmin:fmax)*cmplx(mt(1))+ h3(2,fmin:fmax)*cmplx(mt(2)) &
           +h3(3,fmin:fmax)*cmplx(mt(3))+ 2.d0*(h3(4,fmin:fmax)*cmplx(mt(4)) &
           +h3(5,fmin:fmax)*cmplx(mt(5))+ h3(6,fmin:fmax)*cmplx(mt(6)))
