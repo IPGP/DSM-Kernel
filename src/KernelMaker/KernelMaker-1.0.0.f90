@@ -540,15 +540,17 @@ program KernelMaker
   allocate(u_freq(fmin:fmax))
 
   ! Now computing reference synthetic (in my_rank = 0)
-  tsgtF=dcmplx(0.d0)
-  rsgtF=dcmplx(0.d0)
-  synnF=dcmplx(0.d0)
+  tsgtF=0.d0
+  print *, "0.0 ok"
+  rsgtF=cmplx(0.d0)
+  print *, "cmplx no"
+  synnF=cmplx(0.d0)
 
-  synnomega=dcmplx(0.d0)
-  tsgtomega=dcmplx(0.d0)
-  rsgtomega=dcmplx(0.d0)
-  h3=dcmplx(0.d0)
-  h4=dcmplx(0.d0)
+  synnomega=cmplx(0.d0)
+  tsgtomega=cmplx(0.d0)
+  rsgtomega=cmplx(0.d0)
+  h3=cmplx(0.d0)
+  h4=cmplx(0.d0)
   u=0.d0
   u0=0.d0
   if(my_rank.eq.0) then
