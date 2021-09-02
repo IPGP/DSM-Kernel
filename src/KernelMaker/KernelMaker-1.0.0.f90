@@ -543,7 +543,7 @@ program KernelMaker
   tsgtF=cmplx(0.d0)
   rsgtF=cmplx(0.d0)
   synnF=cmplx(0.d0)
-
+   print *, "coucou  synn=0"
   synnomega=cmplx(0.d0)
   tsgtomega=cmplx(0.d0)
   rsgtomega=cmplx(0.d0)
