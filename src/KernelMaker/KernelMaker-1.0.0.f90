@@ -555,8 +555,8 @@ program KernelMaker
   u0=0.d0
   if(my_rank.eq.0) then
      
-     if(iPSVSH.ne.1) call rdsgtomega(rs,0.d0,num_synnPSV,num_synnPSV,2)
-     if(iPSVSH.ne.2) call rdsgtomega(rs,0.d0,num_synnSH,num_synnPSV,1)
+     if(iPSVSH.ne.1) call synntomega(rs,0.d0,num_synnPSV,num_synnPSV,2)
+     if(iPSVSH.ne.2) call synntomega(rs,0.d0,num_synnSH,num_synnPSV,1)
      call clsgt(distan,num_synnPSV,synnF(1:num_synnPSV,fmin:fmax),synnomega(1:num_synnPSV,fmin:fmax,1:theta_n))
      !print *, synnomega(1:10,0:50,180)
 
