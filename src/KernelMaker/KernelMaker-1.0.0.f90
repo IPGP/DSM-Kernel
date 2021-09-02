@@ -540,18 +540,17 @@ program KernelMaker
   allocate(u_freq(fmin:fmax))
 
   ! Now computing reference synthetic (in my_rank = 0)
-  tsgtF=cmplx(0.d0)
-  rsgtF=cmplx(0.d0)
-  synnF=cmplx(0.d0)
+  tsgtF=dcmplx(0.d0)
+  rsgtF=dcmplx(0.d0)
+  synnF=dcmplx(0.d0)
 
-  synnomega=cmplx(0.d0)
-  tsgtomega=cmplx(0.d0)
-  rsgtomega=cmplx(0.d0)
-  h3=cmplx(0.d0)
-  h4=cmplx(0.d0)
+  synnomega=dcmplx(0.d0)
+  tsgtomega=dcmplx(0.d0)
+  rsgtomega=dcmplx(0.d0)
+  h3=dcmplx(0.d0)
+  h4=dcmplx(0.d0)
   u=0.d0
   u0=0.d0
-  print *, "my_rank coucou is", my_rank
   if(my_rank.eq.0) then
      print *, "coucou avant synn2h3freq"
      if(iPSVSH.ne.1) call rdsgtomega(rs,0.d0,num_synnPSV,num_synnPSV,2)
