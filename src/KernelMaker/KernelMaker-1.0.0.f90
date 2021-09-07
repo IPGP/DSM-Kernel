@@ -743,7 +743,7 @@ program KernelMaker
            calculrapide=0.d0
         endif 
 
-        print *, "calculrapide=", capculrapide, paramWRT
+        print *, "calculrapide=", calculrapide, paramWRT
 
         if((calculrapide.eq.0.d0).and.((trim(paramWRT).ne.'betaV').and.(trim(paramWRT).ne.'allV').and.(trim(paramWRT).ne.'alphaV')&
              .and.(trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT'))) then ! calculate for every point
