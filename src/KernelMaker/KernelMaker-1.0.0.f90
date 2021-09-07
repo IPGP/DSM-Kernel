@@ -718,6 +718,7 @@ program KernelMaker
 
   do ir=1,nr
      ! if-line for parallelisation
+     print *, ir, r(ir)
      if((ir.ne.0).and.((mod(nr-my_rank-ir,2*nproc).eq.0).or.(mod(nr+my_rank+1-ir,2*nproc).eq.0))) then
         rx=r(ir)
         
