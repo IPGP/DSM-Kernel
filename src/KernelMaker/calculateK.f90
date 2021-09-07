@@ -194,6 +194,7 @@ subroutine calculateKernel
 
 
   if(trim(paramWRT).eq.'serious') then
+     print *, "serious mode in calculateK"
      call isovsfreq
      call isovpfreq
   endif
@@ -277,7 +278,7 @@ subroutine isovpfreq
         if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetP"
-
+     print *, seriousfrechetfile
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
      write(111) coeffV(1,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
      close(111)
