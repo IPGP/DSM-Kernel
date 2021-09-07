@@ -637,7 +637,7 @@ program KernelMaker
   hu0(0:nfilter,iWindowStart:iWindowEnd)=hu0(0:nfilter,iWindowStart:iWindowEnd)*fwin(0:nfilter,iWindowStart:iWindowEnd)
  
   ! Calculate the denominator in the kernel expressions
-  print *, "coucou avant coefCal"
+  !print *, "coucou avant coefCal"
   call coeffCalculator
   ! for radial and azimuthal anisotropy
   if((sym.ge.0.d0).and.(sym.le.360.d0)) then
