@@ -743,7 +743,7 @@ program KernelMaker
            calculrapide=0.d0
         endif 
 
-
+        print *, "calculrapide=", capculrapide, paramWRT
 
         if((calculrapide.eq.0.d0).and.((trim(paramWRT).ne.'betaV').and.(trim(paramWRT).ne.'allV').and.(trim(paramWRT).ne.'alphaV')&
              .and.(trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT'))) then ! calculate for every point
@@ -752,6 +752,7 @@ program KernelMaker
                  k=k+1
                  xlat=90.d0-theta(ip,ith)
                  xlon=phi(ip,ith)
+                 
                  call calculateKernel
                  ker(ip,ith,:,:)=tmpker(:,:)
                  
