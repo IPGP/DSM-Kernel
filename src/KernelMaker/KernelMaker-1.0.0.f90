@@ -645,7 +645,7 @@ program KernelMaker
      ssym=dsin(sym*pi/180.d0)
   endif
  
-  print *, "coucou coeffCal"
+  !print *, "coucou coeffCal"
 
   if(my_rank.eq.0) then   
      list = trim(parentDir)//"/log/calLog"//"."// &
