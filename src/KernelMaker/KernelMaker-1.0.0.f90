@@ -567,7 +567,7 @@ program KernelMaker
      !print *, synnomega(1:10,0:50,180)
 
      
-     call rsgt2h3freq(0,0)
+     call synn2h3freq(0,0)
 
      !print *, "coucou after synn2h3freq"
 
@@ -575,7 +575,7 @@ program KernelMaker
           +h3(3,fmin:fmax)*cmplx(mt(3))+ 2.d0*(h3(4,fmin:fmax)*cmplx(mt(4)) &
           +h3(5,fmin:fmax)*cmplx(mt(5))+ h3(6,fmin:fmax)*cmplx(mt(6)))
      call vectorFFT_double(fmin,fmax,np1,u_freq(fmin:fmax),u(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd)
-     print *, fmin,fmax,np1,u_freq(fmin:fmax),u(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd
+     !print *, fmin,fmax,np1,u_freq(fmin:fmax),u(iWindowStart:iWindowEnd),omegai,tlen,iWindowStart,iWindowEnd
      !  Numerically differentiate displacement to obtain velocity response.
 
      v=0.d0
