@@ -457,6 +457,7 @@ subroutine isovsfreq
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetS"
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
+     print *, "recl=", kind(0e0)*(iWindowEnd-iWindowStart+1)
      frechettime(:)=coeffV(2,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
      write(111) frechettime
      close(111)
