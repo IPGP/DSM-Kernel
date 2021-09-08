@@ -282,7 +282,7 @@ subroutine isovpfreq
      !print *, seriousfrechetfile
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
      frechettime(:)=coeffV(1,ir)*duf(0,iWindowStart:iWindowEnd)*1.e3
-     write(111) frechettime
+     write(111,rec=1) frechettime
      close(111)
   endif
 
@@ -459,7 +459,7 @@ subroutine isovsfreq
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
      print *, "recl=", kind(0e0)*(iWindowEnd-iWindowStart+1)
      frechettime(:)=coeffV(2,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
-     write(111) frechettime
+     write(111,rec=1) frechettime
      close(111)
 
      write(tmpchar,'(I7,".",I7,".",I7)') ir,ip,ith
@@ -469,7 +469,7 @@ subroutine isovsfreq
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetQ"
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
      frechettime(:)=coeffV(2,ir)*duqf(0,iWindowStart:iWindowEnd)*1.d3
-     write(111) frechettime
+     write(111,rec=1) frechettime
 
      close(111)
      deallocate(frechettime)
