@@ -718,7 +718,7 @@ program KernelMaker
 
   do ir=1,nr
      ! if-line for parallelisation
-     print *, ir, r(ir), nr, my_rank, nr-my_rank-ir,2*nproc,mod(nr+my_rank+1-ir,2*nproc)
+     !print *, ir, r(ir), nr, my_rank, nr-my_rank-ir,2*nproc,mod(nr+my_rank+1-ir,2*nproc)
      if((ir.ne.0).and.((mod(nr-my_rank-ir,2*nproc).eq.0).or.(mod(nr+my_rank+1-ir,2*nproc).eq.0))) then
         rx=r(ir)
         
@@ -744,7 +744,7 @@ program KernelMaker
            calculrapide=0.d0
         endif 
 
-        print *, "calculrapide=", calculrapide, paramWRT
+        !print *, "calculrapide=", calculrapide, paramWRT
 
         if((calculrapide.eq.0.d0).and.((trim(paramWRT).ne.'betaV').and.(trim(paramWRT).ne.'allV').and.(trim(paramWRT).ne.'alphaV')&
              .and.(trim(paramWRT).ne.'vRSGT').and.(trim(paramWRT).ne.'vTSGT'))) then ! calculate for every point

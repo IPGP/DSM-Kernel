@@ -194,7 +194,7 @@ subroutine calculateKernel
 
 
   if(trim(paramWRT).eq.'serious') then
-     print *, "serious mode in calculateK"
+     !print *, "serious mode in calculateK"
      call isovsfreq
      call isovpfreq
   endif
@@ -242,6 +242,7 @@ subroutine isovpfreq
   character(120) :: tmpchar
   integer :: jt,ift,jtstep,j
   character(200) :: seriousfrechetfile
+  real(kind(0e0)), dimension (:), allocatable :: frechettime
 
   !   This subroutine calculates 3 types of kernels:
   !
@@ -255,7 +256,7 @@ subroutine isovpfreq
   !   Type 2 is for group-delay time sensitivity to P-wave speed. It can be 
   !   calculated later from Type 1 by numerical differentiation wrt frequency.
 
-    
+  allocate(frechettime(iWindowEnd-iWindowStart+1))
   du=0.d0
   
   u_freq=dcmplx(0.d0)
@@ -278,12 +279,14 @@ subroutine isovpfreq
         if(tmpchar(j:j).eq.' ') tmpchar(j:j) = '0'
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetP"
-     print *, seriousfrechetfile
+     !print *, seriousfrechetfile
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
-     write(111) coeffV(1,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
+     frechettime(:)=coeffV(1,ir)*duf(0,iWindowStart:iWindowEnd)*1.e3
+     write(111) frechettime
      close(111)
   endif
 
+  deallocate(frechettime)
 
 
   do ift=0,nfilter
@@ -331,6 +334,7 @@ subroutine isovsfreq
   real(kind(0.e0)) :: parq(0:nfilter,1:nt2(0)-nt1(0)+1) 
   integer :: jt,ift,jtstep,j
   character(250) :: kerfile, seriousfrechetfile
+  real(kind(0e0)), dimension (:), allocatable :: frechettime
   !   This subroutine calculates 4 types of kernels:
   !
   !      5: Phase-delay time sensitivity to S-wave speed
@@ -354,6 +358,7 @@ subroutine isovsfreq
   !   For Types 5, 7 and 8.
   !   Convolve the two SGTs to obtained waveform partial derivative.
   
+  allocate(frechettime(iWindowEnd-iWindowStart+1))
   du=0.d0
   duq=0.d0
 
@@ -452,7 +457,8 @@ subroutine isovsfreq
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetS"
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
-     write(111) coeffV(2,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
+     frechettime(:)=coeffV(2,ir)*duf(0,iWindowStart:iWindowEnd)*1.d3
+     write(111) frechettime
      close(111)
 
      write(tmpchar,'(I7,".",I7,".",I7)') ir,ip,ith
@@ -461,10 +467,11 @@ subroutine isovsfreq
      enddo
      seriousfrechetfile=trim(parentDir)//"/seriousfrechet/"//trim(stationName)//"."//trim(eventName)//"."//trim(phase)//"."//trim(compo)//"."//trim(tmpchar)//"."//"frechetQ"
      open (111,file=seriousfrechetfile,status='unknown',form='unformatted',access='direct',recl=kind(0e0)*(iWindowEnd-iWindowStart+1))
-     write(111) coeffV(2,ir)*duqf(0,iWindowStart:iWindowEnd)*1.d3
+     frechettime(:)=coeffV(2,ir)*duqf(0,iWindowStart:iWindowEnd)*1.d3
+     write(111) frechettime
 
      close(111)
-
+     deallocate(frechettime)
 
   endif
 
